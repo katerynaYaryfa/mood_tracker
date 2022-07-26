@@ -16,19 +16,13 @@ class PinButtons extends StatefulWidget {
 class _PinButtonsState extends State<PinButtons> {
   @override
   Widget build(BuildContext context) {
-    final pin = context.read<PinNotifier>().oldPin;
     bool isPressed = context.watch<PinNotifier>().isPressed;
-
-    // double height, width;
-    // height = MediaQuery.of(context).size.height;
-    // width = MediaQuery.of(context).size.width;
 
     return InkWell(
       onTap: () {
         isPressed = true;
 
         context.read<PinNotifier>().pinCode(widget.title);
-        context.read<PinNotifier>().changeColor();
       },
       child: Container(
         height: 80,

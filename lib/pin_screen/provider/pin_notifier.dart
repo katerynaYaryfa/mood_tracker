@@ -1,25 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/pin_screen/secure_storage.dart';
+
+enum PinScreenStates { login, setNewPin, confirmPin, error, success, empty }
 
 class PinNotifier with ChangeNotifier {
-  String oldPin = '';
-  Color color1 = Colors.grey.shade400;
-  Color color2 = Colors.grey.shade400;
-  Color color3 = Colors.grey.shade400;
-  Color color4 = Colors.grey.shade400;
-
   bool isPressed = false;
   String pin1 = '';
   String pin2 = '';
   bool wrongPin = false;
 
+  var color = Colors.grey.shade400;
+
+  void clearState() {
+    pin1 = '';
+    pin2 = '';
+    wrongPin = false;
+    isPressed = false;
+  }
+
+  Future<String?> readSavedPinCode() async {
+    var storage = StorageService();
+    final savedPin = await storage.readSecureData(
+      key: 'pin',
+    );
+
+    return savedPin;
+  }
+
+  // void savedPinNotNullGoToConfirm(String savedPin) {
+  //   pin1 = savedPin;
+  //   notifyListeners();
+  // }
+
   void pinCode(String num) async {
     if (pin1.length == 4) {
       pin2 = pin2 + num;
+      wrongPin = false;
     } else {
       pin1 = pin1 + num;
     }
-    print('pin1 _______ ${pin1}');
-    print('pin2 _______ ${pin2}');
 
     if (pin2.length == 4 && pin2 != pin1) {
       pin2 = '';
@@ -29,23 +48,12 @@ class PinNotifier with ChangeNotifier {
     notifyListeners();
   }
 
-  void changeColor() {
-    if (isPressed = true) {
-      String str = oldPin;
-      String string = str + '0';
-      oldPin = '${oldPin}0';
-      if (string.length == 1) {
-        color1 = Colors.red;
-      }
-      if (string.length == 2) {
-        color2 = Colors.red;
-      }
-      if (string.length == 3) {
-        color3 = Colors.red;
-      }
-      if (string.length == 4) {
-        color4 = Colors.red;
-      }
+  void deleteLastIndex() {
+    if (pin1.isNotEmpty && pin2.isEmpty) {
+      pin1 = pin1.substring(0, pin1.length - 1);
+    }
+    if (pin1.isNotEmpty && pin2.isNotEmpty) {
+      pin2 = pin2.substring(0, pin2.length - 1);
     }
     notifyListeners();
   }
