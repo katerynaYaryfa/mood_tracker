@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
 import 'package:mood_tracker/settings_screen/provider/settings_notifier.dart';
@@ -12,12 +11,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<PinNotifier>(create: (_) => PinNotifier()),
+        ChangeNotifierProvider<PinNotifier>(
+          create: (_) => PinNotifier(),
+        ),
         ChangeNotifierProvider<SettingsNotifier>(
-            create: (_) => SettingsNotifier())
+          create: (_) => SettingsNotifier(),
+        ),
       ],
-      child: MaterialApp(
-        // theme: ThemeData(fontFamily: 'Quicksand'),
+      child: const MaterialApp(
         home: SettingsScreen(),
       ),
     );
