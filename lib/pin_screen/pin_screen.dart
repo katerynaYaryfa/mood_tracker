@@ -47,9 +47,6 @@ class _PinScreenState extends State<PinScreen> {
     final pin2 = context.watch<PinNotifier>().pin2;
     var wrongPin = context.watch<PinNotifier>().wrongPin;
 
-    print('_______pin 1 = ${pin1}');
-    print('_______pin 2 = ${pin2}');
-
     if (pin2.length == 4 && pin1 == pin2) {
       var storage = StorageService();
       storage.writeSecureData(
@@ -75,7 +72,6 @@ class _PinScreenState extends State<PinScreen> {
             Container(
               height: 18.0,
             ),
-
             Container(
               width: 90,
               height: 90,
@@ -125,9 +121,6 @@ class _PinScreenState extends State<PinScreen> {
                   ),
                 ),
               ),
-            //  SizedBox(
-            //   height: 60.0,
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -257,9 +250,6 @@ class _PinScreenState extends State<PinScreen> {
                 ),
               ],
             ),
-            // SizedBox(
-            //   height: 64,
-            // ),
             Expanded(
               child: Container(),
             ),

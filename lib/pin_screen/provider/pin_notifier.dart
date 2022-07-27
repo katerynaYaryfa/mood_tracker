@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/pin_screen/secure_storage.dart';
 
-enum PinScreenStates { login, setNewPin, confirmPin, error, success, empty }
-
 class PinNotifier with ChangeNotifier {
   bool isPressed = false;
   String pin1 = '';
@@ -26,11 +24,6 @@ class PinNotifier with ChangeNotifier {
 
     return savedPin;
   }
-
-  // void savedPinNotNullGoToConfirm(String savedPin) {
-  //   pin1 = savedPin;
-  //   notifyListeners();
-  // }
 
   void pinCode(String num) async {
     if (pin1.length == 4) {

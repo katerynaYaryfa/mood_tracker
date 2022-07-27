@@ -15,48 +15,6 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   @override
   Widget build(BuildContext context) {
     bool wrongPin = context.watch<PinNotifier>().wrongPin;
-    var color = context.watch<PinNotifier>().color;
-    // var changeColor = context.watch()<PinNotifier>().colorButton();
-
-    // bool pin = context.watch<PinNotifier>().pin;
-
-    // var color;
-
-    void colorButton() {
-      if (widget.pin.length >= 1) {
-        color = Color(0xFF434343);
-      }
-      if (wrongPin = true) {
-        color = Colors.red;
-      } else {
-        Colors.grey.shade400;
-      }
-    }
-
-    final bool1 = true;
-    final bool2 = false;
-    // w > 1
-    //     ? bool2
-    //         ? ''
-    //         : ''
-    //     : 'grey color';
-    // Color color;
-
-    final isUserLogin = false;
-    if (true) {
-    } else {}
-
-    Color pinColor(int num) {
-      if (wrongPin) {
-        return Color(0xFFFF7562);
-      }
-
-      if (widget.pin.length >= num) {
-        return Color(0xFF434343);
-      } else {
-        return Colors.white;
-      }
-    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +27,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
                 width: 2.0,
                 color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
             shape: BoxShape.circle,
-            color: pinColor(1),
+            color: _pinColor(1, wrongPin),
           ),
         ),
         const SizedBox(
@@ -83,7 +41,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
                 width: 2.0,
                 color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
             shape: BoxShape.circle,
-            color: pinColor(2),
+            color: _pinColor(2, wrongPin),
           ),
         ),
         const SizedBox(
@@ -97,7 +55,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
                 width: 2.0,
                 color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
             shape: BoxShape.circle,
-            color: pinColor(3),
+            color: _pinColor(3, wrongPin),
           ),
         ),
         const SizedBox(
@@ -108,13 +66,26 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           height: 15,
           decoration: BoxDecoration(
             border: Border.all(
-                width: 2.0,
-                color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
+              width: 2.0,
+              color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343),
+            ),
             shape: BoxShape.circle,
-            color: pinColor(4),
+            color: _pinColor(4, wrongPin),
           ),
         ),
       ],
     );
+  }
+
+  Color _pinColor(int num, bool wrongPin) {
+    if (wrongPin) {
+      return Color(0xFFFF7562);
+    }
+
+    if (widget.pin.length >= num) {
+      return Color(0xFF434343);
+    } else {
+      return Colors.white;
+    }
   }
 }

@@ -19,16 +19,23 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero, () async {
-      final storage = StorageService();
-      final pin = await storage.readSecureData(key: 'pin');
+    Future.delayed(
+      Duration.zero,
+      () async {
+        final storage = StorageService();
+        final pin = await storage.readSecureData(
+          key: 'pin',
+        );
 
-      if (pin != null) {
-        setState(() {
-          pinCodeEnabled = true;
-        });
-      }
-    });
+        if (pin != null) {
+          setState(
+            () {
+              pinCodeEnabled = true;
+            },
+          );
+        }
+      },
+    );
 
     super.initState();
   }
@@ -39,9 +46,13 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
       appBar: AppBar(
         title: const Text(
           'Data Security',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+          ),
         ),
-        backgroundColor: const Color(0xFFF6FAFB),
+        backgroundColor: const Color(
+          0xFFF6FAFB,
+        ),
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
@@ -66,9 +77,11 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                       if (pinCodeEnabled) {
                         final storage = StorageService();
                         await storage.deleteSecureData(key: 'pin');
-                        setState(() {
-                          pinCodeEnabled = false;
-                        });
+                        setState(
+                          () {
+                            pinCodeEnabled = false;
+                          },
+                        );
                       } else {
                         Navigator.push(
                           context,
@@ -165,8 +178,6 @@ class DataSecurityButtons extends StatefulWidget {
 }
 
 class _DataSecurityButtonsState extends State<DataSecurityButtons> {
-  // final Widget child;
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -177,13 +188,18 @@ class _DataSecurityButtonsState extends State<DataSecurityButtons> {
           height: 50,
           decoration: BoxDecoration(
             color: widget.color,
-            borderRadius: BorderRadius.circular(16.0),
+            borderRadius: BorderRadius.circular(
+              16.0,
+            ),
             boxShadow: [
               BoxShadow(
                 color: const Color(0xFF738C93).withOpacity(0.03),
                 spreadRadius: 1,
                 blurRadius: 15,
-                offset: const Offset(0, 0),
+                offset: const Offset(
+                  0,
+                  0,
+                ),
               ),
             ],
           ),
@@ -195,30 +211,7 @@ class _DataSecurityButtonsState extends State<DataSecurityButtons> {
         Expanded(
           child: Container(),
         ),
-        CupertinoSwitch(value: widget.value, onChanged: widget.onChanged)
-        // CupertinoSwitch(
-        //   value: pinCodeEnabled,
-        //   onChanged: (bool value) async {
-        //     if (pinCodeEnabled) {
-        //       final storage = StorageService();
-        //       await storage.deleteSecureData(key: 'pin');
-        //       setState(() {
-        //         pinCodeEnabled = false;
-        //       });
-        //     } else {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) {
-        //             return PinScreen(
-        //               deletePin: true,
-        //             );
-        //           },
-        //         ),
-        //       );
-        //     }
-        //   },
-        // )
+        CupertinoSwitch(value: widget.value, onChanged: widget.onChanged),
       ],
     );
   }

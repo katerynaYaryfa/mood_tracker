@@ -22,7 +22,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: Text(
           'Settings',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+          ),
         ),
         backgroundColor: Color(0xFFF6FAFB),
         bottomOpacity: 0.0,
@@ -69,7 +71,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         SizedBox(
                           width: 12.0,
                         ),
-                        Text('Data security'),
+                        Text(
+                          'Data security',
+                        ),
                         Expanded(
                           child: Container(),
                         ),
@@ -146,7 +150,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       SizedBox(
                         width: 12.0,
                       ),
-                      Text('Color scheme'),
+                      Text(
+                        'Color scheme',
+                      ),
                       Expanded(
                         child: Container(),
                       ),
@@ -182,7 +188,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       SizedBox(
                         width: 12.0,
                       ),
-                      Text('Start of the week'),
+                      Text(
+                        'Start of the week',
+                      ),
                       Expanded(
                         child: Container(),
                       ),
@@ -218,7 +226,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       SizedBox(
                         width: 12.0,
                       ),
-                      Text('Reminders'),
+                      Text(
+                        'Reminders',
+                      ),
                       Expanded(
                         child: Container(),
                       ),
@@ -236,7 +246,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(
                   height: 180,
                 ),
-                CustomNavigationBar(size: size),
+                CustomNavigationBar(
+                  size: size,
+                ),
               ],
             ),
           ),
