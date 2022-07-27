@@ -4,11 +4,42 @@ import 'package:mood_tracker/pin_screen/pin_buttons.dart';
 import 'package:mood_tracker/pin_screen/pin_password_input_field.dart';
 import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
 import 'package:mood_tracker/pin_screen/secure_storage.dart';
-import 'package:mood_tracker/settings_screen.dart';
 import 'package:provider/provider.dart';
 
-class PinScreen extends StatelessWidget {
-  const PinScreen({Key? key}) : super(key: key);
+import '../settings_screen/settings_screen.dart';
+
+class PinScreen extends StatefulWidget {
+  const PinScreen({
+    this.deletePin = false,
+  });
+  final deletePin;
+
+  @override
+  State<PinScreen> createState() => _PinScreenState();
+}
+
+class _PinScreenState extends State<PinScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<PinNotifier>().clearState();
+
+    if (widget.deletePin == true) {
+      var storage = StorageService();
+      storage.deleteSecureData(
+        key: 'pin',
+      );
+    }
+
+    Future.delayed(Duration.zero, () async {
+      // final savedPin = await context.read<PinNotifier>().readSavedPinCode();
+      //
+      // if (savedPin != null) {
+      //   context.read<PinNotifier>().savedPinNotNullGoToConfirm(savedPin);
+      // }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +49,10 @@ class PinScreen extends StatelessWidget {
 
     if (pin2.length == 4 && pin1 == pin2) {
       var storage = StorageService();
-      storage.writeSecureData(pin1, 'pin');
-
-      if (storage.readSecureData(pin1) != null) {
-        return SettingsScreen();
-      }
-      if (storage.readSecureData(pin1) == null) {
-        return SettingsScreen();
-      }
+      storage.writeSecureData(
+        key: 'pin',
+        value: pin1,
+      );
 
       Future.delayed(Duration.zero, () {
         Navigator.push(
@@ -63,7 +90,7 @@ class PinScreen extends StatelessWidget {
             ),
             if (pin1.length != 4)
               const Text(
-                'Create your  PIN-code',
+                'Create your PIN-code',
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
@@ -71,7 +98,7 @@ class PinScreen extends StatelessWidget {
               ),
             if (pin1.length == 4)
               const Text(
-                'Confirm Your Password',
+                'Enter your PIN-code',
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
@@ -82,11 +109,17 @@ class PinScreen extends StatelessWidget {
             ),
             if (pin1.length != 4) PasswordInputField(pin: pin1),
             if (pin1.length == 4) PasswordInputField(pin: pin2),
-            if (wrongPin == true)
+            if (wrongPin)
               const PinsDontMatch()
             else
-              const SizedBox(
-                height: 60.0,
+              Container(
+                height: 80,
+                child: const Center(
+                  child: Text(
+                    '',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
               ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -166,8 +199,25 @@ class PinScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                PinButtons(
-                  title: '',
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        width: 1.0,
+                        color: Color(0xFFF1F1F1),
+                      ),
+                      borderRadius: BorderRadius.circular(100.0),
+                    ),
+                    child: Center(
+                      child: SvgPicture.asset('images/arrowBack.svg'),
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   width: 24.0,
@@ -178,14 +228,31 @@ class PinScreen extends StatelessWidget {
                 const SizedBox(
                   width: 24.0,
                 ),
-                PinButtons(
-                  title: '',
+                InkWell(
+                  onTap: () {
+                    context.read<PinNotifier>().deleteLastIndex();
+                  },
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        width: 1.0,
+                        color: Color(0xFFF1F1F1),
+                      ),
+                      borderRadius: BorderRadius.circular(100.0),
+                    ),
+                    child: Center(
+                      child: SvgPicture.asset('images/back.svg'),
+                    ),
+                  ),
                 ),
               ],
             ),
-            // SizedBox(
-            //   height: 64,
-            // ),
+            Expanded(
+              child: Container(),
+            ),
             Text(
               'This keeps your data private',
               style: TextStyle(

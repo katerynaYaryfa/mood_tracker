@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
+import 'package:provider/provider.dart';
 
 class PasswordInputField extends StatefulWidget {
-  PasswordInputField({required this.pin});
-
   var pin;
+
+  PasswordInputField({required this.pin});
 
   @override
   State<PasswordInputField> createState() => _PasswordInputFieldState();
@@ -12,6 +14,8 @@ class PasswordInputField extends StatefulWidget {
 class _PasswordInputFieldState extends State<PasswordInputField> {
   @override
   Widget build(BuildContext context) {
+    bool wrongPin = context.watch<PinNotifier>().wrongPin;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -19,9 +23,12 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           width: 15,
           height: 15,
           decoration: BoxDecoration(
-            color:
-                widget.pin.length >= 1 ? Colors.blueGrey : Colors.grey.shade400,
-            borderRadius: BorderRadius.circular(100.0),
+            border: Border.all(
+              width: 2.0,
+              color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343),
+            ),
+            shape: BoxShape.circle,
+            color: _pinColor(1, wrongPin),
           ),
         ),
         const SizedBox(
@@ -31,9 +38,11 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           width: 15,
           height: 15,
           decoration: BoxDecoration(
-            color:
-                widget.pin.length >= 2 ? Colors.blueGrey : Colors.grey.shade400,
-            borderRadius: BorderRadius.circular(100.0),
+            border: Border.all(
+                width: 2.0,
+                color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
+            shape: BoxShape.circle,
+            color: _pinColor(2, wrongPin),
           ),
         ),
         const SizedBox(
@@ -43,9 +52,11 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           width: 15,
           height: 15,
           decoration: BoxDecoration(
-            color:
-                widget.pin.length >= 3 ? Colors.blueGrey : Colors.grey.shade400,
-            borderRadius: BorderRadius.circular(100.0),
+            border: Border.all(
+                width: 2.0,
+                color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
+            shape: BoxShape.circle,
+            color: _pinColor(3, wrongPin),
           ),
         ),
         const SizedBox(
@@ -55,12 +66,27 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           width: 15,
           height: 15,
           decoration: BoxDecoration(
-            color:
-                widget.pin.length >= 4 ? Colors.blueGrey : Colors.grey.shade400,
-            borderRadius: BorderRadius.circular(100.0),
+            border: Border.all(
+              width: 2.0,
+              color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343),
+            ),
+            shape: BoxShape.circle,
+            color: _pinColor(4, wrongPin),
           ),
         ),
       ],
     );
+  }
+
+  Color _pinColor(int num, bool wrongPin) {
+    if (wrongPin) {
+      return Color(0xFFFF7562);
+    }
+
+    if (widget.pin.length >= num) {
+      return Color(0xFF434343);
+    } else {
+      return Colors.white;
+    }
   }
 }
