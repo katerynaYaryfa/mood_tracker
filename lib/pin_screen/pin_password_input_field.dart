@@ -24,8 +24,9 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           height: 15,
           decoration: BoxDecoration(
             border: Border.all(
-                width: 2.0,
-                color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
+              width: 2.0,
+              color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343),
+            ),
             shape: BoxShape.circle,
             color: _pinColor(1, wrongPin),
           ),
