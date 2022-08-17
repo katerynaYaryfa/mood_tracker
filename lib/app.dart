@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
-import 'package:mood_tracker/settings_screen/provider/settings_notifier.dart';
+import 'package:mood_tracker/provider/settings_notifier.dart';
 import 'package:provider/provider.dart';
 
 import 'add_new_note_screen.dart';
@@ -19,7 +19,7 @@ class App extends StatelessWidget {
           create: (_) => SettingsNotifier(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         home: AddNewNoteScreen(),
       ),
     );
