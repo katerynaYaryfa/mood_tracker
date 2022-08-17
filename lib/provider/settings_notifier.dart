@@ -25,5 +25,6 @@ class SettingsNotifier with ChangeNotifier {
       print('Failed to pick Image $e');
     }
     notifyListeners();
+    print('IMAGES________________________ $images');
   }
 }

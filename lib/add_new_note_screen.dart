@@ -17,26 +17,11 @@ class AddNewNoteScreen extends StatefulWidget {
 }
 
 class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
-  // File? image;
-  //
-  // Future pickImage() async {
-  //   try {
-  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //     if (image == null) return;
-  //
-  //     final imageTemp = File(image.path);
-  //
-  //     setState(() => this.image = imageTemp);
-  //   } on PlatformException catch (e) {
-  //     print('Failed to pick Image $e');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    final image = context.watch<SettingsNotifier>().image;
+    final images = context.watch<SettingsNotifier>().images;
     final pickImage = context.watch<SettingsNotifier>().pickImage;
-
+    print('_______AddNewNoteScreen____images $images');
     return Scaffold(
       backgroundColor: const Color(0xFFF6FAFB),
       floatingActionButton: FloatingActionButton(
@@ -134,69 +119,93 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Photo of the day',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    if (imagelist.lenght == 1)
-
-                    Инк(иконка )
-              онТпа
-                    SizedBox(
-                      height: 16,
-                    ),
-
-                    if (imagelist.lenght == 1)
-                        NewWidget(height: 22,),
-                    if (imagelist.lenght == 2)
                     Row(
-                        NewWidget(height 66, mage: imagelist[2],
-                        NewWidget(height: 44, image: imagelist[1],),
-                    )
-
-
-                    image != null
-                        ? Image.file(image)
-                        : InkWell(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Photo of the day',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        if (images.isEmpty) Container(),
+                        if (images.length == 3)
+                          SvgPicture.asset('images/addNewImage.svg',
+                              color: Color(0xFFFFBAB0)),
+                        if (images.length >= 1 && images.length < 3)
+                          InkWell(
                             onTap: () {
                               pickImage();
                             },
-                            child: Container(
-                              // margin: EdgeInsets.symmetric(horizontal: 16),
-                              // padding: EdgeInsets.symmetric(horizontal: 16),
-                              height: 296,
-                              width: 296,
-
-                              decoration: BoxDecoration(
-                                color: const Color(0xffF6FAFB),
-                                // color: Colors.blueGrey,
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    'images/addPhoto.svg',
-                                    color: const Color(0xFFD1D4DE),
-                                  ),
-                                  const SizedBox(
-                                    height: 11.0,
-                                  ),
-                                  const Text(
-                                    'Add up to 3 photo',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: const Color(0xFFD1D4DE),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            child: SvgPicture.asset('images/addNewImage.svg',
+                                color: images.length == 3
+                                    ? Color(0xFFFFBAB0)
+                                    : Color(0xFFFF7562)
+                                // color: Color(0xFFFF7562),
+                                ),
                           ),
+                      ],
+                    ),
+                    if (images.length == 1)
+                      NewWidget(
+                        image: images[0],
+                        height: 296,
+                        width: 296,
+                      ),
+                    if (images.length == 2)
+                      Row(
+                        children: [
+                          NewWidget(height: 140, width: 140, image: images[0]),
+                          NewWidget(height: 140, width: 140, image: images[1])
+                        ],
+                      ),
+                    if (images.length == 3)
+                      Row(
+                        children: [
+                          NewWidget(height: 88, width: 88, image: images[0]),
+                          NewWidget(height: 88, width: 88, image: images[1]),
+                          NewWidget(height: 88, width: 88, image: images[2])
+                        ],
+                      )
+                    else
+                      InkWell(
+                        onTap: () {
+                          pickImage();
+                        },
+                        child: Container(
+                          // margin: EdgeInsets.symmetric(horizontal: 16),
+                          // padding: EdgeInsets.symmetric(horizontal: 16),
+                          height: 296,
+                          width: 296,
+
+                          decoration: BoxDecoration(
+                            color: const Color(0xffF6FAFB),
+                            // color: Colors.blueGrey,
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'images/addPhoto.svg',
+                                color: const Color(0xFFD1D4DE),
+                              ),
+                              const SizedBox(
+                                height: 11.0,
+                              ),
+                              const Text(
+                                'Add up to 3 photo',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xFFD1D4DE),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
                   ],
                 ),
               )
@@ -212,9 +221,10 @@ class NewWidget extends StatelessWidget {
   const NewWidget({
     required this.height,
     required this.image,
+    required this.width,
     Key? key,
   }) : super(key: key);
-
+  final double width;
   final double height;
   final File image;
 
@@ -224,13 +234,12 @@ class NewWidget extends StatelessWidget {
 
     return Container(
       height: height,
-      width: 296,
+      width: width,
       decoration: BoxDecoration(
         color: const Color(0xffF6FAFB),
         borderRadius: BorderRadius.circular(16.0),
       ),
-      child:  Image.file(image), INk(svgPic) onTap : deleteImage(image)
-      ,
+      child: Image.file(image),
     );
   }
 }
