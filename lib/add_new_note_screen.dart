@@ -45,7 +45,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
               ),
             ],
           ),
-          child: Icon(
+          child: const Icon(
             Icons.done,
             size: 24,
           ),
@@ -59,16 +59,16 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return SelectCategoriesScreen();
+                    return const SelectCategoriesScreen();
                   },
                 ),
               );
             },
             child: Container(
-              padding: EdgeInsets.only(right: 26),
+              padding: const EdgeInsets.only(right: 26),
               child: SvgPicture.asset(
                 'images/settings.svg',
-                color: Color(0xFFD1D4DE),
+                color: const Color(0xFFD1D4DE),
               ),
             ),
           )
@@ -90,18 +90,18 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
           width: double.infinity,
           child: Column(
             children: [
-              HowWasYourDayWidget(),
+              const HowWasYourDayWidget(),
               const SizedBox(
                 height: 16,
               ),
-              DayInOneSentenceWidget(),
+              const DayInOneSentenceWidget(),
               const SizedBox(
                 height: 16,
               ),
               Container(
                 padding: const EdgeInsets.all(16),
                 height: 364,
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
+                margin: const EdgeInsets.symmetric(horizontal: 16.0),
 
                 // width: 328,
                 decoration: BoxDecoration(
@@ -122,7 +122,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Photo of the day',
                           style: TextStyle(
                             fontSize: 16,
@@ -132,7 +132,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                         if (images.isEmpty) Container(),
                         if (images.length == 3)
                           SvgPicture.asset('images/addNewImage.svg',
-                              color: Color(0xFFFFBAB0)),
+                              color: const Color(0xFFFFBAB0)),
                         if (images.length >= 1 && images.length < 3)
                           InkWell(
                             onTap: () {
@@ -140,8 +140,8 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                             },
                             child: SvgPicture.asset('images/addNewImage.svg',
                                 color: images.length == 3
-                                    ? Color(0xFFFFBAB0)
-                                    : Color(0xFFFF7562)
+                                    ? const Color(0xFFFFBAB0)
+                                    : const Color(0xFFFF7562)
                                 // color: Color(0xFFFF7562),
                                 ),
                           ),
@@ -152,20 +152,73 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                         image: images[0],
                         height: 296,
                         width: 296,
+                        cacheHeight: 296,
+                        cacheWidth: 296,
+                        vertical: 258,
+                        horizontal: 19,
                       ),
                     if (images.length == 2)
                       Row(
                         children: [
-                          NewWidget(height: 140, width: 140, image: images[0]),
-                          NewWidget(height: 140, width: 140, image: images[1])
+                          NewWidget(
+                            height: 140,
+                            width: 140,
+                            image: images[0],
+                            cacheHeight: 140,
+                            cacheWidth: 140,
+                            vertical: 110,
+                            horizontal: 11,
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          NewWidget(
+                            height: 140,
+                            width: 140,
+                            image: images[1],
+                            cacheHeight: 140,
+                            cacheWidth: 140,
+                            vertical: 110,
+                            horizontal: 11,
+                          )
                         ],
                       ),
                     if (images.length == 3)
                       Row(
                         children: [
-                          NewWidget(height: 88, width: 88, image: images[0]),
-                          NewWidget(height: 88, width: 88, image: images[1]),
-                          NewWidget(height: 88, width: 88, image: images[2])
+                          NewWidget(
+                            height: 88,
+                            width: 88,
+                            image: images[0],
+                            cacheHeight: 88,
+                            cacheWidth: 88,
+                            vertical: 58,
+                            horizontal: 11,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          NewWidget(
+                            height: 88,
+                            width: 88,
+                            image: images[1],
+                            cacheHeight: 88,
+                            cacheWidth: 88,
+                            vertical: 58,
+                            horizontal: 11,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          NewWidget(
+                            height: 88,
+                            width: 88,
+                            image: images[2],
+                            cacheHeight: 88,
+                            cacheWidth: 88,
+                            vertical: 58,
+                            horizontal: 11,
+                          )
                         ],
                       )
                     else
@@ -199,7 +252,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
-                                  color: const Color(0xFFD1D4DE),
+                                  color: Color(0xFFD1D4DE),
                                 ),
                               ),
                             ],
@@ -222,24 +275,51 @@ class NewWidget extends StatelessWidget {
     required this.height,
     required this.image,
     required this.width,
+    required this.cacheHeight,
+    required this.cacheWidth,
+    required this.vertical,
+    required this.horizontal,
     Key? key,
   }) : super(key: key);
   final double width;
   final double height;
   final File image;
+  final int cacheHeight;
+  final int cacheWidth;
+  final double vertical;
+  final double horizontal;
 
   @override
   Widget build(BuildContext context) {
-    // final image = context.watch<SettingsNotifier>().image;
-
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        color: const Color(0xffF6FAFB),
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      child: Image.file(image),
+    return Stack(
+      children: [
+        Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            color: const Color(0xffF6FAFB),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Image.file(
+            image,
+            cacheHeight: cacheHeight,
+            cacheWidth: cacheWidth,
+          ),
+        ),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal),
+          child: InkWell(
+            onTap: () {
+              context.read<SettingsNotifier>().deleteImage(image);
+            },
+            child: SvgPicture.asset(
+              'images/trash.svg',
+              // color: Color(0xFFFF7562),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

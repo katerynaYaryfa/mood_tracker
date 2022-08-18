@@ -10,6 +10,7 @@ class SettingsNotifier with ChangeNotifier {
 
   void deleteImage(image) {
     images.remove(image);
+    notifyListeners();
   }
 
   Future pickImage() async {
@@ -25,6 +26,5 @@ class SettingsNotifier with ChangeNotifier {
       print('Failed to pick Image $e');
     }
     notifyListeners();
-    print('IMAGES________________________ $images');
   }
 }
