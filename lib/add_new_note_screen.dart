@@ -21,6 +21,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
   Widget build(BuildContext context) {
     final images = context.watch<SettingsNotifier>().images;
     final pickImage = context.watch<SettingsNotifier>().pickImage;
+    print('_______AddNewNoteScreen____images $images');
     return Scaffold(
       backgroundColor: const Color(0xFFF6FAFB),
       floatingActionButton: FloatingActionButton(
@@ -99,10 +100,10 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
               ),
               Container(
                 padding: const EdgeInsets.all(16),
-                // height: 364,
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                ),
+                height: 364,
+                margin: const EdgeInsets.symmetric(horizontal: 16.0),
+
+                // width: 328,
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFFFE),
                   borderRadius: BorderRadius.circular(16.0),
@@ -147,7 +148,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                       ],
                     ),
                     if (images.length == 1)
-                      ImageWidget(
+                      NewWidget(
                         image: images[0],
                         height: 296,
                         width: 296,
@@ -159,7 +160,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                     if (images.length == 2)
                       Row(
                         children: [
-                          ImageWidget(
+                          NewWidget(
                             height: 140,
                             width: 140,
                             image: images[0],
@@ -171,7 +172,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                           SizedBox(
                             width: 16,
                           ),
-                          ImageWidget(
+                          NewWidget(
                             height: 140,
                             width: 140,
                             image: images[1],
@@ -185,7 +186,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                     if (images.length == 3)
                       Row(
                         children: [
-                          ImageWidget(
+                          NewWidget(
                             height: 88,
                             width: 88,
                             image: images[0],
@@ -197,7 +198,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                           SizedBox(
                             width: 15,
                           ),
-                          ImageWidget(
+                          NewWidget(
                             height: 88,
                             width: 88,
                             image: images[1],
@@ -209,7 +210,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                           SizedBox(
                             width: 15,
                           ),
-                          ImageWidget(
+                          NewWidget(
                             height: 88,
                             width: 88,
                             image: images[2],
@@ -219,8 +220,8 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
                             horizontal: 11,
                           )
                         ],
-                      ),
-                    if (images.isEmpty)
+                      )
+                    else
                       InkWell(
                         onTap: () {
                           pickImage();
@@ -269,8 +270,8 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
   }
 }
 
-class ImageWidget extends StatelessWidget {
-  const ImageWidget({
+class NewWidget extends StatelessWidget {
+  const NewWidget({
     required this.height,
     required this.image,
     required this.width,
@@ -293,22 +294,16 @@ class ImageWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 16),
-          // padding: EdgeInsets.all(100),
           height: height,
           width: width,
           decoration: BoxDecoration(
-            // color: const Color(0xffF6FAFB),
-            color: Colors.blueGrey,
+            color: const Color(0xffF6FAFB),
             borderRadius: BorderRadius.circular(16.0),
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16.0),
-            child: Image.file(
-              image,
-              cacheHeight: cacheHeight,
-              cacheWidth: cacheWidth,
-            ),
+          child: Image.file(
+            image,
+            cacheHeight: cacheHeight,
+            cacheWidth: cacheWidth,
           ),
         ),
         Padding(
