@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/new_screen.dart';
 import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
-import 'package:mood_tracker/settings_screen/provider/settings_notifier.dart';
+import 'package:mood_tracker/provider/settings_notifier.dart';
 import 'package:provider/provider.dart';
-
-import 'add_new_note_screen.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -19,8 +18,9 @@ class App extends StatelessWidget {
           create: (_) => SettingsNotifier(),
         ),
       ],
-      child: const MaterialApp(
-        home: AddNewNoteScreen(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: NewScreen(),
       ),
     );
   }

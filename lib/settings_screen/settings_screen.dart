@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/settings_screen/data_security_screen.dart';
 
-import '../bottom_navigation_bar.dart';
-
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -20,239 +18,230 @@ class _SettingsScreenState extends State<SettingsScreen> {
     bool switchValue;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Settings',
           style: TextStyle(
             color: Colors.black,
           ),
         ),
-        backgroundColor: Color(0xFFF6FAFB),
+        backgroundColor: const Color(0xFFF6FAFB),
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
-      backgroundColor: Color(0xFFF6FAFB),
-      body: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Column(
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DataSecurityScreen();
-                        },
-                      ),
-                    );
-                  },
-                  child: SettingsButtons(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFB1D199),
-                            borderRadius: BorderRadius.circular(16.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xFF738C93).withOpacity(0.03),
-                                spreadRadius: 1,
-                                blurRadius: 15,
-                                offset: Offset(0, 0),
-                              ),
-                            ],
+      backgroundColor: const Color(0xFFF6FAFB),
+      body: Center(
+        child: Column(
+          children: [
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const DataSecurityScreen();
+                    },
+                  ),
+                );
+              },
+              child: SettingsButtons(
+                child: Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFB1D199),
+                        borderRadius: BorderRadius.circular(16.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF738C93).withOpacity(0.03),
+                            spreadRadius: 1,
+                            blurRadius: 15,
+                            offset: const Offset(0, 0),
                           ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 12.0,
+                    ),
+                    const Text(
+                      'Data security',
+                    ),
+                    Expanded(
+                      child: Container(),
+                    ),
+                    CupertinoSwitch(
+                      value: switchValue = true,
+                      onChanged: (bool value) {
+                        setState(() {
+                          switchValue = value;
+                        });
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SettingsButtons(
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF63B4FF),
+                      borderRadius: BorderRadius.circular(16.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF738C93).withOpacity(0.03),
+                          spreadRadius: 1,
+                          blurRadius: 15,
+                          offset: const Offset(0, 0),
                         ),
-                        SizedBox(
-                          width: 12.0,
-                        ),
-                        Text(
-                          'Data security',
-                        ),
-                        Expanded(
-                          child: Container(),
-                        ),
-                        CupertinoSwitch(
-                          value: switchValue = true,
-                          onChanged: (bool value) {
-                            setState(() {
-                              switchValue = value;
-                            });
-                          },
-                        )
                       ],
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                SettingsButtons(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF63B4FF),
-                          borderRadius: BorderRadius.circular(16.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFF738C93).withOpacity(0.03),
-                              spreadRadius: 1,
-                              blurRadius: 15,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12.0,
-                      ),
-                      Text('Language'),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      SvgPicture.asset(
-                        'images/arrowRight.svg',
-                        color: Color(0xFFD1D4DE),
-                      ),
-                    ],
+                  const SizedBox(
+                    width: 12.0,
                   ),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                SettingsButtons(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFF7562),
-                          borderRadius: BorderRadius.circular(16.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFF738C93).withOpacity(0.03),
-                              spreadRadius: 1,
-                              blurRadius: 15,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12.0,
-                      ),
-                      Text(
-                        'Color scheme',
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      SvgPicture.asset(
-                        'images/arrowRight.svg',
-                        color: Color(0xFFD1D4DE),
-                      ),
-                    ],
+                  const Text('Language'),
+                  Expanded(
+                    child: Container(),
                   ),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                SettingsButtons(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF8AA4C),
-                          borderRadius: BorderRadius.circular(16.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFF738C93).withOpacity(0.03),
-                              spreadRadius: 1,
-                              blurRadius: 15,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12.0,
-                      ),
-                      Text(
-                        'Start of the week',
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      SvgPicture.asset(
-                        'images/arrowRight.svg',
-                        color: Color(0xFFD1D4DE),
-                      ),
-                    ],
+                  SvgPicture.asset(
+                    'images/arrowRight.svg',
+                    color: const Color(0xFFD1D4DE),
                   ),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                SettingsButtons(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFB1D199),
-                          borderRadius: BorderRadius.circular(16.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFF738C93).withOpacity(0.03),
-                              spreadRadius: 1,
-                              blurRadius: 15,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12.0,
-                      ),
-                      Text(
-                        'Reminders',
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      CupertinoSwitch(
-                        value: switchValue = true,
-                        onChanged: (bool value) {
-                          setState(() {
-                            switchValue = value;
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 180,
-                ),
-                CustomNavigationBar(
-                  size: size,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 16,
+            ),
+            SettingsButtons(
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF7562),
+                      borderRadius: BorderRadius.circular(16.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF738C93).withOpacity(0.03),
+                          spreadRadius: 1,
+                          blurRadius: 15,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 12.0,
+                  ),
+                  const Text(
+                    'Color scheme',
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                  SvgPicture.asset(
+                    'images/arrowRight.svg',
+                    color: const Color(0xFFD1D4DE),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SettingsButtons(
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF8AA4C),
+                      borderRadius: BorderRadius.circular(16.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF738C93).withOpacity(0.03),
+                          spreadRadius: 1,
+                          blurRadius: 15,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 12.0,
+                  ),
+                  const Text(
+                    'Start of the week',
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                  SvgPicture.asset(
+                    'images/arrowRight.svg',
+                    color: const Color(0xFFD1D4DE),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SettingsButtons(
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFB1D199),
+                      borderRadius: BorderRadius.circular(16.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF738C93).withOpacity(0.03),
+                          spreadRadius: 1,
+                          blurRadius: 15,
+                          offset: const Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 12.0,
+                  ),
+                  const Text(
+                    'Reminders',
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                  CupertinoSwitch(
+                    value: switchValue = true,
+                    onChanged: (bool value) {
+                      setState(() {
+                        switchValue = value;
+                      });
+                    },
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 180,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -269,19 +258,19 @@ class SettingsButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       height: 72,
       width: 328,
       child: child,
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFE),
+        color: const Color(0xFFFFFFFE),
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
-            color: Color(0xFF738C93).withOpacity(0.03),
+            color: const Color(0xFF738C93).withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
-            offset: Offset(0, 0),
+            offset: const Offset(0, 0),
           ),
         ],
       ),
