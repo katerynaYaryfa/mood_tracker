@@ -10,6 +10,7 @@ class SettingsNotifier with ChangeNotifier {
 
   void deleteImage(image) {
     images.remove(image);
+    notifyListeners();
   }
 
   Future pickImage() async {
