@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../newFile.dart';
+
 class DayInOneSentenceWidget extends StatelessWidget {
   const DayInOneSentenceWidget({
     Key? key,
@@ -11,9 +13,6 @@ class DayInOneSentenceWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       margin: EdgeInsets.symmetric(horizontal: 16.0),
-      // height: 110,
-      // height: 150,
-      // width: 328,
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFE),
         borderRadius: BorderRadius.circular(16.0),
@@ -36,12 +35,9 @@ class DayInOneSentenceWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
-            height: 16,
-          ),
+          SpaceH16(),
           TextField(
             keyboardType: TextInputType.multiline,
-            // maxLines: null,
             inputFormatters: [
               LengthLimitingTextInputFormatter(2000),
             ],

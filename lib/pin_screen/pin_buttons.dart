@@ -38,7 +38,9 @@ class _PinButtonsState extends State<PinButtons> {
         child: Center(
           child: Text(
             widget.title,
-            style: const TextStyle(fontSize: 28.0),
+            style: const TextStyle(
+              fontSize: 28.0,
+            ),
           ),
         ),
       ),

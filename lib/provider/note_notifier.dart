@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
-class SettingsNotifier with ChangeNotifier {
+class NoteNotifier with ChangeNotifier {
   // File? image;
   List<File> images = [];
 
@@ -22,9 +22,7 @@ class SettingsNotifier with ChangeNotifier {
 
       images.add(imageTemp);
       // this.image = imageTemp;
-    } on PlatformException catch (e) {
-      print('Failed to pick Image $e');
-    }
+    } on PlatformException catch (e) {}
     notifyListeners();
   }
 }

@@ -32,13 +32,7 @@ class _PinScreenState extends State<PinScreen> {
       );
     }
 
-    Future.delayed(Duration.zero, () async {
-      // final savedPin = await context.read<PinNotifier>().readSavedPinCode();
-      //
-      // if (savedPin != null) {
-      //   context.read<PinNotifier>().savedPinNotNullGoToConfirm(savedPin);
-      // }
-    });
+    Future.delayed(Duration.zero, () async {});
   }
 
   @override
@@ -75,7 +69,10 @@ class _PinScreenState extends State<PinScreen> {
             Container(
               width: 90,
               height: 90,
-              padding: EdgeInsets.symmetric(vertical: 26, horizontal: 25),
+              padding: EdgeInsets.symmetric(
+                vertical: 26,
+                horizontal: 25,
+              ),
               decoration: BoxDecoration(
                 color: Color(0xFFB1D199),
                 borderRadius: BorderRadius.circular(32.0),
@@ -117,7 +114,10 @@ class _PinScreenState extends State<PinScreen> {
                 child: const Center(
                   child: Text(
                     '',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
@@ -280,7 +280,10 @@ class PinsDontMatch extends StatelessWidget {
         child: Text(
           'Pin\'s don\'t match',
           style: TextStyle(
-              color: Colors.red, fontWeight: FontWeight.w600, fontSize: 16),
+            color: Colors.red,
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
         ),
       ),
     );

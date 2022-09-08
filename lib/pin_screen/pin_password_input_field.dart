@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
 import 'package:provider/provider.dart';
 
+import '../newFile.dart';
+
 class PasswordInputField extends StatefulWidget {
   var pin;
 
@@ -31,37 +33,33 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             color: _pinColor(1, wrongPin),
           ),
         ),
-        const SizedBox(
-          width: 16,
-        ),
+        const SpaceH16(),
         Container(
           width: 15,
           height: 15,
           decoration: BoxDecoration(
             border: Border.all(
-                width: 2.0,
-                color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
+              width: 2.0,
+              color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343),
+            ),
             shape: BoxShape.circle,
             color: _pinColor(2, wrongPin),
           ),
         ),
-        const SizedBox(
-          width: 16,
-        ),
+        const SpaceH16(),
         Container(
           width: 15,
           height: 15,
           decoration: BoxDecoration(
             border: Border.all(
-                width: 2.0,
-                color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343)),
+              width: 2.0,
+              color: wrongPin ? Color(0xFFFF7562) : Color(0xFF434343),
+            ),
             shape: BoxShape.circle,
             color: _pinColor(3, wrongPin),
           ),
         ),
-        const SizedBox(
-          width: 16,
-        ),
+        const SpaceH16(),
         Container(
           width: 15,
           height: 15,

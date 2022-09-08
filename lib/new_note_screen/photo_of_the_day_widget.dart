@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/settings_notifier.dart';
+import '../newFile.dart';
+import '../provider/note_notifier.dart';
 
 class PhotoOfTheDayWidget extends StatelessWidget {
   const PhotoOfTheDayWidget({
@@ -21,9 +22,15 @@ class PhotoOfTheDayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 16, right: 16, left: 16, bottom: 16),
-      // height: 364,
-      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.only(
+        top: 16,
+        right: 16,
+        left: 16,
+        bottom: 16,
+      ),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+      ),
 
       // width: 328,
       decoration: BoxDecoration(
@@ -51,23 +58,25 @@ class PhotoOfTheDayWidget extends StatelessWidget {
                 ),
               ),
               if (images.length == 3)
-                SvgPicture.asset('images/addNewImage.svg',
-                    color: const Color(0xFFFFBAB0)),
+                SvgPicture.asset(
+                  'images/addNewImage.svg',
+                  color: const Color(0xFFFFBAB0),
+                ),
               if (images.length >= 1 && images.length < 3)
                 InkWell(
                   onTap: () {
                     pickImage();
                   },
-                  child: SvgPicture.asset('images/addNewImage.svg',
-                      color: images.length == 3
-                          ? const Color(0xFFFFBAB0)
-                          : const Color(0xFFFF7562)),
+                  child: SvgPicture.asset(
+                    'images/addNewImage.svg',
+                    color: images.length == 3
+                        ? const Color(0xFFFFBAB0)
+                        : const Color(0xFFFF7562),
+                  ),
                 ),
             ],
           ),
-          SizedBox(
-            height: 16,
-          ),
+          SpaceH16(),
           if (images.length == 1)
             AddNewImage(
               left: 19,
@@ -77,8 +86,6 @@ class PhotoOfTheDayWidget extends StatelessWidget {
               width: 296,
               cacheHeight: 296,
               cacheWidth: 296,
-              // vertical: 258,
-              // horizontal: 16,
             ),
           if (images.length == 2)
             Row(
@@ -91,12 +98,8 @@ class PhotoOfTheDayWidget extends StatelessWidget {
                   image: images[0],
                   cacheHeight: 140,
                   cacheWidth: 140,
-                  // vertical: 110,
-                  // horizontal: 11,
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                SpaceH16(),
                 AddNewImage(
                   height: 140,
                   width: 140,
@@ -195,7 +198,6 @@ class AddNewImage extends StatelessWidget {
     required this.cacheWidth,
     required this.left,
     required this.top,
-    // required this.bottom,
     Key? key,
   }) : super(key: key);
   final double width;
@@ -205,7 +207,6 @@ class AddNewImage extends StatelessWidget {
   final int cacheWidth;
   final double left;
   final double top;
-  // final double bottom;
 
   @override
   Widget build(BuildContext context) {
@@ -231,15 +232,13 @@ class AddNewImage extends StatelessWidget {
           padding: EdgeInsets.only(
             left: left,
             top: top,
-            // bottom: bottom,
           ),
           child: InkWell(
             onTap: () {
-              context.read<SettingsNotifier>().deleteImage(image);
+              context.read<NoteNotifier>().deleteImage(image);
             },
             child: SvgPicture.asset(
               'images/trash.svg',
-              // color: Color(0xFFFF7562),
             ),
           ),
         ),

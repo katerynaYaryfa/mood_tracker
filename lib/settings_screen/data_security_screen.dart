@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/pin_screen/secure_storage.dart';
 import 'package:mood_tracker/settings_screen/settings_screen.dart';
 
+import '../newFile.dart';
 import '../pin_screen/pin_screen.dart';
 
 class DataSecurityScreen extends StatefulWidget {
@@ -76,7 +77,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                     onChanged: (bool value) async {
                       if (pinCodeEnabled) {
                         final storage = StorageService();
-                        await storage.deleteSecureData(key: 'pin');
+                        await storage.deleteSecureData(
+                          key: 'pin',
+                        );
                         setState(
                           () {
                             pinCodeEnabled = false;
@@ -97,9 +100,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const SpaceH16(),
                 SettingsButtons(
                   child: DataSecurityButtons(
                     title: 'Toch-ID',
@@ -112,9 +113,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                     onChanged: (bool value) async {},
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                const SpaceH16(),
                 SettingsButtons(
                   child: DataSecurityButtons(
                     title: 'Face-ID',
@@ -127,7 +126,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                     onChanged: (bool value) async {
                       if (pinCodeEnabled) {
                         final storage = StorageService();
-                        await storage.deleteSecureData(key: 'pin');
+                        await storage.deleteSecureData(
+                          key: 'pin',
+                        );
                         setState(() {
                           pinCodeEnabled = false;
                         });
@@ -211,7 +212,10 @@ class _DataSecurityButtonsState extends State<DataSecurityButtons> {
         Expanded(
           child: Container(),
         ),
-        CupertinoSwitch(value: widget.value, onChanged: widget.onChanged),
+        CupertinoSwitch(
+          value: widget.value,
+          onChanged: widget.onChanged,
+        ),
       ],
     );
   }

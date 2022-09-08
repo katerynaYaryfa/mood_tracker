@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../newFile.dart';
+
 class HowWasYourDayWidget extends StatefulWidget {
   const HowWasYourDayWidget({
     Key? key,
@@ -23,9 +25,9 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
 
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
-      // height: 110,
-      // width: 328,
+      margin: EdgeInsets.symmetric(
+        horizontal: 16.0,
+      ),
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFE),
         borderRadius: BorderRadius.circular(16.0),
@@ -47,9 +49,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SpaceH16(),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -77,9 +77,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                SpaceH16(),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -100,9 +98,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                SpaceH16(),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -123,9 +119,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                SpaceH16(),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -146,9 +140,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                SpaceH16(),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -169,9 +161,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                SpaceH16(),
                 InkWell(
                   onTap: () {
                     setState(() {

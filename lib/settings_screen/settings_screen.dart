@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/settings_screen/data_security_screen.dart';
 
+import '../newFile.dart';
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -119,9 +121,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SpaceH16(),
             SettingsButtons(
               child: Row(
                 children: [
@@ -157,9 +157,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SpaceH16(),
             SettingsButtons(
               child: Row(
                 children: [
@@ -195,9 +193,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SpaceH16(),
             SettingsButtons(
               child: Row(
                 children: [
