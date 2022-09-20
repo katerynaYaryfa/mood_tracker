@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/settings_screen/data_security_screen.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/settings_screen/data_security_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -13,9 +14,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
-    bool switchValue;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -72,12 +70,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Container(),
                     ),
                     CupertinoSwitch(
-                      value: switchValue = true,
-                      onChanged: (bool value) {
-                        setState(() {
-                          switchValue = value;
-                        });
-                      },
+                      value: false,
+                      onChanged: (bool value) {},
                     )
                   ],
                 ),
@@ -119,9 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SpaceH16(),
             SettingsButtons(
               child: Row(
                 children: [
@@ -157,9 +149,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SpaceH16(),
             SettingsButtons(
               child: Row(
                 children: [
@@ -195,9 +185,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SpaceH16(),
             SettingsButtons(
               child: Row(
                 children: [
@@ -227,12 +215,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Container(),
                   ),
                   CupertinoSwitch(
-                    value: switchValue = true,
-                    onChanged: (bool value) {
-                      setState(() {
-                        switchValue = value;
-                      });
-                    },
+                    value: false,
+                    onChanged: (bool value) {},
                   )
                 ],
               ),
@@ -261,7 +245,6 @@ class SettingsButtons extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       height: 72,
       width: 328,
-      child: child,
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFE),
         borderRadius: BorderRadius.circular(16.0),
@@ -274,6 +257,7 @@ class SettingsButtons extends StatelessWidget {
           ),
         ],
       ),
+      child: child,
     );
   }
 }

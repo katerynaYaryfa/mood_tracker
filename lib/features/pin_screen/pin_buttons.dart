@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
+import 'package:mood_tracker/features/pin_screen/provider/pin_notifier.dart';
 import 'package:provider/provider.dart';
 
 class PinButtons extends StatefulWidget {
-  PinButtons({
+  const PinButtons({
+    Key? key,
     required this.title,
-  });
+  }) : super(key: key);
 
   final String title;
 
@@ -16,12 +17,8 @@ class PinButtons extends StatefulWidget {
 class _PinButtonsState extends State<PinButtons> {
   @override
   Widget build(BuildContext context) {
-    bool isPressed = context.watch<PinNotifier>().isPressed;
-
     return InkWell(
       onTap: () {
-        isPressed = true;
-
         context.read<PinNotifier>().pinCode(widget.title);
       },
       child: Container(
@@ -31,14 +28,16 @@ class _PinButtonsState extends State<PinButtons> {
           color: Colors.white,
           border: Border.all(
             width: 1.0,
-            color: Color(0xFFF1F1F1),
+            color: const Color(0xFFF1F1F1),
           ),
           borderRadius: BorderRadius.circular(100.0),
         ),
         child: Center(
           child: Text(
             widget.title,
-            style: const TextStyle(fontSize: 28.0),
+            style: const TextStyle(
+              fontSize: 28.0,
+            ),
           ),
         ),
       ),

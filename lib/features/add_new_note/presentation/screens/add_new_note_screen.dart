@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/new_note_screen/how_was_your_day_widget.dart';
-import 'package:mood_tracker/new_note_screen/photo_of_the_day_widget.dart';
-import 'package:mood_tracker/new_note_screen/select_categories_screen.dart';
-import 'package:mood_tracker/provider/settings_notifier.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/screens/select_categories_screen.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_one_sentence_widget.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
+import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'day_in_one_sentence_widget.dart';
-
-class AddNewNoteScreen extends StatefulWidget {
+class AddNewNoteScreen extends StatelessWidget {
   const AddNewNoteScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddNewNoteScreen> createState() => _AddNewNoteScreenState();
-}
-
-class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
-  @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    const imagePadding = 64;
-    final imageSize = screenWidth - imagePadding;
-    final images = context.watch<SettingsNotifier>().images;
-    final pickImage = context.watch<SettingsNotifier>().pickImage;
-    print('_______AddNewNoteScreen____images $images');
+    final images = context.watch<NoteNotifier>().images;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF6FAFB),
       floatingActionButton: FloatingActionButton(
@@ -67,7 +58,9 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
               );
             },
             child: Container(
-              padding: const EdgeInsets.only(right: 26),
+              padding: const EdgeInsets.only(
+                right: 26,
+              ),
               child: SvgPicture.asset(
                 'images/settings.svg',
                 color: const Color(0xFFD1D4DE),
@@ -88,20 +81,17 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             children: [
               const HowWasYourDayWidget(),
-              const SizedBox(
-                height: 16,
-              ),
+              const SpaceH16(),
               const DayInOneSentenceWidget(),
-              const SizedBox(
-                height: 16,
-              ),
+              const SpaceH16(),
               PhotoOfTheDayWidget(
-                  images: images, pickImage: pickImage, imageSize: imageSize)
+                images: images,
+              ),
             ],
           ),
         ),
