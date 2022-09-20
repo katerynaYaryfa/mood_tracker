@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
+import 'package:mood_tracker/features/pin_screen/provider/pin_notifier.dart';
 import 'package:provider/provider.dart';
 
 class PinButtons extends StatefulWidget {
-  PinButtons({
+  const PinButtons({
+    Key? key,
     required this.title,
-  });
+  }) : super(key: key);
 
   final String title;
 

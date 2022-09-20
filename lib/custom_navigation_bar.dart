@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/settings_screen/settings_screen.dart';
-
-import 'new_note_screen/add_new_note_screen.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
+import 'package:mood_tracker/features/settings_screen/settings_screen.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({Key? key}) : super(key: key);

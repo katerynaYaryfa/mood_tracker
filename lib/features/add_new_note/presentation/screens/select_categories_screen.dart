@@ -29,7 +29,7 @@ class _SelectCategoriesScreenState extends State<SelectCategoriesScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: Color(0xFFD1D4DE),
           ),
@@ -85,14 +85,15 @@ class _SelectCategoriesScreenState extends State<SelectCategoriesScreen> {
               onPressed: () {
                 selectImages();
               },
-              child: Text('Select Images'),
+              child: const Text('Select Images'),
             ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GridView.builder(
                     itemCount: imageFileList!.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                     ),
                     itemBuilder: (BuildContext context, int index) {

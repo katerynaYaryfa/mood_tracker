@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/pin_screen/provider/pin_notifier.dart';
 import 'package:provider/provider.dart';
-
-import '../newFile.dart';
 
 class PasswordInputField extends StatefulWidget {
   var pin;

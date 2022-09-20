@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/pin_screen/secure_storage.dart';
-import 'package:mood_tracker/settings_screen/settings_screen.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/settings_screen/settings_screen.dart';
+import 'package:mood_tracker/services/storage_service.dart';
 
-import '../newFile.dart';
 import '../pin_screen/pin_screen.dart';
 
 class DataSecurityScreen extends StatefulWidget {
@@ -24,7 +24,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
       Duration.zero,
       () async {
         final storage = StorageService();
-        final pin = await storage.readSecureData(
+        final pin = await storage.read(
           key: 'pin',
         );
 
@@ -69,15 +69,11 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                   child: DataSecurityButtons(
                     title: 'PIN-code',
                     color: Colors.white,
-                    child: SvgPicture.asset(
-                      'images/pinCode.svg',
-                      color: Color(0xFFD1D4DE),
-                    ),
                     value: pinCodeEnabled,
                     onChanged: (bool value) async {
                       if (pinCodeEnabled) {
                         final storage = StorageService();
-                        await storage.deleteSecureData(
+                        await storage.delete(
                           key: 'pin',
                         );
                         setState(
@@ -90,7 +86,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return PinScreen(
+                              return const PinScreen(
                                 deletePin: true,
                               );
                             },
@@ -98,6 +94,10 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                         );
                       }
                     },
+                    child: SvgPicture.asset(
+                      'images/pinCode.svg',
+                      color: const Color(0xFFD1D4DE),
+                    ),
                   ),
                 ),
                 const SpaceH16(),
@@ -105,12 +105,12 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                   child: DataSecurityButtons(
                     title: 'Toch-ID',
                     color: Colors.white,
-                    child: SvgPicture.asset(
-                      'images/touchID.svg',
-                      color: Color(0xFFD1D4DE),
-                    ),
                     value: someValue,
                     onChanged: (bool value) async {},
+                    child: SvgPicture.asset(
+                      'images/touchID.svg',
+                      color: const Color(0xFFD1D4DE),
+                    ),
                   ),
                 ),
                 const SpaceH16(),
@@ -118,15 +118,11 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                   child: DataSecurityButtons(
                     title: 'Face-ID',
                     color: Colors.white,
-                    child: SvgPicture.asset(
-                      'images/faceID.svg',
-                      color: Color(0xFFD1D4DE),
-                    ),
                     value: someValue,
                     onChanged: (bool value) async {
                       if (pinCodeEnabled) {
                         final storage = StorageService();
-                        await storage.deleteSecureData(
+                        await storage.delete(
                           key: 'pin',
                         );
                         setState(() {
@@ -137,7 +133,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return PinScreen(
+                              return const PinScreen(
                                 deletePin: true,
                               );
                             },
@@ -145,6 +141,10 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                         );
                       }
                     },
+                    child: SvgPicture.asset(
+                      'images/faceID.svg',
+                      color: const Color(0xFFD1D4DE),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -160,19 +160,19 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
 }
 
 class DataSecurityButtons extends StatefulWidget {
+  const DataSecurityButtons({
+    required this.title,
+    required this.color,
+    required this.value,
+    required this.onChanged,
+    required this.child,
+  }) : super();
+
   final void Function(bool) onChanged;
   final bool value;
   final Color color;
   final String title;
   final Widget child;
-
-  const DataSecurityButtons(
-      {required this.title,
-      required this.color,
-      required this.value,
-      required this.onChanged,
-      required this.child})
-      : super();
 
   @override
   State<DataSecurityButtons> createState() => _DataSecurityButtonsState();
@@ -184,7 +184,6 @@ class _DataSecurityButtonsState extends State<DataSecurityButtons> {
     return Row(
       children: [
         Container(
-          child: widget.child,
           width: 50,
           height: 50,
           decoration: BoxDecoration(
@@ -204,6 +203,7 @@ class _DataSecurityButtonsState extends State<DataSecurityButtons> {
               ),
             ],
           ),
+          child: widget.child,
         ),
         const SizedBox(
           width: 12.0,

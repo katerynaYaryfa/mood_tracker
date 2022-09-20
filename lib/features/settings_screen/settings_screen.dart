@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/settings_screen/data_security_screen.dart';
-
-import '../newFile.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/settings_screen/data_security_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -257,7 +256,6 @@ class SettingsButtons extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       height: 72,
       width: 328,
-      child: child,
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFE),
         borderRadius: BorderRadius.circular(16.0),
@@ -270,6 +268,7 @@ class SettingsButtons extends StatelessWidget {
           ),
         ],
       ),
+      child: child,
     );
   }
 }

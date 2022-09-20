@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
 
-import '../newFile.dart';
+const _maxCharacterLength = 2000;
 
 class DayInOneSentenceWidget extends StatelessWidget {
   const DayInOneSentenceWidget({
@@ -12,7 +13,9 @@ class DayInOneSentenceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+      ),
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFE),
         borderRadius: BorderRadius.circular(16.0),
@@ -35,11 +38,11 @@ class DayInOneSentenceWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SpaceH16(),
+          const SpaceH16(),
           TextField(
             keyboardType: TextInputType.multiline,
             inputFormatters: [
-              LengthLimitingTextInputFormatter(2000),
+              LengthLimitingTextInputFormatter(_maxCharacterLength),
             ],
             maxLines: 100,
             minLines: 1,
@@ -63,13 +66,9 @@ class DayInOneSentenceWidget extends StatelessWidget {
               labelStyle: TextStyle(
                 color: Color(0xFFD1D4DE),
               ),
-              border:
-                  // InputBorder.none
-                  OutlineInputBorder(
+              border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    16.0,
-                  ),
+                  Radius.circular(16.0),
                 ),
                 borderSide: BorderSide.none,
               ),

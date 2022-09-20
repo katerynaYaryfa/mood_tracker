@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/new_note_screen/how_was_your_day_widget.dart';
-import 'package:mood_tracker/new_note_screen/photo_of_the_day_widget.dart';
-import 'package:mood_tracker/new_note_screen/select_categories_screen.dart';
-import 'package:mood_tracker/provider/note_notifier.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/screens/select_categories_screen.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
+import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../newFile.dart';
-import 'day_in_one_sentence_widget.dart';
+import '../widgets/day_in_one_sentence_widget.dart';
 
 class AddNewNoteScreen extends StatelessWidget {
   const AddNewNoteScreen({Key? key}) : super(key: key);
@@ -16,9 +16,17 @@ class AddNewNoteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     const imagePadding = 64;
-    final imageSize = screenWidth - imagePadding;
+    var extraPadding = 0;
     final images = context.watch<NoteNotifier>().images;
-    final pickImage = context.watch<NoteNotifier>().pickImage;
+
+    if (images.length == 2) {
+      extraPadding = 16;
+    } else if (images.length == 3) {
+      extraPadding = 32;
+    }
+
+    final imageSize = screenWidth - imagePadding - extraPadding;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF6FAFB),
       floatingActionButton: FloatingActionButton(
@@ -85,7 +93,7 @@ class AddNewNoteScreen extends StatelessWidget {
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             children: [
@@ -94,7 +102,9 @@ class AddNewNoteScreen extends StatelessWidget {
               const DayInOneSentenceWidget(),
               const SpaceH16(),
               PhotoOfTheDayWidget(
-                  images: images, pickImage: pickImage, imageSize: imageSize)
+                images: images,
+                imageSize: imageSize,
+              ),
             ],
           ),
         ),

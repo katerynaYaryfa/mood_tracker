@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/pin_screen/secure_storage.dart';
+import 'package:mood_tracker/services/storage_service.dart';
 
 class PinNotifier with ChangeNotifier {
   bool isPressed = false;
@@ -18,7 +18,7 @@ class PinNotifier with ChangeNotifier {
 
   Future<String?> readSavedPinCode() async {
     var storage = StorageService();
-    final savedPin = await storage.readSecureData(
+    final savedPin = await storage.read(
       key: 'pin',
     );
 

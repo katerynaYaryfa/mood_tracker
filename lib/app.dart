@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
-import 'package:mood_tracker/provider/note_notifier.dart';
+import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/features/pin_screen/provider/pin_notifier.dart';
 import 'package:provider/provider.dart';
 
 import 'custom_navigation_bar.dart';

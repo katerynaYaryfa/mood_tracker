@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/pin_screen/pin_buttons.dart';
-import 'package:mood_tracker/pin_screen/pin_password_input_field.dart';
-import 'package:mood_tracker/pin_screen/provider/pin_notifier.dart';
-import 'package:mood_tracker/pin_screen/secure_storage.dart';
+import 'package:mood_tracker/features/pin_screen/pin_buttons.dart';
+import 'package:mood_tracker/features/pin_screen/pin_password_input_field.dart';
+import 'package:mood_tracker/features/pin_screen/provider/pin_notifier.dart';
+import 'package:mood_tracker/services/storage_service.dart';
 import 'package:provider/provider.dart';
 
 import '../settings_screen/settings_screen.dart';
@@ -27,7 +27,7 @@ class _PinScreenState extends State<PinScreen> {
 
     if (widget.deletePin == true) {
       var storage = StorageService();
-      storage.deleteSecureData(
+      storage.delete(
         key: 'pin',
       );
     }
@@ -43,7 +43,7 @@ class _PinScreenState extends State<PinScreen> {
 
     if (pin2.length == 4 && pin1 == pin2) {
       var storage = StorageService();
-      storage.writeSecureData(
+      storage.write(
         key: 'pin',
         value: pin1,
       );
@@ -76,7 +76,7 @@ class _PinScreenState extends State<PinScreen> {
               decoration: BoxDecoration(
                 color: Color(0xFFB1D199),
                 borderRadius: BorderRadius.circular(32.0),
-                boxShadow: [],
+                boxShadow: const [],
               ),
               child: SvgPicture.asset(
                 'images/lock.svg',
@@ -123,26 +123,26 @@ class _PinScreenState extends State<PinScreen> {
               ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
+              children: const [
+                SizedBox(
                   width: 36.0,
                 ),
                 PinButtons(
                   title: '1',
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 24.0,
                 ),
                 PinButtons(
                   title: '2',
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 24.0,
                 ),
                 PinButtons(
                   title: '3',
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 36.0,
                 ),
               ],
@@ -152,17 +152,17 @@ class _PinScreenState extends State<PinScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 PinButtons(
                   title: '4',
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 24.0,
                 ),
                 PinButtons(
                   title: '5',
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 24.0,
                 ),
                 PinButtons(
@@ -175,17 +175,17 @@ class _PinScreenState extends State<PinScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 PinButtons(
                   title: '7',
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 24.0,
                 ),
                 PinButtons(
                   title: '8',
                 ),
-                const SizedBox(
+                SizedBox(
                   width: 24.0,
                 ),
                 PinButtons(
