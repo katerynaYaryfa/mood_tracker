@@ -14,9 +14,6 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
-    bool switchValue;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -73,12 +70,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Container(),
                     ),
                     CupertinoSwitch(
-                      value: switchValue = true,
-                      onChanged: (bool value) {
-                        setState(() {
-                          switchValue = value;
-                        });
-                      },
+                      value: false,
+                      onChanged: (bool value) {},
                     )
                   ],
                 ),
@@ -222,12 +215,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Container(),
                   ),
                   CupertinoSwitch(
-                    value: switchValue = true,
-                    onChanged: (bool value) {
-                      setState(() {
-                        switchValue = value;
-                      });
-                    },
+                    value: false,
+                    onChanged: (bool value) {},
                   )
                 ],
               ),

@@ -29,6 +29,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     ),
     SettingsScreen(),
   ];
+
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
@@ -77,8 +78,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TextButton(
-                onPressed: () {
+              InkWell(
+                onTap: () {
                   _onItemTapped(0);
                 },
                 child: SvgPicture.asset(
@@ -88,8 +89,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       : const Color(0xFFD1D4DE),
                 ),
               ),
-              TextButton(
-                onPressed: () {
+              InkWell(
+                onTap: () {
                   _onItemTapped(1);
                 },
                 child: SvgPicture.asset(
@@ -99,11 +100,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       : const Color(0xFFD1D4DE),
                 ),
               ),
-              Container(
+              const SizedBox(
                 width: 80,
               ),
-              TextButton(
-                onPressed: () {
+              InkWell(
+                onTap: () {
                   _onItemTapped(2);
                 },
                 child: SvgPicture.asset(
@@ -113,8 +114,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       : const Color(0xFFD1D4DE),
                 ),
               ),
-              TextButton(
-                onPressed: () {
+              InkWell(
+                onTap: () {
                   _onItemTapped(3);
                 },
                 child: SvgPicture.asset(

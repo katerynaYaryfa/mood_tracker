@@ -16,7 +16,6 @@ class DataSecurityScreen extends StatefulWidget {
 
 class _DataSecurityScreenState extends State<DataSecurityScreen> {
   bool pinCodeEnabled = false;
-  bool someValue = false;
 
   @override
   void initState() {
@@ -105,7 +104,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                   child: DataSecurityButtons(
                     title: 'Toch-ID',
                     color: Colors.white,
-                    value: someValue,
+                    value: false,
                     onChanged: (bool value) async {},
                     child: SvgPicture.asset(
                       'images/touchID.svg',
@@ -118,7 +117,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                   child: DataSecurityButtons(
                     title: 'Face-ID',
                     color: Colors.white,
-                    value: someValue,
+                    value: false,
                     onChanged: (bool value) async {
                       if (pinCodeEnabled) {
                         final storage = StorageService();
@@ -160,13 +159,14 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
 }
 
 class DataSecurityButtons extends StatefulWidget {
-  const DataSecurityButtons({
-    required this.title,
-    required this.color,
-    required this.value,
-    required this.onChanged,
-    required this.child,
-  }) : super();
+  const DataSecurityButtons(
+      {required this.title,
+      required this.color,
+      required this.value,
+      required this.onChanged,
+      required this.child,
+      Key? key})
+      : super(key: key);
 
   final void Function(bool) onChanged;
   final bool value;

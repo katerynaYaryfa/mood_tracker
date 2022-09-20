@@ -11,8 +11,10 @@ import '../settings_screen/settings_screen.dart';
 class PinScreen extends StatefulWidget {
   const PinScreen({
     this.deletePin = false,
-  });
-  final deletePin;
+    Key? key,
+  }) : super(key: key);
+
+  final bool deletePin;
 
   @override
   State<PinScreen> createState() => _PinScreenState();
@@ -59,7 +61,7 @@ class _PinScreenState extends State<PinScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Color(0xFFF6FAFB),
+      backgroundColor: const Color(0xFFF6FAFB),
       body: SafeArea(
         child: Column(
           children: [
@@ -69,12 +71,12 @@ class _PinScreenState extends State<PinScreen> {
             Container(
               width: 90,
               height: 90,
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 26,
                 horizontal: 25,
               ),
               decoration: BoxDecoration(
-                color: Color(0xFFB1D199),
+                color: const Color(0xFFB1D199),
                 borderRadius: BorderRadius.circular(32.0),
                 boxShadow: const [],
               ),
@@ -109,9 +111,9 @@ class _PinScreenState extends State<PinScreen> {
             if (wrongPin)
               const PinsDontMatch()
             else
-              Container(
+              const SizedBox(
                 height: 80,
-                child: const Center(
+                child: Center(
                   child: Text(
                     '',
                     style: TextStyle(
@@ -210,7 +212,7 @@ class _PinScreenState extends State<PinScreen> {
                       color: Colors.white,
                       border: Border.all(
                         width: 1.0,
-                        color: Color(0xFFF1F1F1),
+                        color: const Color(0xFFF1F1F1),
                       ),
                       borderRadius: BorderRadius.circular(100.0),
                     ),
@@ -222,7 +224,7 @@ class _PinScreenState extends State<PinScreen> {
                 const SizedBox(
                   width: 24.0,
                 ),
-                PinButtons(
+                const PinButtons(
                   title: '0',
                 ),
                 const SizedBox(
@@ -239,7 +241,7 @@ class _PinScreenState extends State<PinScreen> {
                       color: Colors.white,
                       border: Border.all(
                         width: 1.0,
-                        color: Color(0xFFF1F1F1),
+                        color: const Color(0xFFF1F1F1),
                       ),
                       borderRadius: BorderRadius.circular(100.0),
                     ),
@@ -253,7 +255,7 @@ class _PinScreenState extends State<PinScreen> {
             Expanded(
               child: Container(),
             ),
-            Text(
+            const Text(
               'This keeps your data private',
               style: TextStyle(
                   fontSize: 14.0,
@@ -274,9 +276,9 @@ class PinsDontMatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return const SizedBox(
       height: 80,
-      child: const Center(
+      child: Center(
         child: Text(
           'Pin\'s don\'t match',
           style: TextStyle(

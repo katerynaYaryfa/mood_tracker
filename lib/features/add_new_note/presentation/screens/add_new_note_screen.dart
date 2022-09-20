@@ -2,30 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/select_categories_screen.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_one_sentence_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../widgets/day_in_one_sentence_widget.dart';
 
 class AddNewNoteScreen extends StatelessWidget {
   const AddNewNoteScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    const imagePadding = 64;
-    var extraPadding = 0;
     final images = context.watch<NoteNotifier>().images;
-
-    if (images.length == 2) {
-      extraPadding = 16;
-    } else if (images.length == 3) {
-      extraPadding = 32;
-    }
-
-    final imageSize = screenWidth - imagePadding - extraPadding;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF6FAFB),
@@ -103,7 +91,6 @@ class AddNewNoteScreen extends StatelessWidget {
               const SpaceH16(),
               PhotoOfTheDayWidget(
                 images: images,
-                imageSize: imageSize,
               ),
             ],
           ),

@@ -52,7 +52,6 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face6.png',
                 ),
-                mood: mood,
                 opacity: mood == Mood.crying || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
                   context.read<NoteNotifier>().changeMood(Mood.crying);
@@ -62,7 +61,6 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face5.png',
                 ),
-                mood: mood,
                 opacity: mood == Mood.veryBad || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
                   context.read<NoteNotifier>().changeMood(Mood.veryBad);
@@ -72,7 +70,6 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face1.png',
                 ),
-                mood: mood,
                 opacity: mood == Mood.bad || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
                   context.read<NoteNotifier>().changeMood(Mood.bad);
@@ -82,7 +79,6 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face4.png',
                 ),
-                mood: mood,
                 opacity: mood == Mood.normal || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
                   context.read<NoteNotifier>().changeMood(Mood.normal);
@@ -92,7 +88,6 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face3.png',
                 ),
-                mood: mood,
                 opacity: mood == Mood.good || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
                   context.read<NoteNotifier>().changeMood(Mood.good);
@@ -102,7 +97,6 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face2.png',
                 ),
-                mood: mood,
                 opacity: mood == Mood.veryGood || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
                   context.read<NoteNotifier>().changeMood(Mood.veryGood);
