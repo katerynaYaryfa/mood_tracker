@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/custom_navigation_bar.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
-import 'package:mood_tracker/features/pin_screen/provider/pin_notifier.dart';
+import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
@@ -11,17 +12,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<PinNotifier>(
-          create: (_) => PinNotifier(),
+        ChangeNotifierProvider<PinProvider>(
+          create: (_) => PinProvider(),
         ),
-        ChangeNotifierProvider<NoteNotifier>(
-          create: (_) => NoteNotifier(),
+        ChangeNotifierProvider<NoteProvider>(
+          create: (_) => NoteProvider(),
         ),
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (context) => ThemeProvider(),
+        )
       ],
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: CustomNavigationBar(),
-      ),
+      child: const CustomNavigationBar(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 
 const _maxCharacterLength = 2000;
 
@@ -17,11 +18,11 @@ class DayInOneSentenceWidget extends StatelessWidget {
         horizontal: 16.0,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFE),
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF738C93).withOpacity(0.03),
+            color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
             offset: const Offset(0, 0),
@@ -48,7 +49,7 @@ class DayInOneSentenceWidget extends StatelessWidget {
             minLines: 1,
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.black,
+              color: AppColors.black,
             ),
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.only(
@@ -60,11 +61,11 @@ class DayInOneSentenceWidget extends StatelessWidget {
               isDense: true,
               filled: true,
               isCollapsed: true,
-              fillColor: Color(0xFFF6FAFB),
+              fillColor: AppColors.darkWhite,
               labelText: 'Enter your thoughts',
               floatingLabelBehavior: FloatingLabelBehavior.never,
               labelStyle: TextStyle(
-                color: Color(0xFFD1D4DE),
+                color: AppColors.grey,
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(

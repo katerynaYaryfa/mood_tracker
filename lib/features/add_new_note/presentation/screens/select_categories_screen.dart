@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class SelectCategoriesScreen extends StatefulWidget {
   const SelectCategoriesScreen({Key? key}) : super(key: key);
@@ -15,7 +18,7 @@ class _SelectCategoriesScreenState extends State<SelectCategoriesScreen> {
         leading: GestureDetector(
           child: const Icon(
             Icons.arrow_back,
-            color: Color(0xFFD1D4DE),
+            color: AppColors.grey,
           ),
           onTap: () {
             Navigator.pop(context);
@@ -24,10 +27,11 @@ class _SelectCategoriesScreenState extends State<SelectCategoriesScreen> {
         title: const Text(
           'Select categories',
           style: TextStyle(
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
-        backgroundColor: const Color(0xFFF6FAFB),
+        backgroundColor:
+            context.watch<ThemeProvider>().currentTheme.backgroundColor,
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),

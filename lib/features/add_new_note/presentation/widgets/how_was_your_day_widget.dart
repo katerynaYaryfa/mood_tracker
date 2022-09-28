@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/mood_icon_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class HowWasYourDayWidget extends StatefulWidget {
@@ -16,7 +17,7 @@ class HowWasYourDayWidget extends StatefulWidget {
 class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
   @override
   Widget build(BuildContext context) {
-    final mood = context.watch<NoteNotifier>().mood;
+    final mood = context.watch<NoteProvider>().mood;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -24,11 +25,11 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
         horizontal: 16.0,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFE),
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF738C93).withOpacity(0.03),
+            color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
             offset: const Offset(0, 0),
@@ -54,7 +55,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 ),
                 opacity: mood == Mood.crying || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
-                  context.read<NoteNotifier>().changeMood(Mood.crying);
+                  context.read<NoteProvider>().changeMood(Mood.crying);
                 },
               ),
               MoodIcon(
@@ -63,7 +64,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 ),
                 opacity: mood == Mood.veryBad || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
-                  context.read<NoteNotifier>().changeMood(Mood.veryBad);
+                  context.read<NoteProvider>().changeMood(Mood.veryBad);
                 },
               ),
               MoodIcon(
@@ -72,7 +73,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 ),
                 opacity: mood == Mood.bad || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
-                  context.read<NoteNotifier>().changeMood(Mood.bad);
+                  context.read<NoteProvider>().changeMood(Mood.bad);
                 },
               ),
               MoodIcon(
@@ -81,7 +82,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 ),
                 opacity: mood == Mood.normal || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
-                  context.read<NoteNotifier>().changeMood(Mood.normal);
+                  context.read<NoteProvider>().changeMood(Mood.normal);
                 },
               ),
               MoodIcon(
@@ -90,7 +91,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 ),
                 opacity: mood == Mood.good || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
-                  context.read<NoteNotifier>().changeMood(Mood.good);
+                  context.read<NoteProvider>().changeMood(Mood.good);
                 },
               ),
               MoodIcon(
@@ -99,7 +100,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 ),
                 opacity: mood == Mood.veryGood || mood == Mood.none ? 1.0 : 0.5,
                 onTap: () {
-                  context.read<NoteNotifier>().changeMood(Mood.veryGood);
+                  context.read<NoteProvider>().changeMood(Mood.veryGood);
                 },
               ),
             ],

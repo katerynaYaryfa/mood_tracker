@@ -6,6 +6,8 @@ import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_o
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddNewNoteScreen extends StatelessWidget {
@@ -13,25 +15,28 @@ class AddNewNoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final images = context.watch<NoteNotifier>().images;
+    final images = context.watch<NoteProvider>().images;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF6FAFB),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
-        backgroundColor: const Color(0xFFFF7562),
         onPressed: () {},
         child: Container(
           width: 100,
           height: 100,
           decoration: BoxDecoration(
-            color: Colors.transparent,
             borderRadius: const BorderRadius.all(
               Radius.circular(50),
             ),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFFFF7562).withOpacity(0.3),
+                color: context
+                        .watch<ThemeProvider>()
+                        .currentTheme
+                        .floatingActionButtonTheme
+                        .backgroundColor
+                        ?.withOpacity(0.3) ??
+                    AppColors.black,
                 spreadRadius: 7,
                 blurRadius: 10,
                 offset: const Offset(0, 0),
@@ -63,20 +68,17 @@ class AddNewNoteScreen extends StatelessWidget {
               ),
               child: SvgPicture.asset(
                 'images/settings.svg',
-                color: const Color(0xFFD1D4DE),
               ),
             ),
           )
         ],
-        title: const Text(
+        title: Text(
           'Monday, July 11',
-          style: TextStyle(
-            color: Colors.black,
-          ),
+          style:
+              context.watch<ThemeProvider>().currentTheme.textTheme.headline6,
         ),
-        backgroundColor: const Color(
-          0xFFF6FAFB,
-        ),
+        backgroundColor:
+            context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
