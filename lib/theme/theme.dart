@@ -8,7 +8,10 @@ ThemeData mainTheme = ThemeData(
   ),
   fontFamily: 'Quicksand',
   textTheme: const TextTheme(
-    bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
+    bodyText2: TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w500,
+    ),
     headline6: TextStyle(
       fontSize: 16,
       color: Colors.black,
@@ -25,7 +28,10 @@ ThemeData greenTheme = ThemeData(
   ),
   fontFamily: 'Quicksand',
   textTheme: const TextTheme(
-    bodyText2: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
+    bodyText2: TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w500,
+    ),
     headline6: TextStyle(
       fontSize: 16,
       color: Colors.black,
