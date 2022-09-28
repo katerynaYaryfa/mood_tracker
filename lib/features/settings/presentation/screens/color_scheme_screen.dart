@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
         leading: GestureDetector(
           child: const Icon(
             Icons.arrow_back,
-            color: Color(0xFFD1D4DE),
+            color: AppColors.grey,
           ),
           onTap: () {
             Navigator.pop(context);
@@ -27,7 +28,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
         title: const Text(
           'Color scheme',
           style: TextStyle(
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
         backgroundColor:
@@ -47,11 +48,11 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                 horizontal: 16.0,
               ),
               decoration: BoxDecoration(
-                color: const Color(0xFFFFFFFE),
+                color: AppColors.white,
                 borderRadius: BorderRadius.circular(16.0),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF738C93).withOpacity(0.03),
+                    color: AppColors.greyOpacity.withOpacity(0.03),
                     spreadRadius: 1,
                     blurRadius: 15,
                     offset: const Offset(0, 0),
@@ -80,11 +81,11 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                 horizontal: 16.0,
               ),
               decoration: BoxDecoration(
-                color: const Color(0xFFFFFFFE),
+                color: AppColors.white,
                 borderRadius: BorderRadius.circular(16.0),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF738C93).withOpacity(0.03),
+                    color: AppColors.greyOpacity.withOpacity(0.03),
                     spreadRadius: 1,
                     blurRadius: 15,
                     offset: const Offset(0, 0),
@@ -100,9 +101,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SpaceH24(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -134,7 +133,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF7FD6AB),
+                            color: AppColors.brightGreen,
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                         ),
@@ -151,7 +150,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFF7562),
+                            color: AppColors.red,
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                         ),

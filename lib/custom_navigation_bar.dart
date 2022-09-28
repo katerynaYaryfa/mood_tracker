@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
-import 'package:mood_tracker/features/settings_screen/presentation/screens/settings_screen.dart';
+import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +60,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                         .floatingActionButtonTheme
                         .backgroundColor
                         ?.withOpacity(0.3) ??
-                    Colors.black,
+                    AppColors.black,
                 spreadRadius: 7,
                 blurRadius: 10,
                 offset: const Offset(0, 0),
@@ -103,7 +104,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                             .watch<ThemeProvider>()
                             .currentTheme
                             .primaryColor
-                        : const Color(0xFFD1D4DE),
+                        : AppColors.grey,
                   ),
                 ),
                 InkWell(
@@ -117,7 +118,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                             .watch<ThemeProvider>()
                             .currentTheme
                             .primaryColor
-                        : const Color(0xFFD1D4DE),
+                        : AppColors.grey,
                   ),
                 ),
                 const SizedBox(
@@ -134,7 +135,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                             .watch<ThemeProvider>()
                             .currentTheme
                             .primaryColor
-                        : const Color(0xFFD1D4DE),
+                        : AppColors.grey,
                   ),
                 ),
                 InkWell(
@@ -148,7 +149,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                             .watch<ThemeProvider>()
                             .currentTheme
                             .primaryColor
-                        : const Color(0xFFD1D4DE),
+                        : AppColors.grey,
                   ),
                 ),
               ],

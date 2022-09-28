@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class PasswordInputField extends StatefulWidget {
@@ -29,8 +30,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 2.0,
-              color:
-                  wrongPin ? const Color(0xFFFF7562) : const Color(0xFF434343),
+              color: wrongPin ? AppColors.red : AppColors.darkGrey,
             ),
             shape: BoxShape.circle,
             color: _pinColor(1, wrongPin),
@@ -43,8 +43,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 2.0,
-              color:
-                  wrongPin ? const Color(0xFFFF7562) : const Color(0xFF434343),
+              color: wrongPin ? AppColors.red : AppColors.darkGrey,
             ),
             shape: BoxShape.circle,
             color: _pinColor(2, wrongPin),
@@ -57,8 +56,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 2.0,
-              color:
-                  wrongPin ? const Color(0xFFFF7562) : const Color(0xFF434343),
+              color: wrongPin ? AppColors.red : AppColors.darkGrey,
             ),
             shape: BoxShape.circle,
             color: _pinColor(3, wrongPin),
@@ -71,8 +69,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 2.0,
-              color:
-                  wrongPin ? const Color(0xFFFF7562) : const Color(0xFF434343),
+              color: wrongPin ? AppColors.red : AppColors.darkGrey,
             ),
             shape: BoxShape.circle,
             color: _pinColor(4, wrongPin),
@@ -84,13 +81,13 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
 
   Color _pinColor(int num, bool wrongPin) {
     if (wrongPin) {
-      return const Color(0xFFFF7562);
+      return AppColors.red;
     }
 
     if (widget.pin.length >= num) {
-      return const Color(0xFF434343);
+      return AppColors.darkGrey;
     } else {
-      return Colors.white;
+      return AppColors.white;
     }
   }
 }

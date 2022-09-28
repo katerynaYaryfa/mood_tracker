@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
-import 'package:mood_tracker/features/settings_screen/presentation/screens/settings_screen.dart';
+import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
+import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
 import 'package:mood_tracker/services/storage_service.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +49,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
         leading: GestureDetector(
           child: const Icon(
             Icons.arrow_back,
-            color: Color(0xFFD1D4DE),
+            color: AppColors.grey,
           ),
           onTap: () {
             Navigator.pop(context);
@@ -57,7 +58,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
         title: const Text(
           'Data Security',
           style: TextStyle(
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
         backgroundColor:
@@ -69,9 +70,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
         child: Column(
           children: [
             SettingsButtons(
-              child: DataSecurityButtons(
+              child: DataSecurityButton(
                 title: 'PIN-code',
-                color: Colors.white,
+                color: AppColors.white,
                 value: pinCodeEnabled,
                 onChanged: (bool value) async {
                   if (pinCodeEnabled) {
@@ -103,23 +104,23 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                     'images/pinCode.svg',
                     height: 24,
                     width: 24,
-                    color: const Color(0xFFD1D4DE),
+                    color: AppColors.grey,
                   ),
                 ),
               ),
             ),
             const SpaceH16(),
             SettingsButtons(
-              child: DataSecurityButtons(
+              child: DataSecurityButton(
                 title: 'Toch-ID',
-                color: Colors.white,
+                color: AppColors.white,
                 value: false,
                 onChanged: (bool value) async {},
                 child: IconButton(
                   onPressed: () {},
                   icon: SvgPicture.asset(
                     'images/touchID.svg',
-                    color: const Color(0xFFD1D4DE),
+                    color: AppColors.grey,
                     height: 24,
                     width: 24,
                   ),
@@ -128,9 +129,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
             ),
             const SpaceH16(),
             SettingsButtons(
-              child: DataSecurityButtons(
+              child: DataSecurityButton(
                 title: 'Face-ID',
-                color: Colors.white,
+                color: AppColors.white,
                 value: false,
                 onChanged: (bool value) async {
                   if (pinCodeEnabled) {
@@ -158,7 +159,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                   onPressed: () {},
                   icon: SvgPicture.asset(
                     'images/faceID.svg',
-                    color: const Color(0xFFD1D4DE),
+                    color: AppColors.grey,
                     height: 24,
                     width: 24,
                   ),
@@ -171,69 +172,6 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class DataSecurityButtons extends StatefulWidget {
-  const DataSecurityButtons(
-      {required this.title,
-      required this.color,
-      required this.value,
-      required this.onChanged,
-      required this.child,
-      Key? key})
-      : super(key: key);
-
-  final void Function(bool) onChanged;
-  final bool value;
-  final Color color;
-  final String title;
-  final Widget child;
-
-  @override
-  State<DataSecurityButtons> createState() => _DataSecurityButtonsState();
-}
-
-class _DataSecurityButtonsState extends State<DataSecurityButtons> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: widget.color,
-            borderRadius: BorderRadius.circular(
-              16.0,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF738C93).withOpacity(0.03),
-                spreadRadius: 1,
-                blurRadius: 15,
-                offset: const Offset(
-                  0,
-                  0,
-                ),
-              ),
-            ],
-          ),
-          child: widget.child,
-        ),
-        const SizedBox(
-          width: 12.0,
-        ),
-        Text(widget.title),
-        Expanded(
-          child: Container(),
-        ),
-        CupertinoSwitch(
-          value: widget.value,
-          onChanged: widget.onChanged,
-        ),
-      ],
     );
   }
 }

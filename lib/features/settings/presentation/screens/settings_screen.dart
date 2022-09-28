@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/features/settings_screen/presentation/screens/color_scheme_screen.dart';
-import 'package:mood_tracker/features/settings_screen/presentation/screens/data_security_screen.dart';
+import 'package:mood_tracker/features/settings/presentation/screens/color_scheme_screen.dart';
+import 'package:mood_tracker/features/settings/presentation/screens/data_security_screen.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: const Text(
           'Settings',
           style: TextStyle(
-            color: Colors.black,
+            color: AppColors.black,
           ),
         ),
         backgroundColor:
@@ -51,11 +52,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFB1D199),
+                        color: AppColors.green,
                         borderRadius: BorderRadius.circular(16.0),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF738C93).withOpacity(0.03),
+                            color: AppColors.greyOpacity.withOpacity(0.03),
                             spreadRadius: 1,
                             blurRadius: 15,
                             offset: const Offset(0, 0),
@@ -66,22 +67,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onPressed: () {},
                         icon: SvgPicture.asset(
                           'images/securityUnlockKey.svg',
-                          color: Colors.white,
+                          color: AppColors.white,
                           height: 24,
                           width: 24,
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 12.0,
-                    ),
-                    Text(
+                    const SpaceW12(),
+                    const Text(
                       'Data security',
-                      style: Theme.of(context).textTheme.bodyText2,
                     ),
-                    Expanded(
-                      child: Container(),
-                    ),
+                    const Spacer(),
                     CupertinoSwitch(
                       value: false,
                       onChanged: (bool value) {},
@@ -90,9 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 16,
-            ),
+            const SpaceH16(),
             SettingsButtons(
               child: Row(
                 children: [
@@ -100,11 +94,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF63B4FF),
+                      color: AppColors.blue,
                       borderRadius: BorderRadius.circular(16.0),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF738C93).withOpacity(0.03),
+                          color: AppColors.greyOpacity.withOpacity(0.03),
                           spreadRadius: 1,
                           blurRadius: 15,
                           offset: const Offset(0, 0),
@@ -115,22 +109,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onPressed: () {},
                       icon: SvgPicture.asset(
                         'images/language.svg',
-                        color: Colors.white,
+                        color: AppColors.white,
                         height: 24,
                         width: 24,
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 12.0,
-                  ),
+                  const SpaceW12(),
                   const Text('Language'),
                   Expanded(
                     child: Container(),
                   ),
                   SvgPicture.asset(
                     'images/arrowRight.svg',
-                    color: const Color(0xFFD1D4DE),
+                    color: AppColors.grey,
                   ),
                 ],
               ),
@@ -154,11 +146,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFF7562),
+                        color: AppColors.red,
                         borderRadius: BorderRadius.circular(16.0),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF738C93).withOpacity(0.03),
+                            color: AppColors.greyOpacity.withOpacity(0.03),
                             spreadRadius: 1,
                             blurRadius: 15,
                             offset: const Offset(0, 0),
@@ -169,15 +161,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onPressed: () {},
                         icon: SvgPicture.asset(
                           'images/scheme.svg',
-                          color: Colors.white,
+                          color: AppColors.white,
                           height: 24,
                           width: 24,
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 12.0,
-                    ),
+                    const SpaceW12(),
                     const Text(
                       'Color scheme',
                     ),
@@ -186,7 +176,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     SvgPicture.asset(
                       'images/arrowRight.svg',
-                      color: const Color(0xFFD1D4DE),
+                      color: AppColors.grey,
                     ),
                   ],
                 ),
@@ -200,11 +190,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF8AA4C),
+                      color: AppColors.orange,
                       borderRadius: BorderRadius.circular(16.0),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF738C93).withOpacity(0.03),
+                          color: AppColors.greyOpacity.withOpacity(0.03),
                           spreadRadius: 1,
                           blurRadius: 15,
                           offset: const Offset(0, 0),
@@ -215,15 +205,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onPressed: () {},
                       icon: SvgPicture.asset(
                         'images/calender.svg',
-                        color: Colors.white,
+                        color: AppColors.white,
                         height: 24,
                         width: 24,
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 12.0,
-                  ),
+                  const SpaceW12(),
                   const Text(
                     'Start of the week',
                   ),
@@ -232,7 +220,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   SvgPicture.asset(
                     'images/arrowRight.svg',
-                    color: const Color(0xFFD1D4DE),
+                    color: AppColors.grey,
                   ),
                 ],
               ),
@@ -245,11 +233,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFB1D199),
+                      color: AppColors.green,
                       borderRadius: BorderRadius.circular(16.0),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF738C93).withOpacity(0.03),
+                          color: AppColors.greyOpacity.withOpacity(0.03),
                           spreadRadius: 1,
                           blurRadius: 15,
                           offset: const Offset(0, 0),
@@ -260,21 +248,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onPressed: () {},
                       icon: SvgPicture.asset(
                         'images/bell.svg',
-                        color: Colors.white,
+                        color: AppColors.white,
                         height: 24,
                         width: 24,
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 12.0,
-                  ),
+                  const SpaceW12(),
                   const Text(
                     'Reminders',
                   ),
-                  Expanded(
-                    child: Container(),
-                  ),
+                  const Spacer(),
                   CupertinoSwitch(
                     value: false,
                     onChanged: (bool value) {},
@@ -282,7 +266,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            Expanded(child: Container())
           ],
         ),
       ),
@@ -290,6 +273,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 }
 
+// TODO(KY): extract to separate file
 class SettingsButtons extends StatelessWidget {
   const SettingsButtons({
     required this.child,
@@ -306,11 +290,11 @@ class SettingsButtons extends StatelessWidget {
         horizontal: 16.0,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFE),
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF738C93).withOpacity(0.03),
+            color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
             offset: const Offset(0, 0),

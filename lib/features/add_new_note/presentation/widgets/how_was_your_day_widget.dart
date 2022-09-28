@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/mood_icon_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class HowWasYourDayWidget extends StatefulWidget {
@@ -24,11 +25,11 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
         horizontal: 16.0,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFFFE),
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF738C93).withOpacity(0.03),
+            color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
             offset: const Offset(0, 0),

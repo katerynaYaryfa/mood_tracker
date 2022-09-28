@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class PinButtons extends StatefulWidget {
@@ -25,10 +26,10 @@ class _PinButtonsState extends State<PinButtons> {
         height: 80,
         width: 80,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           border: Border.all(
             width: 1.0,
-            color: const Color(0xFFF1F1F1),
+            color: AppColors.white2,
           ),
           borderRadius: BorderRadius.circular(100.0),
         ),

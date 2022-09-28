@@ -6,6 +6,7 @@ import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_o
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class AddNewNoteScreen extends StatelessWidget {
                         .floatingActionButtonTheme
                         .backgroundColor
                         ?.withOpacity(0.3) ??
-                    Colors.black,
+                    AppColors.black,
                 spreadRadius: 7,
                 blurRadius: 10,
                 offset: const Offset(0, 0),

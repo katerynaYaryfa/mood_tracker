@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
+import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/services/storage_service.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../../../settings_screen/presentation/screens/settings_screen.dart';
 
 class PinScreen extends StatefulWidget {
   const PinScreen({
@@ -61,7 +63,8 @@ class _PinScreenState extends State<PinScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF6FAFB),
+      backgroundColor:
+          context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -76,7 +79,7 @@ class _PinScreenState extends State<PinScreen> {
                 horizontal: 25,
               ),
               decoration: BoxDecoration(
-                color: const Color(0xFFB1D199),
+                color: AppColors.green,
                 borderRadius: BorderRadius.circular(32.0),
                 boxShadow: const [],
               ),
@@ -84,9 +87,7 @@ class _PinScreenState extends State<PinScreen> {
                 'images/lock.svg',
               ),
             ),
-            const SizedBox(
-              height: 32,
-            ),
+            const SpaceH32(),
             if (pin1.length != 4)
               const Text(
                 'Create your PIN-code',
@@ -103,9 +104,7 @@ class _PinScreenState extends State<PinScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            const SizedBox(
-              height: 24,
-            ),
+            const SpaceH24(),
             if (pin1.length != 4) PasswordInputField(pin: pin1),
             if (pin1.length == 4) PasswordInputField(pin: pin2),
             if (wrongPin)
@@ -117,7 +116,7 @@ class _PinScreenState extends State<PinScreen> {
                   child: Text(
                     '',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontSize: 16,
                     ),
                   ),
@@ -126,78 +125,56 @@ class _PinScreenState extends State<PinScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
-                SizedBox(
-                  width: 36.0,
-                ),
+                SpaceW36(),
                 PinButtons(
                   title: '1',
                 ),
-                SizedBox(
-                  width: 24.0,
-                ),
+                SpaceW24(),
                 PinButtons(
                   title: '2',
                 ),
-                SizedBox(
-                  width: 24.0,
-                ),
+                SpaceW24(),
                 PinButtons(
                   title: '3',
                 ),
-                SizedBox(
-                  width: 36.0,
-                ),
+                SpaceW36(),
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SpaceH30(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 PinButtons(
                   title: '4',
                 ),
-                SizedBox(
-                  width: 24.0,
-                ),
+                SpaceW24(),
                 PinButtons(
                   title: '5',
                 ),
-                SizedBox(
-                  width: 24.0,
-                ),
+                SpaceW24(),
                 PinButtons(
                   title: '6',
                 ),
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SpaceH30(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 PinButtons(
                   title: '7',
                 ),
-                SizedBox(
-                  width: 24.0,
-                ),
+                SpaceW24(),
                 PinButtons(
                   title: '8',
                 ),
-                SizedBox(
-                  width: 24.0,
-                ),
+                SpaceW24(),
                 PinButtons(
                   title: '9',
                 ),
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SpaceH30(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -209,10 +186,10 @@ class _PinScreenState extends State<PinScreen> {
                     height: 80,
                     width: 80,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.white,
                       border: Border.all(
                         width: 1.0,
-                        color: const Color(0xFFF1F1F1),
+                        color: AppColors.white2,
                       ),
                       borderRadius: BorderRadius.circular(100.0),
                     ),
@@ -221,15 +198,11 @@ class _PinScreenState extends State<PinScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 24.0,
-                ),
+                const SpaceW24(),
                 const PinButtons(
                   title: '0',
                 ),
-                const SizedBox(
-                  width: 24.0,
-                ),
+                const SpaceW24(),
                 InkWell(
                   onTap: () {
                     context.read<PinProvider>().deleteLastIndex();
@@ -238,10 +211,10 @@ class _PinScreenState extends State<PinScreen> {
                     height: 80,
                     width: 80,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.white,
                       border: Border.all(
                         width: 1.0,
-                        color: const Color(0xFFF1F1F1),
+                        color: AppColors.white2,
                       ),
                       borderRadius: BorderRadius.circular(100.0),
                     ),
@@ -258,9 +231,10 @@ class _PinScreenState extends State<PinScreen> {
             const Text(
               'This keeps your data private',
               style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.normal,
-                  color: Color(0xFFBAC0D0)),
+                fontSize: 14.0,
+                fontWeight: FontWeight.normal,
+                color: AppColors.grey2,
+              ),
             ),
           ],
         ),

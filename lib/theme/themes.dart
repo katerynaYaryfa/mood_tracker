@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 
 ThemeData mainTheme = ThemeData(
-  primaryColor: const Color(0xFFFF7562),
-  scaffoldBackgroundColor: const Color(0xFFF6FAFB),
+  primaryColor: AppColors.red,
+  scaffoldBackgroundColor: AppColors.darkWhite,
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    backgroundColor: Color(0xFFFF7562),
+    backgroundColor: AppColors.red,
   ),
   fontFamily: 'Quicksand',
   textTheme: const TextTheme(
@@ -14,17 +15,17 @@ ThemeData mainTheme = ThemeData(
     ),
     headline6: TextStyle(
       fontSize: 16,
-      color: Colors.black,
+      color: AppColors.black,
       fontFamily: 'Quicksand',
     ),
   ),
 );
 
 ThemeData greenTheme = ThemeData(
-  primaryColor: const Color(0xFF7FD6AB),
-  scaffoldBackgroundColor: const Color(0xFFFFF3E0),
+  primaryColor: AppColors.brightGreen,
+  scaffoldBackgroundColor: AppColors.lightOrange,
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    backgroundColor: Color(0xFF7FD6AB),
+    backgroundColor: AppColors.brightGreen,
   ),
   fontFamily: 'Quicksand',
   textTheme: const TextTheme(
@@ -34,7 +35,7 @@ ThemeData greenTheme = ThemeData(
     ),
     headline6: TextStyle(
       fontSize: 16,
-      color: Colors.black,
+      color: AppColors.black,
       fontFamily: 'Quicksand',
     ),
   ),
