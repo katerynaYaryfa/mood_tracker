@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/features/settings_screen/data_security_screen.dart';
+import 'package:mood_tracker/features/settings_screen/presentation/screens/color_scheme_screen.dart';
+import 'package:mood_tracker/features/settings_screen/presentation/screens/data_security_screen.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -22,11 +25,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Colors.black,
           ),
         ),
-        backgroundColor: const Color(0xFFF6FAFB),
+        backgroundColor:
+            context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),
-      backgroundColor: const Color(0xFFF6FAFB),
       body: Center(
         child: Column(
           children: [
@@ -59,12 +62,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                         ],
                       ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          'images/securityUnlockKey.svg',
+                          color: Colors.white,
+                          height: 24,
+                          width: 24,
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       width: 12.0,
                     ),
-                    const Text(
+                    Text(
                       'Data security',
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                     Expanded(
                       child: Container(),
@@ -98,6 +111,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ],
                     ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(
+                        'images/language.svg',
+                        color: Colors.white,
+                        height: 24,
+                        width: 24,
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     width: 12.0,
@@ -114,39 +136,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             const SpaceH16(),
-            SettingsButtons(
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFF7562),
-                      borderRadius: BorderRadius.circular(16.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF738C93).withOpacity(0.03),
-                          spreadRadius: 1,
-                          blurRadius: 15,
-                          offset: const Offset(0, 0),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const ColorSchemeScreen();
+                    },
+                  ),
+                );
+              },
+              child: SettingsButtons(
+                child: Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFF7562),
+                        borderRadius: BorderRadius.circular(16.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF738C93).withOpacity(0.03),
+                            spreadRadius: 1,
+                            blurRadius: 15,
+                            offset: const Offset(0, 0),
+                          ),
+                        ],
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: SvgPicture.asset(
+                          'images/scheme.svg',
+                          color: Colors.white,
+                          height: 24,
+                          width: 24,
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 12.0,
-                  ),
-                  const Text(
-                    'Color scheme',
-                  ),
-                  Expanded(
-                    child: Container(),
-                  ),
-                  SvgPicture.asset(
-                    'images/arrowRight.svg',
-                    color: const Color(0xFFD1D4DE),
-                  ),
-                ],
+                    const SizedBox(
+                      width: 12.0,
+                    ),
+                    const Text(
+                      'Color scheme',
+                    ),
+                    Expanded(
+                      child: Container(),
+                    ),
+                    SvgPicture.asset(
+                      'images/arrowRight.svg',
+                      color: const Color(0xFFD1D4DE),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SpaceH16(),
@@ -167,6 +210,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           offset: const Offset(0, 0),
                         ),
                       ],
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(
+                        'images/calender.svg',
+                        color: Colors.white,
+                        height: 24,
+                        width: 24,
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -204,6 +256,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ],
                     ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: SvgPicture.asset(
+                        'images/bell.svg',
+                        color: Colors.white,
+                        height: 24,
+                        width: 24,
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     width: 12.0,
@@ -221,9 +282,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 180,
-            ),
+            Expanded(child: Container())
           ],
         ),
       ),
@@ -242,9 +301,10 @@ class SettingsButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
-      height: 72,
-      width: 328,
+      padding: const EdgeInsets.all(11),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+      ),
       decoration: BoxDecoration(
         color: const Color(0xFFFFFFFE),
         borderRadius: BorderRadius.circular(16.0),
