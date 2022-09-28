@@ -55,7 +55,7 @@ class PhotoOfTheDayWidget extends StatelessWidget {
               if (images.isNotEmpty && images.length < 3)
                 InkWell(
                   onTap: () {
-                    context.read<NoteNotifier>().pickImage();
+                    context.read<NoteProvider>().pickImage();
                   },
                   child: SvgPicture.asset(
                     'images/addNewImage.svg',

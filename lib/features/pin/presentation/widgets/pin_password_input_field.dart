@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/features/pin_screen/provider/pin_notifier.dart';
+import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:provider/provider.dart';
 
 class PasswordInputField extends StatefulWidget {
@@ -18,7 +18,7 @@ class PasswordInputField extends StatefulWidget {
 class _PasswordInputFieldState extends State<PasswordInputField> {
   @override
   Widget build(BuildContext context) {
-    bool wrongPin = context.watch<PinNotifier>().wrongPin;
+    bool wrongPin = context.watch<PinProvider>().wrongPin;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +36,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             color: _pinColor(1, wrongPin),
           ),
         ),
-        const SpaceH16(),
+        const SpaceW16(),
         Container(
           width: 15,
           height: 15,
@@ -50,7 +50,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             color: _pinColor(2, wrongPin),
           ),
         ),
-        const SpaceH16(),
+        const SpaceW16(),
         Container(
           width: 15,
           height: 15,
@@ -64,7 +64,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             color: _pinColor(3, wrongPin),
           ),
         ),
-        const SpaceH16(),
+        const SpaceW16(),
         Container(
           width: 15,
           height: 15,

@@ -17,7 +17,7 @@ class EmptyPhotoOfTheDayWidget extends StatelessWidget {
             aspectRatio: 1,
             child: InkWell(
               onTap: () {
-                context.read<NoteNotifier>().pickImage();
+                context.read<NoteProvider>().pickImage();
               },
               child: Container(
                 decoration: BoxDecoration(

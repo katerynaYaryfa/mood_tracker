@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 
-class PinNotifier with ChangeNotifier {
+class PinProvider with ChangeNotifier {
   bool isPressed = false;
   String pin1 = '';
   String pin2 = '';

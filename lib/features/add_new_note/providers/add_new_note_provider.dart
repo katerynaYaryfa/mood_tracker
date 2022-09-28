@@ -13,7 +13,7 @@ enum Mood {
   veryGood,
 }
 
-class NoteNotifier with ChangeNotifier {
+class NoteProvider with ChangeNotifier {
   List<File> images = [];
   Mood mood = Mood.none;
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/features/pin_screen/pin_buttons.dart';
-import 'package:mood_tracker/features/pin_screen/pin_password_input_field.dart';
-import 'package:mood_tracker/features/pin_screen/provider/pin_notifier.dart';
+import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart';
+import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
+import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 import 'package:provider/provider.dart';
 
-import '../settings_screen/settings_screen.dart';
+import '../../../settings_screen/presentation/screens/settings_screen.dart';
 
 class PinScreen extends StatefulWidget {
   const PinScreen({
@@ -25,7 +25,7 @@ class _PinScreenState extends State<PinScreen> {
   void initState() {
     super.initState();
 
-    context.read<PinNotifier>().clearState();
+    context.read<PinProvider>().clearState();
 
     if (widget.deletePin == true) {
       var storage = StorageService();
@@ -39,9 +39,9 @@ class _PinScreenState extends State<PinScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final pin1 = context.watch<PinNotifier>().pin1;
-    final pin2 = context.watch<PinNotifier>().pin2;
-    var wrongPin = context.watch<PinNotifier>().wrongPin;
+    final pin1 = context.watch<PinProvider>().pin1;
+    final pin2 = context.watch<PinProvider>().pin2;
+    var wrongPin = context.watch<PinProvider>().wrongPin;
 
     if (pin2.length == 4 && pin1 == pin2) {
       var storage = StorageService();
@@ -232,7 +232,7 @@ class _PinScreenState extends State<PinScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    context.read<PinNotifier>().deleteLastIndex();
+                    context.read<PinProvider>().deleteLastIndex();
                   },
                   child: Container(
                     height: 80,

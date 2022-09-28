@@ -15,7 +15,7 @@ class AddNewImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final images = context.watch<NoteNotifier>().images;
+    final images = context.watch<NoteProvider>().images;
 
     return Expanded(
       child: AspectRatio(
@@ -36,7 +36,7 @@ class AddNewImage extends StatelessWidget {
               left: images.length > 1 ? 8 : 16,
               child: InkWell(
                 onTap: () {
-                  context.read<NoteNotifier>().deleteImage(image);
+                  context.read<NoteProvider>().deleteImage(image);
                 },
                 child: SvgPicture.asset(
                   'images/trash.svg',
