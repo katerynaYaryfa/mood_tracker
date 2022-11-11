@@ -6,6 +6,8 @@ import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'features/calendar/presentation/screens/calendar.dart';
+
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({Key? key}) : super(key: key);
 
@@ -17,20 +19,17 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   int selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Calendar',
-      style: optionStyle,
-    ),
-    Text(
+  static final List<Widget> _widgetOptions = <Widget>[
+    const Calendar(),
+    const Text(
       'Index 1: Server',
       style: optionStyle,
     ),
-    Text(
+    const Text(
       'Index 2: BarGraph',
       style: optionStyle,
     ),
-    SettingsScreen(),
+    const SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {

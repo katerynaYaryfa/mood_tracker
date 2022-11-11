@@ -23,7 +23,7 @@ class EmptyPhotoOfTheDayWidget extends StatelessWidget {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.darkWhite,
+                  color: AppColors.scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Column(

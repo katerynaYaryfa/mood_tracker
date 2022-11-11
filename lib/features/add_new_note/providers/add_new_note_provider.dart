@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 enum Mood {
   none,
@@ -16,6 +17,17 @@ enum Mood {
 class NoteProvider with ChangeNotifier {
   List<File> images = [];
   Mood mood = Mood.none;
+
+  void year() {
+    List yearsList = [];
+
+    DateFormat dateFormat = DateFormat("yyyy");
+    String stringYear = dateFormat.format(DateTime.now());
+    int intYear = int.parse(stringYear);
+    for (intYear; intYear > 1999; intYear--) {
+      yearsList.add(intYear);
+    }
+  }
 
   void deleteImage(image) {
     images.remove(image);

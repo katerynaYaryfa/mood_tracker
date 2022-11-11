@@ -61,7 +61,7 @@ class DayInOneSentenceWidget extends StatelessWidget {
               isDense: true,
               filled: true,
               isCollapsed: true,
-              fillColor: AppColors.darkWhite,
+              fillColor: AppColors.scaffoldBackgroundColor,
               labelText: 'Enter your thoughts',
               floatingLabelBehavior: FloatingLabelBehavior.never,
               labelStyle: TextStyle(

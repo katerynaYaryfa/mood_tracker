@@ -3,7 +3,7 @@ import 'package:mood_tracker/theme/app_colors.dart';
 
 ThemeData mainTheme = ThemeData(
   primaryColor: AppColors.red,
-  scaffoldBackgroundColor: AppColors.darkWhite,
+  scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: AppColors.red,
   ),
