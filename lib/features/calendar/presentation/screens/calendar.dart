@@ -6,7 +6,7 @@ import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/day_decorate_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/next_day_decorate_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/today_decorate_widget.dart';
-import 'package:mood_tracker/share_screenshot.dart';
+import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,83 +17,36 @@ class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
 
   @override
-  _CalendarState createState() => _CalendarState();
+  CalendarState createState() => CalendarState();
 }
 
-class _CalendarState extends State<Calendar> {
-  String newMonth = '';
-  String newYear = '';
-  String monthYearDate = '';
-  bool okButtonPressed = false;
-
-  int yearIndex = 0;
-  List<String> yearList = [];
-
-  void year() {
-    DateFormat dateFormat = DateFormat("yyyy");
-    String stringYear = dateFormat.format(DateTime.now());
-    int intYear = int.parse(stringYear);
-    int firstYear = 1999;
-
-    for (intYear; intYear + 1 > firstYear; firstYear++) {
-      yearList.add(firstYear.toString());
-    }
-
-    setState(() {});
-  }
-
-  int monthIndex = 0;
-  String selectedMonth = '';
-
-  List<String> monthList = const [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-
-  DateTime currentDay = DateTime.now();
-
-  DateTime? _selectedDay;
-  final controller = ScreenshotController();
+class CalendarState extends State<Calendar> {
+  int monthIndex1 = 0;
+  int yearIndex1 = 0;
 
   CalendarBuilders builders(BuildContext context) {
     return CalendarBuilders<dynamic>(
       selectedBuilder: (_, day, __) {
         return DayDecorate(day: day);
       },
-
       disabledBuilder: (_, day, __) {
         return NextDayDecorate(day: day);
       },
-
       todayBuilder: (_, day, focusedDay) {
         return TodayDecorate(context: context, day: day);
       },
-
       defaultBuilder: (_, day, __) {
         return DayDecorate(day: day);
       },
-
-      // outsideBuilder: (_, day, __) {
-      //   return dayDecorate(day);
-      // },
     );
   }
-  //
 
   @override
   void initState() {
     super.initState();
-    year();
+    Future.delayed(Duration.zero, () {
+      context.read<CalendarProvider>().year();
+    });
   }
 
   @override
@@ -103,6 +56,12 @@ class _CalendarState extends State<Calendar> {
     String formattedDate = DateFormat.yMMMM().format(dateNow);
     DateTime firstDay = DateTime.utc(2020, 3, 14);
     DateTime lastDay = DateTime.now();
+
+    final controller = context.watch<CalendarProvider>().controller;
+    String monthYearDate = context.watch<CalendarProvider>().monthYearDate;
+    final yearList = context.watch<CalendarProvider>().yearList;
+    final selectedDay = context.watch<CalendarProvider>().selectedDay;
+    final monthList = context.watch<CalendarProvider>().monthList;
 
     return Screenshot(
       controller: controller,
@@ -176,39 +135,33 @@ class _CalendarState extends State<Calendar> {
                                                   const SizedBox(),
                                               itemExtent: 48,
                                               // magnification: 1.5,
-                                              onSelectedItemChanged: (index) =>
-                                                  setState1(() {
-                                                setState(() {});
-
-                                                monthYearDate =
-                                                    '$newMonth $newYear';
-                                                // newDate =
-                                                //     DateFormat("MMMM yyyy")
-                                                //         .parse(monthYearDate);
-
-                                                monthIndex = index;
-                                              }),
+                                              onSelectedItemChanged: (index) {
+                                                context
+                                                    .read<CalendarProvider>()
+                                                    .changeMonthDate(index);
+                                                monthIndex1 = index;
+                                                setState1(() {});
+                                              },
                                               children: List<Widget>.generate(
-                                                  monthList.length,
-                                                  (int index) {
-                                                final isSelected =
-                                                    monthIndex == index;
-                                                final weight = isSelected
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal;
+                                                monthList.length,
+                                                (int index) {
+                                                  final isSelected =
+                                                      monthIndex1 == index;
+                                                  final weight = isSelected
+                                                      ? FontWeight.bold
+                                                      : FontWeight.normal;
 
-                                                newMonth =
-                                                    monthList[monthIndex];
-
-                                                return Center(
-                                                  child: Text(
-                                                    monthList[index],
-                                                    style: TextStyle(
+                                                  return Center(
+                                                    child: Text(
+                                                      monthList[index],
+                                                      style: TextStyle(
                                                         fontSize: 20,
-                                                        fontWeight: weight),
-                                                  ),
-                                                );
-                                              }),
+                                                        fontWeight: weight,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -222,33 +175,29 @@ class _CalendarState extends State<Calendar> {
                                               selectionOverlay:
                                                   const SizedBox(),
                                               itemExtent: 48,
-                                              // magnification: 1.5,
-                                              onSelectedItemChanged: (index) =>
-                                                  setState1(() {
-                                                setState(() {});
-                                                newYear = yearList[index];
-                                                monthYearDate =
-                                                    '$newMonth $newYear';
-                                                yearIndex = index;
-                                                // newDate =
-                                                //     DateFormat("MMMM yyyy")
-                                                //         .parse(monthYearDate);
-                                              }),
+                                              onSelectedItemChanged: (index) {
+                                                context
+                                                    .read<CalendarProvider>()
+                                                    .changeYearDate(index);
+
+                                                yearIndex1 = index;
+                                                setState1(() {});
+                                              },
                                               children: List<Widget>.generate(
                                                   yearList.length, (int index) {
                                                 final isSelected =
-                                                    yearIndex == index;
+                                                    yearIndex1 == index;
                                                 final weight = isSelected
                                                     ? FontWeight.bold
                                                     : FontWeight.normal;
-                                                // newYear = yearList[index];
 
                                                 return Center(
                                                   child: Text(
                                                     yearList[index],
                                                     style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight: weight),
+                                                      fontSize: 20,
+                                                      fontWeight: weight,
+                                                    ),
                                                   ),
                                                 );
                                               }),
@@ -300,10 +249,9 @@ class _CalendarState extends State<Calendar> {
                                         const SpaceW24(),
                                         InkWell(
                                           onTap: () {
-                                            setState(() {
-                                              okButtonPressed = true;
-                                            });
-                                            Navigator.pop(context);
+                                            context
+                                                .read<CalendarProvider>()
+                                                .buttonPressed(context);
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
@@ -343,7 +291,7 @@ class _CalendarState extends State<Calendar> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          okButtonPressed == true
+                          monthYearDate.isNotEmpty
                               ? monthYearDate
                               : formattedDate,
                           style: const TextStyle(
@@ -366,19 +314,7 @@ class _CalendarState extends State<Calendar> {
                   Padding(
                     padding: const EdgeInsets.only(right: 16),
                     child: InkWell(
-                      onTap: () async {
-                        final imageScreenshot = await controller.capture();
-                        if (imageScreenshot == null) return;
-                        // await Share.shareXFiles([imageScreenshot.path]);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const ShareScreenshot();
-                            },
-                          ),
-                        );
-                      },
+                      onTap: () {},
                       child: SvgPicture.asset(
                         'images/share.svg',
                         height: 24,
@@ -391,7 +327,6 @@ class _CalendarState extends State<Calendar> {
               ),
             )
           ],
-          //TODO: title стоит не четко по центру и кнопка не работает
           bottomOpacity: 0.0,
           elevation: 0.0,
           backgroundColor: context
@@ -408,14 +343,11 @@ class _CalendarState extends State<Calendar> {
           headerVisible: false,
           calendarBuilders: builders(context),
           calendarStyle: CalendarStyle(
-              // cellMargin: EdgeInsets.all(30),
-              // cellPadding: EdgeInsets.all(40),
               defaultDecoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
               ),
               outsideDaysVisible: false,
-              // markerMargin: const EdgeInsets.all(50.0),
               todayDecoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: context.watch<ThemeProvider>().currentTheme.primaryColor,
@@ -428,13 +360,12 @@ class _CalendarState extends State<Calendar> {
                 color: AppColors.white,
               )),
           selectedDayPredicate: (day) {
-            return isSameDay(_selectedDay, day);
+            return isSameDay(selectedDay, day);
           },
           onDaySelected: (selectedDay, focusedDay) {
-            if (!isSameDay(_selectedDay, selectedDay)) {
-              // Call `setState()` when updating the selected day
+            if (!isSameDay(selectedDay, selectedDay)) {
               setState(() {
-                _selectedDay = selectedDay;
+                selectedDay = selectedDay;
                 focusedDay = focusedDay;
               });
             }

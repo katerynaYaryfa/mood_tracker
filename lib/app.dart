@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/custom_navigation_bar.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,9 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
+        ),
+        ChangeNotifierProvider<CalendarProvider>(
+          create: (_) => CalendarProvider(),
         )
       ],
       child: const CustomNavigationBar(),
