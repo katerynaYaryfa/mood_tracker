@@ -33,9 +33,6 @@ class DayDecorate extends StatelessWidget {
               shape: BoxShape.circle,
               color: AppColors.greyWhite2,
             ),
-            // child: SvgPicture.asset(
-            //   'images/lastDays1.svg',
-            // ),
           ),
         ],
       ),

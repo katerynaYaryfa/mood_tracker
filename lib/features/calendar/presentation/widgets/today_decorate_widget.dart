@@ -52,9 +52,6 @@ class TodayDecorate extends StatelessWidget {
               'images/face1.png',
             ),
           ),
-          // SizedBox(
-          //   height: 1,
-          // )
         ],
       ),
     );

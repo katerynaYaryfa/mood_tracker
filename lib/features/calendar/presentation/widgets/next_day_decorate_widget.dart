@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 
 class NextDayDecorate extends StatelessWidget {
@@ -23,9 +24,7 @@ class NextDayDecorate extends StatelessWidget {
               fontSize: 12,
             ),
           ),
-          const SizedBox(
-            height: 4,
-          ),
+          const SpaceH4(),
           Container(
             width: 40,
             height: 40,
