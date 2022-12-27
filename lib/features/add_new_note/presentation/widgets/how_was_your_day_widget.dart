@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/app_text_styles.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/mood_icon_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
@@ -38,13 +39,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
       ),
       child: Column(
         children: [
-          const Text(
-            'How was your day?',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          const Text('How was your day?', style: s16WBoldCBlack),
           const SpaceH16(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

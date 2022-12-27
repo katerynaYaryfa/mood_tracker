@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mood_tracker/app_text_styles.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
@@ -45,6 +46,9 @@ class _PinScreenState extends State<PinScreen> {
     final pin2 = context.watch<PinProvider>().pin2;
     var wrongPin = context.watch<PinProvider>().wrongPin;
 
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+
     if (pin2.length == 4 && pin1 == pin2) {
       var storage = StorageService();
       storage.write(
@@ -63,8 +67,7 @@ class _PinScreenState extends State<PinScreen> {
     }
 
     return Scaffold(
-      backgroundColor:
-          context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
+      backgroundColor: scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -89,21 +92,9 @@ class _PinScreenState extends State<PinScreen> {
             ),
             const SpaceH32(),
             if (pin1.length != 4)
-              const Text(
-                'Create your PIN-code',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              const Text('Create your PIN-code', style: s16WBoldCBlack),
             if (pin1.length == 4)
-              const Text(
-                'Enter your PIN-code',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              const Text('Enter your PIN-code', style: s16WBoldCBlack),
             const SpaceH24(),
             if (pin1.length != 4) PasswordInputField(pin: pin1),
             if (pin1.length == 4) PasswordInputField(pin: pin2),
@@ -228,14 +219,7 @@ class _PinScreenState extends State<PinScreen> {
             Expanded(
               child: Container(),
             ),
-            const Text(
-              'This keeps your data private',
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.normal,
-                color: AppColors.grey2,
-              ),
-            ),
+            const Text('This keeps your data private', style: s14WNormalCGrey2),
           ],
         ),
       ),
@@ -253,14 +237,7 @@ class PinsDontMatch extends StatelessWidget {
     return const SizedBox(
       height: 80,
       child: Center(
-        child: Text(
-          'Pin\'s don\'t match',
-          style: TextStyle(
-            color: Colors.red,
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-          ),
-        ),
+        child: Text('Pin\'s don\'t match', style: s16W600CRed),
       ),
     );
   }

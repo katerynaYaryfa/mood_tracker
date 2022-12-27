@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
-import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
+import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -44,6 +44,8 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -61,8 +63,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
             color: AppColors.black,
           ),
         ),
-        backgroundColor:
-            context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
+        backgroundColor: scaffoldBackgroundColor,
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),

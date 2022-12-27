@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/app_text_styles.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 
-class DayDecorate extends StatelessWidget {
-  const DayDecorate({
+class DefaultCalendarItemWidget extends StatelessWidget {
+  const DefaultCalendarItemWidget({
     Key? key,
     required this.day,
   }) : super(key: key);
@@ -17,14 +18,7 @@ class DayDecorate extends StatelessWidget {
       width: 40,
       child: Column(
         children: [
-          Text(
-            '${day.day}',
-            style: const TextStyle(
-              color: AppColors.grey2,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
+          Text('${day.day}', style: s12WBoldCGrey2),
           const SpaceH4(),
           Container(
             width: 40,

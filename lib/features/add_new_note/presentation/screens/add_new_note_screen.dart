@@ -16,6 +16,13 @@ class AddNewNoteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final images = context.watch<NoteProvider>().images;
+    final backgroundColor = context
+        .watch<ThemeProvider>()
+        .currentTheme
+        .floatingActionButtonTheme
+        .backgroundColor;
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -30,13 +37,7 @@ class AddNewNoteScreen extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color: context
-                        .watch<ThemeProvider>()
-                        .currentTheme
-                        .floatingActionButtonTheme
-                        .backgroundColor
-                        ?.withOpacity(0.3) ??
-                    AppColors.black,
+                color: backgroundColor?.withOpacity(0.3) ?? AppColors.black,
                 spreadRadius: 7,
                 blurRadius: 10,
                 offset: const Offset(0, 0),
@@ -77,8 +78,7 @@ class AddNewNoteScreen extends StatelessWidget {
           style:
               context.watch<ThemeProvider>().currentTheme.textTheme.headline6,
         ),
-        backgroundColor:
-            context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
+        backgroundColor: scaffoldBackgroundColor,
         bottomOpacity: 0.0,
         elevation: 0.0,
       ),

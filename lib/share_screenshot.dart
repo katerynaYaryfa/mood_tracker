@@ -8,12 +8,13 @@ class ShareScreenshot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+
     return Scaffold(
-      backgroundColor:
-          context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
+      backgroundColor: scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor:
-            context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
+        backgroundColor: scaffoldBackgroundColor,
         bottomOpacity: 0.0,
         elevation: 0.0,
         title: const Text(
