@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/app_text_styles.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +34,10 @@ class TodayCalendarItemWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('${day.day}', style: s12WBoldCWhite),
+          Text(
+            '${day.day}',
+            style: s12WBoldCWhite,
+          ),
           const Image(
             height: 34,
             width: 34,

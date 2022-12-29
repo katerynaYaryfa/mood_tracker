@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/app_text_styles.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/default_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/disabled_calendar_item_widget.dart';
@@ -10,6 +9,7 @@ import 'package:mood_tracker/features/calendar/presentation/widgets/today_calend
 import 'package:mood_tracker/features/calendar/presentation/widgets/year_picker_widget.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -24,12 +24,11 @@ class CalendarScreen extends StatefulWidget {
 class CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
-    final dateNow = context.watch<CalendarProvider>().dateNow;
+    final todayDate = context.watch<CalendarProvider>().todayDate;
     final firstDay = context.read<CalendarProvider>().firstDay;
-    final formattedDate = context.watch<CalendarProvider>().formattedDate;
-
-    String monthYearDate = context.watch<CalendarProvider>().monthYearDate;
-    final selectedDay = context.watch<CalendarProvider>().selectedDay;
+    final formattedTodayDate =
+        context.watch<CalendarProvider>().formattedTodayDate;
+    final monthYearDate = context.watch<CalendarProvider>().monthYearDate;
     final primaryColor =
         context.watch<ThemeProvider>().currentTheme.primaryColor;
     final scaffoldBackgroundColor =
@@ -57,7 +56,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                       Text(
                         monthYearDate.isNotEmpty
                             ? monthYearDate
-                            : formattedDate,
+                            : formattedTodayDate,
                         style: const TextStyle(
                           color: AppColors.black,
                         ),
@@ -95,10 +94,10 @@ class CalendarScreenState extends State<CalendarScreen> {
       body: TableCalendar(
         rowHeight: 88,
         firstDay: firstDay,
-        lastDay: dateNow,
+        lastDay: todayDate,
         focusedDay: monthYearDate.isNotEmpty
             ? DateTime.parse(numsMonthYearDate)
-            : dateNow,
+            : todayDate,
         calendarFormat: CalendarFormat.month,
         headerVisible: false,
         calendarBuilders: _builders(context),
@@ -119,9 +118,6 @@ class CalendarScreenState extends State<CalendarScreen> {
             todayTextStyle: const TextStyle(
               color: AppColors.white,
             )),
-        selectedDayPredicate: (day) {
-          return isSameDay(selectedDay, day);
-        },
         onDaySelected: (selectedDay, focusedDay) {
           if (!isSameDay(selectedDay, selectedDay)) {
             setState(() {

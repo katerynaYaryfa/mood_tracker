@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/app_text_styles.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -62,7 +62,10 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
               ),
               child: Column(
                 children: const [
-                  Text('Select your Mood Pal', style: s16WBoldCBlack),
+                  Text(
+                    'Select your Mood Pal',
+                    style: s16WBoldCBlack,
+                  ),
                   SizedBox(
                     height: 100,
                   )
@@ -89,7 +92,10 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
               ),
               child: Column(
                 children: [
-                  const Text('Select color scheme', style: s16WBoldCBlack),
+                  const Text(
+                    'Select color scheme',
+                    style: s16WBoldCBlack,
+                  ),
                   const SpaceH24(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

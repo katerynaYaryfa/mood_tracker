@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mood_tracker/app_text_styles.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 
 const _maxCharacterLength = 2000;
 
@@ -33,7 +33,10 @@ class DayInOneSentenceWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Day in one sentence', style: s16WBoldCBlack),
+          const Text(
+            'Day in one sentence',
+            style: s16WBoldCBlack,
+          ),
           const SpaceH16(),
           TextField(
             keyboardType: TextInputType.multiline,

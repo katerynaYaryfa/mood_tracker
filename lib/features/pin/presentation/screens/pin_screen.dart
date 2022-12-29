@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/app_text_styles.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
@@ -8,6 +7,7 @@ import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -92,9 +92,15 @@ class _PinScreenState extends State<PinScreen> {
             ),
             const SpaceH32(),
             if (pin1.length != 4)
-              const Text('Create your PIN-code', style: s16WBoldCBlack),
+              const Text(
+                'Create your PIN-code',
+                style: s16WBoldCBlack,
+              ),
             if (pin1.length == 4)
-              const Text('Enter your PIN-code', style: s16WBoldCBlack),
+              const Text(
+                'Enter your PIN-code',
+                style: s16WBoldCBlack,
+              ),
             const SpaceH24(),
             if (pin1.length != 4) PasswordInputField(pin: pin1),
             if (pin1.length == 4) PasswordInputField(pin: pin2),
@@ -219,7 +225,10 @@ class _PinScreenState extends State<PinScreen> {
             Expanded(
               child: Container(),
             ),
-            const Text('This keeps your data private', style: s14WNormalCGrey2),
+            const Text(
+              'This keeps your data private',
+              style: s14WNormalCGrey2,
+            ),
           ],
         ),
       ),
@@ -237,7 +246,10 @@ class PinsDontMatch extends StatelessWidget {
     return const SizedBox(
       height: 80,
       child: Center(
-        child: Text('Pin\'s don\'t match', style: s16W600CRed),
+        child: Text(
+          'Pin\'s don\'t match',
+          style: s16W600CRed,
+        ),
       ),
     );
   }

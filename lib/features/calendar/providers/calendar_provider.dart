@@ -12,15 +12,15 @@ class CalendarProvider with ChangeNotifier {
       years.add(firstYear.toString());
     }
 
-    formattedDate = DateFormat.yMMMM().format(dateNow);
+    formattedTodayDate = DateFormat.yMMMM().format(todayDate);
 
     notifyListeners();
   }
 
-  DateTime dateNow = DateTime.now();
+  DateTime todayDate = DateTime.now();
   DateTime firstDay = DateTime.utc(2000, 01, 01);
 
-  String formattedDate = '';
+  String formattedTodayDate = '';
   String newMonth = '';
   String newYear = '';
   String monthYearDate = '';
@@ -51,8 +51,6 @@ class CalendarProvider with ChangeNotifier {
   ];
 
   DateTime currentDay = DateTime.now();
-
-  DateTime? selectedDay;
 
   void changeMonthDate(index) {
     newMonth = months[index];
