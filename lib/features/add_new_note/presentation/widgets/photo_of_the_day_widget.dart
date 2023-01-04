@@ -44,7 +44,7 @@ class PhotoOfTheDayWidget extends StatelessWidget {
             children: [
               const Text(
                 'Photo of the day',
-                style: s16WBoldCBlack,
+                style: s16W700CBlack,
               ),
               if (images.length == 3)
                 SvgPicture.asset(

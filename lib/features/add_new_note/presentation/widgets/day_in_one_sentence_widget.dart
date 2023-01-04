@@ -34,8 +34,8 @@ class DayInOneSentenceWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Day in one sentence',
-            style: s16WBoldCBlack,
+            'Describe your day',
+            style: s16W700CBlack,
           ),
           const SpaceH16(),
           TextField(

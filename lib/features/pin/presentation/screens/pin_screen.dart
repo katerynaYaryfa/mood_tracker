@@ -94,12 +94,12 @@ class _PinScreenState extends State<PinScreen> {
             if (pin1.length != 4)
               const Text(
                 'Create your PIN-code',
-                style: s16WBoldCBlack,
+                style: s16W700CBlack,
               ),
             if (pin1.length == 4)
               const Text(
                 'Enter your PIN-code',
-                style: s16WBoldCBlack,
+                style: s16W700CBlack,
               ),
             const SpaceH24(),
             if (pin1.length != 4) PasswordInputField(pin: pin1),
@@ -247,7 +247,7 @@ class PinsDontMatch extends StatelessWidget {
       height: 80,
       child: Center(
         child: Text(
-          'Pin\'s don\'t match',
+          'You enter wrong PIN-code',
           style: s16W600CRed,
         ),
       ),

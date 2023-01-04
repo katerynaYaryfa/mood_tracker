@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/calendar/presentation/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/color_scheme_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/data_security_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
-import 'package:mood_tracker/theme/providers/theme_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -19,20 +19,16 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    final scaffoldBackgroundColor =
-        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Settings',
-          style: TextStyle(
-            color: AppColors.black,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56.0),
+        child: CustomAppBar(
+          leading: Container(),
+          title: const Text(
+            'Settings',
+            style: s14W600CBlack2,
           ),
         ),
-        backgroundColor: scaffoldBackgroundColor,
-        bottomOpacity: 0.0,
-        elevation: 0.0,
       ),
       body: Center(
         child: Column(

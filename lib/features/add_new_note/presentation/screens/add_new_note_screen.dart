@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/select_categories_screen.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_one_sentence_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/features/calendar/presentation/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,8 +23,6 @@ class AddNewNoteScreen extends StatelessWidget {
         .currentTheme
         .floatingActionButtonTheme
         .backgroundColor;
-    final scaffoldBackgroundColor =
-        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -50,37 +50,36 @@ class AddNewNoteScreen extends StatelessWidget {
           ),
         ),
       ),
-      appBar: AppBar(
-        actions: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const SelectCategoriesScreen();
-                  },
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56.0),
+        child: CustomAppBar(
+          title: const Text(
+            'Monday, July 11',
+            style: s14W600CBlack2,
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const SelectCategoriesScreen();
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.only(
+                  right: 26,
                 ),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.only(
-                right: 26,
+                child: SvgPicture.asset(
+                  'images/settings.svg',
+                ),
               ),
-              child: SvgPicture.asset(
-                'images/settings.svg',
-              ),
-            ),
-          )
-        ],
-        title: Text(
-          'Monday, July 11',
-          style:
-              context.watch<ThemeProvider>().currentTheme.textTheme.headline6,
+            )
+          ],
         ),
-        backgroundColor: scaffoldBackgroundColor,
-        bottomOpacity: 0.0,
-        elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: SizedBox(

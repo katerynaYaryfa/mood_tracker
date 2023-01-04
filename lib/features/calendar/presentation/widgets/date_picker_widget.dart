@@ -1,21 +1,26 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
-import 'package:provider/provider.dart';
 
-class MonthPickerWidget extends StatelessWidget {
-  const MonthPickerWidget({
-    required this.setState1,
+class DatePickerWidget extends StatefulWidget {
+  const DatePickerWidget({
+    // required this.dialogSetState,
+    required this.dates,
+    required this.onDatePicked,
     Key? key,
   }) : super(key: key);
 
-  final StateSetter setState1;
+  // final StateSetter dialogSetState;
+  final List<String> dates;
+  final void Function(int) onDatePicked;
+
+  @override
+  State<DatePickerWidget> createState() => _DatePickerWidgetState();
+}
+
+class _DatePickerWidgetState extends State<DatePickerWidget> {
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    final monthList = context.watch<CalendarProvider>().months;
-
-    int monthIndex1 = 0;
-
     return Expanded(
       child: SizedBox(
         height: 100,
@@ -23,20 +28,20 @@ class MonthPickerWidget extends StatelessWidget {
           selectionOverlay: const SizedBox(),
           itemExtent: 48,
           onSelectedItemChanged: (index) {
-            context.read<CalendarProvider>().changeMonthDate(index);
-            monthIndex1 = index;
-            setState1(() {});
+            widget.onDatePicked(index);
+            setState(() {
+              selectedIndex = index;
+            });
           },
           children: List<Widget>.generate(
-            monthList.length,
+            widget.dates.length,
             (int index) {
-              /// TODO: не выделяется жирным выбранный месяц
-              final isSelected = monthIndex1 == index;
+              final isSelected = selectedIndex == index;
               final weight = isSelected ? FontWeight.bold : FontWeight.normal;
 
               return Center(
                 child: Text(
-                  monthList[index],
+                  widget.dates[index],
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: weight,

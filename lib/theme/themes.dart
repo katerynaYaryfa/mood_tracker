@@ -34,7 +34,9 @@ ThemeData greenTheme = ThemeData(
       fontWeight: FontWeight.w500,
     ),
     headline6: TextStyle(
-      fontSize: 16,
+      fontSize: 14,
+      fontWeight: FontWeight.w200,
+      height: 17.5 / 14,
       color: AppColors.black,
       fontFamily: 'Quicksand',
     ),

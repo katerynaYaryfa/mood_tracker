@@ -3,37 +3,20 @@ import 'package:intl/intl.dart';
 
 class CalendarProvider with ChangeNotifier {
   CalendarProvider() {
-    DateFormat dateFormat = DateFormat("yyyy");
-    String stringYear = dateFormat.format(DateTime.now());
-    int intYear = int.parse(stringYear);
-    int firstYear = 2000;
-
-    for (intYear; intYear + 1 > firstYear; firstYear++) {
-      years.add(firstYear.toString());
-    }
-
-    formattedTodayDate = DateFormat.yMMMM().format(todayDate);
-
-    notifyListeners();
+    _init();
   }
 
-  DateTime todayDate = DateTime.now();
-  DateTime firstDay = DateTime.utc(2000, 01, 01);
+  DateTime get todayDate => DateTime.now();
+  DateTime get firstDay => DateTime.utc(2000, 01, 01);
+  String get formattedTodayDate => DateFormat.yMMMM().format(todayDate);
+  String get formattedSelectedDate =>
+      DateFormat.yMMMM().format(selectedDate ?? todayDate);
 
-  String formattedTodayDate = '';
-  String newMonth = '';
-  String newYear = '';
-  String monthYearDate = '';
-  String numsMonthYearDate = '';
-  String defaultMonth = 'January';
-  String defaultYear = '2000';
-  String numsDefaultMonth = '01';
-
-  int yearIndex = 0;
-  List<String> years = [];
-
-  int monthIndex = 0;
   String selectedMonth = '';
+  String selectedYear = '';
+  DateTime? selectedDate;
+
+  List<String> years = [];
 
   List<String> months = const [
     'January',
@@ -50,45 +33,33 @@ class CalendarProvider with ChangeNotifier {
     'December'
   ];
 
-  DateTime currentDay = DateTime.now();
-
-  void changeMonthDate(index) {
-    newMonth = months[index];
-    monthYearDate = '$newMonth $newYear';
-    if (monthIndex > 9) {
-      numsMonthYearDate = '$newYear-${monthIndex + 1}-01';
-    } else {
-      numsMonthYearDate = '$newYear-0${monthIndex + 1}-01';
-    }
-    monthIndex = index;
+  changeMonthDate(index) {
+    selectedMonth = months[index];
   }
 
-  void changeYearDate(index) {
-    newYear = years[index];
-    monthYearDate = '$newMonth $newYear';
-    if (monthIndex > 9) {
-      numsMonthYearDate = '$newYear-${monthIndex + 1}-01';
-    } else {
-      numsMonthYearDate = '$newYear-0${monthIndex + 1}-01';
-    }
-    yearIndex = index;
+  changeYearDate(index) {
+    selectedYear = years[index];
   }
 
-  void buttonPressed(context) {
-    if (newYear.isEmpty) {
-      monthYearDate = '$newMonth $defaultYear';
-      if (monthIndex > 9) {
-        numsMonthYearDate = '$defaultYear-${monthIndex + 1}-01';
-      } else {
-        numsMonthYearDate = '$defaultYear-0${monthIndex + 1}-01';
-      }
-    } else if (newMonth.isEmpty) {
-      monthYearDate = '$defaultMonth $newYear';
-      if (monthIndex > 9) {
-        numsMonthYearDate = '$newYear-$numsDefaultMonth-01';
-      }
+  void pickDate() {
+    selectedDate = DateFormat.yMMMM().parse('$selectedMonth $selectedYear');
+
+    notifyListeners();
+  }
+
+  void _init() {
+    DateFormat dateFormat = DateFormat("yyyy");
+    String stringYear = dateFormat.format(todayDate);
+    int intYear = int.parse(stringYear);
+    int firstYear = 2000;
+
+    for (intYear; intYear + 1 > firstYear; firstYear++) {
+      years.add(firstYear.toString());
     }
-    Navigator.pop(context);
+
+    selectedMonth = months[1];
+    selectedYear = years[1];
+
     notifyListeners();
   }
 }

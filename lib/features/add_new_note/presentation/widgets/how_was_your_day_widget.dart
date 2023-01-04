@@ -41,7 +41,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
         children: [
           const Text(
             'How was your day?',
-            style: s16WBoldCBlack,
+            style: s16W700CBlack,
           ),
           const SpaceH16(),
           Row(

@@ -8,19 +8,24 @@ class HeaderFaceButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 54,
-      decoration: BoxDecoration(
-        color: AppColors.greyWhite2,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: const Center(
-        child: Image(
-          height: 24,
-          width: 22,
-          image: AssetImage(
-            'images/face1.png',
+    return Center(
+      child: Container(
+        height: 40,
+        width: 54,
+        margin: const EdgeInsets.only(
+          left: 16,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.greyWhite2,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: const Center(
+          child: Image(
+            height: 24,
+            width: 22,
+            image: AssetImage(
+              'images/face1.png',
+            ),
           ),
         ),
       ),
