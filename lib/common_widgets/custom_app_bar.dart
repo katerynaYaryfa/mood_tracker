@@ -4,7 +4,7 @@ import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppBar({
+  const CustomAppBar({
     this.leading,
     this.title,
     this.titleText,
@@ -13,12 +13,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     Key? key,
   }) : super(key: key);
 
-  Widget? leading;
-  Widget? title;
-  String? titleText;
-  AppBar? appBar;
-
-  List<Widget>? actions;
+  final Widget? leading;
+  final Widget? title;
+  final String? titleText;
+  final AppBar? appBar;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {

@@ -33,11 +33,11 @@ class CalendarProvider with ChangeNotifier {
     'December'
   ];
 
-  changeMonthDate(index) {
+  void changeMonthDate(index) {
     selectedMonth = months[index];
   }
 
-  changeYearDate(index) {
+  void changeYearDate(index) {
     selectedYear = years[index];
   }
 
@@ -57,8 +57,8 @@ class CalendarProvider with ChangeNotifier {
       years.add(firstYear.toString());
     }
 
-    selectedMonth = months[1];
-    selectedYear = years[1];
+    selectedMonth = months[0];
+    selectedYear = years[0];
 
     notifyListeners();
   }

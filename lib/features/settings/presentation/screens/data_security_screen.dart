@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/features/calendar/presentation/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
@@ -45,8 +45,8 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: const Text(
+      appBar: const CustomAppBar(
+        title: Text(
           'Data Security',
           style: s14W600CBlack2,
         ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/select_categories_screen.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_one_sentence_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
-import 'package:mood_tracker/features/calendar/presentation/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';

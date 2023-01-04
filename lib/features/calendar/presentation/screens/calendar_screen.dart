@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/features/calendar/presentation/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/date_picker_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/default_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/disabled_calendar_item_widget.dart';
@@ -132,7 +132,7 @@ class CalendarScreenState extends State<CalendarScreen> {
             final changeYearDate =
                 context.read<CalendarProvider>().changeYearDate;
 
-            return Container(
+            return SizedBox(
               // TODO(KY): refactor it
               width: MediaQuery.of(context).size.width - 96,
               child: Column(
@@ -162,7 +162,6 @@ class CalendarScreenState extends State<CalendarScreen> {
                     children: [
                       Expanded(
                         child: Container(
-                          // width: 128,
                           height: 50,
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -203,7 +202,6 @@ class CalendarScreenState extends State<CalendarScreen> {
                                 Radius.circular(30.0),
                               ),
                             ),
-                            // width: 128,
                             height: 50,
                             child: const Center(
                               child: Text(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/features/calendar/presentation/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -17,8 +17,8 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: const Text(
+      appBar: const CustomAppBar(
+        title: Text(
           'Color scheme',
           style: s14W600CBlack2,
         ),

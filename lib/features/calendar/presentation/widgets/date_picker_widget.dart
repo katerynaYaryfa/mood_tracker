@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 
 class DatePickerWidget extends StatefulWidget {
   const DatePickerWidget({
-    // required this.dialogSetState,
     required this.dates,
     required this.onDatePicked,
     Key? key,
   }) : super(key: key);
 
-  // final StateSetter dialogSetState;
   final List<String> dates;
   final void Function(int) onDatePicked;
 
