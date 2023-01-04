@@ -3,18 +3,20 @@ import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({
     this.leading,
     this.title,
     this.titleText,
     this.actions,
+    this.appBar,
     Key? key,
   }) : super(key: key);
 
   Widget? leading;
   Widget? title;
   String? titleText;
+  AppBar? appBar;
 
   List<Widget>? actions;
 
@@ -42,4 +44,7 @@ class CustomAppBar extends StatelessWidget {
       backgroundColor: scaffoldBackgroundColor,
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(56);
 }

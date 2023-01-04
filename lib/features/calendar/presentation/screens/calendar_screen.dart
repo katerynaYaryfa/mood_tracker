@@ -38,46 +38,43 @@ class CalendarScreenState extends State<CalendarScreen> {
 
     return Scaffold(
       backgroundColor: scaffoldBackgroundColor,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(56.0),
-        child: CustomAppBar(
-          leading: const HeaderFaceButtonWidget(),
-          title: InkWell(
-            onTap: () {
-              openDateSelector(context);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                    selectedDate != null
-                        ? formattedSelectedDate
-                        : formattedTodayDate,
-                    style: s14W600CBlack2),
-                SvgPicture.asset(
-                  'images/arrowDown.svg',
-                  height: 24,
-                  width: 24,
-                  color: primaryColor,
-                ),
-              ],
-            ),
+      appBar: CustomAppBar(
+        leading: const HeaderFaceButtonWidget(),
+        title: InkWell(
+          onTap: () {
+            openDateSelector(context);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                  selectedDate != null
+                      ? formattedSelectedDate
+                      : formattedTodayDate,
+                  style: s14W600CBlack2),
+              SvgPicture.asset(
+                'images/arrowDown.svg',
+                height: 24,
+                width: 24,
+                color: primaryColor,
+              ),
+            ],
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16, left: 30),
-              child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  'images/share.svg',
-                  height: 24,
-                  width: 24,
-                  color: AppColors.grey,
-                ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 30),
+            child: InkWell(
+              onTap: () {},
+              child: SvgPicture.asset(
+                'images/share.svg',
+                height: 24,
+                width: 24,
+                color: AppColors.grey,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),

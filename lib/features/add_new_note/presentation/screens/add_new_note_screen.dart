@@ -50,36 +50,33 @@ class AddNewNoteScreen extends StatelessWidget {
           ),
         ),
       ),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(56.0),
-        child: CustomAppBar(
-          title: const Text(
-            'Monday, July 11',
-            style: s14W600CBlack2,
-          ),
-          actions: [
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const SelectCategoriesScreen();
-                    },
-                  ),
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.only(
-                  right: 26,
-                ),
-                child: SvgPicture.asset(
-                  'images/settings.svg',
-                ),
-              ),
-            )
-          ],
+      appBar: CustomAppBar(
+        title: const Text(
+          'Monday, July 11',
+          style: s14W600CBlack2,
         ),
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const SelectCategoriesScreen();
+                  },
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.only(
+                right: 26,
+              ),
+              child: SvgPicture.asset(
+                'images/settings.svg',
+              ),
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: SizedBox(

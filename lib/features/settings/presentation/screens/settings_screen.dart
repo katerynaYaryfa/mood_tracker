@@ -20,14 +20,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(56.0),
-        child: CustomAppBar(
-          leading: Container(),
-          title: const Text(
-            'Settings',
-            style: s14W600CBlack2,
-          ),
+      appBar: CustomAppBar(
+        leading: Container(),
+        title: const Text(
+          'Settings',
+          style: s14W600CBlack2,
         ),
       ),
       body: Center(

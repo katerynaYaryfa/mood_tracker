@@ -17,13 +17,10 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(56.0),
-        child: CustomAppBar(
-          title: const Text(
-            'Color scheme',
-            style: s14W600CBlack2,
-          ),
+      appBar: CustomAppBar(
+        title: const Text(
+          'Color scheme',
+          style: s14W600CBlack2,
         ),
       ),
       backgroundColor:
