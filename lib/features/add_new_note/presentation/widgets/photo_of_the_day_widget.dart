@@ -7,6 +7,7 @@ import 'package:mood_tracker/features/add_new_note/presentation/widgets/add_new_
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/empty_photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:provider/provider.dart';
 
 class PhotoOfTheDayWidget extends StatelessWidget {
@@ -43,10 +44,7 @@ class PhotoOfTheDayWidget extends StatelessWidget {
             children: [
               const Text(
                 'Photo of the day',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: s16W700CBlack,
               ),
               if (images.length == 3)
                 SvgPicture.asset(

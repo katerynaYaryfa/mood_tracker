@@ -6,6 +6,8 @@ import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'features/calendar/presentation/screens/calendar_screen.dart';
+
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({Key? key}) : super(key: key);
 
@@ -17,20 +19,17 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   int selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Calendar',
-      style: optionStyle,
-    ),
-    Text(
+  static final List<Widget> _widgetOptions = <Widget>[
+    const CalendarScreen(),
+    const Text(
       'Index 1: Server',
       style: optionStyle,
     ),
-    Text(
+    const Text(
       'Index 2: BarGraph',
       style: optionStyle,
     ),
-    SettingsScreen(),
+    const SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -41,6 +40,14 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor =
+        context.watch<ThemeProvider>().currentTheme.primaryColor;
+    final backgroundColor = context
+        .watch<ThemeProvider>()
+        .currentTheme
+        .floatingActionButtonTheme
+        .backgroundColor;
+
     return MaterialApp(
       theme: context.watch<ThemeProvider>().currentTheme,
       debugShowCheckedModeBanner: false,
@@ -54,13 +61,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             ),
             boxShadow: [
               BoxShadow(
-                color: context
-                        .watch<ThemeProvider>()
-                        .currentTheme
-                        .floatingActionButtonTheme
-                        .backgroundColor
-                        ?.withOpacity(0.3) ??
-                    AppColors.black,
+                color: backgroundColor?.withOpacity(0.3) ?? AppColors.black,
                 spreadRadius: 7,
                 blurRadius: 10,
                 offset: const Offset(0, 0),
@@ -99,12 +100,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   },
                   child: SvgPicture.asset(
                     'images/calender.svg',
-                    color: selectedIndex == 0
-                        ? context
-                            .watch<ThemeProvider>()
-                            .currentTheme
-                            .primaryColor
-                        : AppColors.grey,
+                    color: selectedIndex == 0 ? primaryColor : AppColors.grey,
                   ),
                 ),
                 InkWell(
@@ -113,12 +109,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   },
                   child: SvgPicture.asset(
                     'images/server.svg',
-                    color: selectedIndex == 1
-                        ? context
-                            .watch<ThemeProvider>()
-                            .currentTheme
-                            .primaryColor
-                        : AppColors.grey,
+                    color: selectedIndex == 1 ? primaryColor : AppColors.grey,
                   ),
                 ),
                 const SizedBox(
@@ -130,12 +121,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   },
                   child: SvgPicture.asset(
                     'images/barGraph.svg',
-                    color: selectedIndex == 2
-                        ? context
-                            .watch<ThemeProvider>()
-                            .currentTheme
-                            .primaryColor
-                        : AppColors.grey,
+                    color: selectedIndex == 2 ? primaryColor : AppColors.grey,
                   ),
                 ),
                 InkWell(
@@ -144,12 +130,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   },
                   child: SvgPicture.asset(
                     'images/settings.svg',
-                    color: selectedIndex == 3
-                        ? context
-                            .watch<ThemeProvider>()
-                            .currentTheme
-                            .primaryColor
-                        : AppColors.grey,
+                    color: selectedIndex == 3 ? primaryColor : AppColors.grey,
                   ),
                 ),
               ],

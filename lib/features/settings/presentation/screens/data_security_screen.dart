@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
-import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
+import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
-import 'package:mood_tracker/theme/providers/theme_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 
 class DataSecurityScreen extends StatefulWidget {
   const DataSecurityScreen({Key? key}) : super(key: key);
@@ -45,26 +45,11 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          child: const Icon(
-            Icons.arrow_back,
-            color: AppColors.grey,
-          ),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text(
+      appBar: const CustomAppBar(
+        title: Text(
           'Data Security',
-          style: TextStyle(
-            color: AppColors.black,
-          ),
+          style: s14W600CBlack2,
         ),
-        backgroundColor:
-            context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
-        bottomOpacity: 0.0,
-        elevation: 0.0,
       ),
       body: SafeArea(
         child: Column(

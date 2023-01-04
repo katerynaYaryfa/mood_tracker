@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/color_scheme_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/data_security_screen.dart';
+import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
-import 'package:mood_tracker/theme/providers/theme_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -19,17 +20,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
+      appBar: const CustomAppBar(
+        leading: SizedBox(),
+        title: Text(
           'Settings',
-          style: TextStyle(
-            color: AppColors.black,
-          ),
+          style: s14W600CBlack2,
         ),
-        backgroundColor:
-            context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor,
-        bottomOpacity: 0.0,
-        elevation: 0.0,
       ),
       body: Center(
         child: Column(
@@ -269,39 +265,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-// TODO(KY): extract to separate file
-class SettingsButtons extends StatelessWidget {
-  const SettingsButtons({
-    required this.child,
-    Key? key,
-  }) : super(key: key);
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(11),
-      margin: const EdgeInsets.symmetric(
-        horizontal: 16.0,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(16.0),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.greyOpacity.withOpacity(0.03),
-            spreadRadius: 1,
-            blurRadius: 15,
-            offset: const Offset(0, 0),
-          ),
-        ],
-      ),
-      child: child,
     );
   }
 }

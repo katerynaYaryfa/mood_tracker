@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/theme/app_text_styles.dart';
 
 const _maxCharacterLength = 2000;
 
@@ -33,11 +34,8 @@ class DayInOneSentenceWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Day in one sentence',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+            'Describe your day',
+            style: s16W700CBlack,
           ),
           const SpaceH16(),
           TextField(
@@ -47,10 +45,7 @@ class DayInOneSentenceWidget extends StatelessWidget {
             ],
             maxLines: 100,
             minLines: 1,
-            style: const TextStyle(
-              fontSize: 16,
-              color: AppColors.black,
-            ),
+            style: s16WNormalCBlack,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.only(
                 top: 10,
@@ -61,7 +56,7 @@ class DayInOneSentenceWidget extends StatelessWidget {
               isDense: true,
               filled: true,
               isCollapsed: true,
-              fillColor: AppColors.darkWhite,
+              fillColor: AppColors.scaffoldBackgroundColor,
               labelText: 'Enter your thoughts',
               floatingLabelBehavior: FloatingLabelBehavior.never,
               labelStyle: TextStyle(

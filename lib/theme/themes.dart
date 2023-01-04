@@ -3,7 +3,7 @@ import 'package:mood_tracker/theme/app_colors.dart';
 
 ThemeData mainTheme = ThemeData(
   primaryColor: AppColors.red,
-  scaffoldBackgroundColor: AppColors.darkWhite,
+  scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: AppColors.red,
   ),
@@ -34,7 +34,9 @@ ThemeData greenTheme = ThemeData(
       fontWeight: FontWeight.w500,
     ),
     headline6: TextStyle(
-      fontSize: 16,
+      fontSize: 14,
+      fontWeight: FontWeight.w200,
+      height: 17.5 / 14,
       color: AppColors.black,
       fontFamily: 'Quicksand',
     ),
