@@ -15,7 +15,7 @@ class DatePickerWidget extends StatefulWidget {
 }
 
 class _DatePickerWidgetState extends State<DatePickerWidget> {
-  int selectedIndex = 0;
+  int selectedIndex = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       child: SizedBox(
         height: 100,
         child: CupertinoPicker(
+          scrollController: FixedExtentScrollController(initialItem: 5),
           selectionOverlay: const SizedBox(),
           itemExtent: 48,
           onSelectedItemChanged: (index) {

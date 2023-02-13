@@ -30,6 +30,13 @@ class DefaultCalendarItemWidget extends StatelessWidget {
               shape: BoxShape.circle,
               color: AppColors.greyWhite2,
             ),
+            child: const Image(
+              height: 34,
+              width: 34,
+              image: AssetImage(
+                'images/eyes.png',
+              ),
+            ),
           ),
         ],
       ),

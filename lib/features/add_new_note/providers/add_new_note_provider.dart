@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
+import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 
 enum Mood {
   none,
@@ -14,6 +16,19 @@ enum Mood {
 }
 
 class NoteProvider with ChangeNotifier {
+  final INoteRepository _repository;
+
+  void saveNote(DateTime date) {
+    _repository.saveNote(NoteModel(date: date, mood: mood, text: text));
+  }
+
+  String text = '';
+
+  void saveText(String text) {
+    this.text = text;
+    notifyListeners();
+  }
+
   List<File> images = [];
   Mood mood = Mood.none;
 
@@ -36,4 +51,8 @@ class NoteProvider with ChangeNotifier {
     this.mood = mood;
     notifyListeners();
   }
+
+  NoteProvider({
+    required INoteRepository repository,
+  }) : _repository = repository;
 }

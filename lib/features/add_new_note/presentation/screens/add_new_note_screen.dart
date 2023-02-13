@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/select_categories_screen.dart';
@@ -13,7 +14,12 @@ import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddNewNoteScreen extends StatelessWidget {
-  const AddNewNoteScreen({Key? key}) : super(key: key);
+  const AddNewNoteScreen({required this.time, this.mood, this.text, Key? key})
+      : super(key: key);
+
+  final DateTime time;
+  final Mood? mood;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +30,17 @@ class AddNewNoteScreen extends StatelessWidget {
         .floatingActionButtonTheme
         .backgroundColor;
 
+    final saveNote = context.watch<NoteProvider>().saveNote;
+
+    String formattedANNSDate = DateFormat.MMMMEEEEd().format(time);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         elevation: 0,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+          saveNote(time);
+        },
         child: Container(
           width: 100,
           height: 100,
@@ -51,8 +64,8 @@ class AddNewNoteScreen extends StatelessWidget {
         ),
       ),
       appBar: CustomAppBar(
-        title: const Text(
-          'Monday, July 11',
+        title: Text(
+          formattedANNSDate,
           style: s14W600CBlack2,
         ),
         actions: [
@@ -83,9 +96,9 @@ class AddNewNoteScreen extends StatelessWidget {
           width: double.infinity,
           child: Column(
             children: [
-              const HowWasYourDayWidget(),
+              HowWasYourDayWidget(mood: mood),
               const SpaceH16(),
-              const DayInOneSentenceWidget(),
+              DayInOneSentenceWidget(title: text),
               const SpaceH16(),
               PhotoOfTheDayWidget(
                 images: images,

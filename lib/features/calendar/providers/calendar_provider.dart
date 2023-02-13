@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
+import 'package:mood_tracker/services/data_base_wrapper.dart';
 
 class CalendarProvider with ChangeNotifier {
-  CalendarProvider() {
+  CalendarProvider(this._repository) {
     _init();
+    readNote(todayDate);
+  }
+
+  final INotesRepository _repository;
+
+  void readNote(DateTime date) async {
+    events = await _repository.readNotes(date);
+    notifyListeners();
   }
 
   DateTime get todayDate => DateTime.now();
   DateTime get firstDay => DateTime.utc(2000, 01, 01);
   String get formattedTodayDate => DateFormat.yMMMM().format(todayDate);
+  String get formattedANNSDate => DateFormat.MMMMEEEEd().format(todayDate);
+
   String get formattedSelectedDate =>
       DateFormat.yMMMM().format(selectedDate ?? todayDate);
 
   String selectedMonth = '';
   String selectedYear = '';
   DateTime? selectedDate;
+
+  Stream<List<NoteData>> events = Stream.value([]);
 
   List<String> years = [];
 
@@ -43,6 +57,7 @@ class CalendarProvider with ChangeNotifier {
 
   void pickDate() {
     selectedDate = DateFormat.yMMMM().parse('$selectedMonth $selectedYear');
+    readNote(selectedDate ?? todayDate);
 
     notifyListeners();
   }

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:provider/provider.dart';
 
 const _maxCharacterLength = 2000;
 
 class DayInOneSentenceWidget extends StatelessWidget {
   const DayInOneSentenceWidget({
+    required this.title,
     Key? key,
   }) : super(key: key);
+
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +44,10 @@ class DayInOneSentenceWidget extends StatelessWidget {
           ),
           const SpaceH16(),
           TextField(
+            controller: TextEditingController(text: title),
+            onChanged: (String text) {
+              context.read<NoteProvider>().saveText(text);
+            },
             keyboardType: TextInputType.multiline,
             inputFormatters: [
               LengthLimitingTextInputFormatter(_maxCharacterLength),

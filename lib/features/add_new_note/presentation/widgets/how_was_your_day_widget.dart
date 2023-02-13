@@ -8,8 +8,11 @@ import 'package:provider/provider.dart';
 
 class HowWasYourDayWidget extends StatefulWidget {
   const HowWasYourDayWidget({
+    required this.mood,
     Key? key,
   }) : super(key: key);
+
+  final Mood? mood;
 
   @override
   State<HowWasYourDayWidget> createState() => _HowWasYourDayWidgetState();
@@ -51,7 +54,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face6.png',
                 ),
-                opacity: mood == Mood.crying || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (widget.mood ?? mood) == Mood.crying ||
+                        (widget.mood ?? mood) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.crying);
                 },
@@ -60,7 +66,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face5.png',
                 ),
-                opacity: mood == Mood.veryBad || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (widget.mood ?? mood) == Mood.veryBad ||
+                        (widget.mood ?? mood) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.veryBad);
                 },
@@ -69,7 +78,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face1.png',
                 ),
-                opacity: mood == Mood.bad || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (widget.mood ?? mood) == Mood.bad ||
+                        (widget.mood ?? mood) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.bad);
                 },
@@ -78,7 +90,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face4.png',
                 ),
-                opacity: mood == Mood.normal || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (widget.mood ?? mood) == Mood.normal ||
+                        (widget.mood ?? mood) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.normal);
                 },
@@ -87,7 +102,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face3.png',
                 ),
-                opacity: mood == Mood.good || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (widget.mood ?? mood) == Mood.good ||
+                        (widget.mood ?? mood) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.good);
                 },
@@ -96,7 +114,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   'images/face2.png',
                 ),
-                opacity: mood == Mood.veryGood || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (widget.mood ?? mood) == Mood.veryGood ||
+                        (widget.mood ?? mood) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.veryGood);
                 },
