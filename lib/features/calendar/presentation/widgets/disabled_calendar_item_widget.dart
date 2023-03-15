@@ -27,7 +27,6 @@ class DisabledCalendarItemWidget extends StatelessWidget {
             height: 40,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              // color: AppColors.white,
               color: AppColors.white,
             ),
           ),

@@ -4,11 +4,12 @@ import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 const _maxCharacterLength = 2000;
 
-class DayInOneSentenceWidget extends StatelessWidget {
+class DayInOneSentenceWidget extends StatefulWidget {
   const DayInOneSentenceWidget({
     required this.title,
     Key? key,
@@ -17,7 +18,38 @@ class DayInOneSentenceWidget extends StatelessWidget {
   final String? title;
 
   @override
+  State<DayInOneSentenceWidget> createState() => _DayInOneSentenceWidgetState();
+}
+
+class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(
+      text: widget.title ?? '',
+    );
+    test();
+  }
+
+  Future<void> test() async {
+    final dir = await getApplicationDocumentsDirectory();
+    dir.list().forEach((element) {
+      print('____${element.path}');
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // final noteText = context.watch<NoteProvider>().text;
+
     return Container(
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(
@@ -44,9 +76,13 @@ class DayInOneSentenceWidget extends StatelessWidget {
           ),
           const SpaceH16(),
           TextField(
-            controller: TextEditingController(text: title),
+            // controller: noteText?.isNotEmpty
+            //     ? TextEditingController(text: title)
+            //     : TextEditingController(),
+            controller: _controller,
             onChanged: (String text) {
               context.read<NoteProvider>().saveText(text);
+              print(text);
             },
             keyboardType: TextInputType.multiline,
             inputFormatters: [

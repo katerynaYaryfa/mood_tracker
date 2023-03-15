@@ -15,10 +15,10 @@ class DataBaseWrapper {
   void insertData(NoteModel noteModel) async {
     await db.into(db.note).insert(
           NoteCompanion.insert(
-            title: noteModel.text,
-            mood: noteModel.mood,
-            date: noteModel.date,
-          ),
+              title: noteModel.text,
+              mood: noteModel.mood,
+              date: noteModel.date,
+              images: noteModel.images),
         );
   }
 
@@ -31,6 +31,7 @@ class DataBaseWrapper {
 class Note extends Table {
   TextColumn get title => text()();
   TextColumn get mood => textEnum<Mood>()();
+  TextColumn get images => text()();
   DateTimeColumn get date => dateTime()();
 }
 
@@ -46,7 +47,7 @@ class Database extends _$Database {
   Database() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 1;
 }
 
 LazyDatabase _openConnection() {

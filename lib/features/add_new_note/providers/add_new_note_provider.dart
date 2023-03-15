@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
+import 'package:path_provider/path_provider.dart';
 
 enum Mood {
   none,
@@ -16,10 +19,33 @@ enum Mood {
 }
 
 class NoteProvider with ChangeNotifier {
+  File? savedImage;
+
   final INoteRepository _repository;
 
-  void saveNote(DateTime date) {
-    _repository.saveNote(NoteModel(date: date, mood: mood, text: text));
+  Future<void> saveNote(DateTime date) async {
+    final path = (await getApplicationDocumentsDirectory()).path;
+    String formattedTodayDate =
+        DateFormat('yyyy-M-d').format(DateTime(2023, 03, 02));
+    List<String> pathList = [];
+
+    if (images.isNotEmpty) {
+      for (int i = 0; i < images.length; i++) {
+        var image = images[i];
+        final copiedImage =
+            await image.copy('$path/${formattedTodayDate}_$i.jpg');
+        pathList.add(copiedImage.path);
+      }
+    }
+
+    String jsonPathList = jsonEncode(pathList);
+
+    _repository.saveNote(NoteModel(
+      date: DateTime(2023, 03, 02),
+      mood: mood,
+      text: text,
+      images: jsonPathList,
+    ));
   }
 
   String text = '';

@@ -89,42 +89,45 @@ class CalendarScreenState extends State<CalendarScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: StreamBuilder<List<NoteData>>(
-            stream: events,
-            builder: (context, snapshot) {
-              return TableCalendar(
-                rowHeight: 88,
-                eventLoader: (DateTime date) {
-                  // print('________EVENTS $date');
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: StreamBuilder<List<NoteData>>(
+                stream: events,
+                builder: (context, snapshot) {
+                  return TableCalendar(
+                    rowHeight: 88,
+                    eventLoader: (DateTime date) {
+                      var a = snapshot.data?.firstWhereOrNull((element) {
+                        String dt1Formatted = DateFormat.yMd().format(date);
+                        String dt2Formatted =
+                            DateFormat.yMd().format(element.date);
 
-                  var a = snapshot.data?.firstWhereOrNull((element) {
-                    String dt1Formatted = DateFormat.yMd().format(date);
-                    String dt2Formatted = DateFormat.yMd().format(element.date);
+                        bool compareDates = dt1Formatted == dt2Formatted;
 
-                    bool compareDates = dt1Formatted == dt2Formatted;
-
-                    return compareDates;
-                  });
-                  if (a != null) {
-                    return [a];
-                  } else {
-                    return [];
-                  }
-                },
-                availableGestures: AvailableGestures.none,
-                firstDay: firstDay,
-                lastDay: todayDate,
-                focusedDay: selectedDate ?? todayDate,
-                calendarFormat: CalendarFormat.month,
-                headerVisible: false,
-                calendarBuilders: _builders(context),
-                calendarStyle: const CalendarStyle(
-                  outsideDaysVisible: false,
-                ),
-              );
-            }),
+                        return compareDates;
+                      });
+                      if (a != null) {
+                        return [a];
+                      } else {
+                        return [];
+                      }
+                    },
+                    availableGestures: AvailableGestures.none,
+                    firstDay: firstDay,
+                    lastDay: todayDate,
+                    focusedDay: selectedDate ?? todayDate,
+                    calendarFormat: CalendarFormat.month,
+                    headerVisible: false,
+                    calendarBuilders: _builders(context),
+                    calendarStyle: const CalendarStyle(
+                      outsideDaysVisible: false,
+                    ),
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }
