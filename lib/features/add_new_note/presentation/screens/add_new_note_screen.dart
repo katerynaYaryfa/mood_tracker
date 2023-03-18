@@ -16,9 +16,13 @@ import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddNewNoteScreen extends StatelessWidget {
-  const AddNewNoteScreen(
-      {required this.time, this.mood, this.text, Key? key, this.images})
-      : super(key: key);
+  const AddNewNoteScreen({
+    required this.time,
+    this.mood,
+    this.text,
+    Key? key,
+    this.images,
+  }) : super(key: key);
 
   final DateTime time;
   final Mood? mood;

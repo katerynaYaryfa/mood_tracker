@@ -35,9 +35,7 @@ class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
 
   Future<void> test() async {
     final dir = await getApplicationDocumentsDirectory();
-    dir.list().forEach((element) {
-      print('____${element.path}');
-    });
+    dir.list().forEach((element) {});
   }
 
   @override
@@ -82,7 +80,6 @@ class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
             controller: _controller,
             onChanged: (String text) {
               context.read<NoteProvider>().saveText(text);
-              print(text);
             },
             keyboardType: TextInputType.multiline,
             inputFormatters: [

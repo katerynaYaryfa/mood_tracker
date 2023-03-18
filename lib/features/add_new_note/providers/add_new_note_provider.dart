@@ -26,7 +26,7 @@ class NoteProvider with ChangeNotifier {
   Future<void> saveNote(DateTime date) async {
     final path = (await getApplicationDocumentsDirectory()).path;
     String formattedTodayDate =
-        DateFormat('yyyy-M-d').format(DateTime(2023, 03, 02));
+        DateFormat('yyyy-M-d').format(DateTime(2023, 03, 07));
     List<String> pathList = [];
 
     if (images.isNotEmpty) {
@@ -34,14 +34,14 @@ class NoteProvider with ChangeNotifier {
         var image = images[i];
         final copiedImage =
             await image.copy('$path/${formattedTodayDate}_$i.jpg');
-        pathList.add(copiedImage.path);
+        pathList.add('${formattedTodayDate}_$i.jpg');
       }
     }
 
     String jsonPathList = jsonEncode(pathList);
 
     _repository.saveNote(NoteModel(
-      date: DateTime(2023, 03, 02),
+      date: DateTime(2023, 03, 07),
       mood: mood,
       text: text,
       images: jsonPathList,

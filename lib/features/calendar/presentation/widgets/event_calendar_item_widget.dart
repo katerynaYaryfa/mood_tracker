@@ -6,6 +6,7 @@ import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/services/data_base_wrapper.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:path_provider/path_provider.dart';
 
 class EventCalendarItemWidget extends StatefulWidget {
   EventCalendarItemWidget({
@@ -25,11 +26,21 @@ class EventCalendarItemWidget extends StatefulWidget {
 class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
   List<File> images = [];
 
-  Future<void> test() async {
+  Future<void> _parseList() async {
     final jsonPathList = jsonDecode(widget.note?.images ?? '');
     final castt = jsonPathList as List<dynamic>;
-    final tsa = castt.cast<String>();
-    images = tsa.map((e) => File(e)).toList();
+    final imageNames = castt.cast<String>();
+
+    final appDirectory = (await getApplicationDocumentsDirectory());
+    final appDirectoryFiles =
+        appDirectory.listSync().map((event) => File(event.path));
+    imageNames.forEach((imageName) {
+      appDirectoryFiles.forEach((file) {
+        if (file.path.contains(imageName)) {
+          images.add(file);
+        }
+      });
+    });
 
     setState(() {});
   }
@@ -37,8 +48,7 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
   @override
   void initState() {
     super.initState();
-
-    test();
+    _parseList().then((value) => setState(() {}));
   }
 
   @override
