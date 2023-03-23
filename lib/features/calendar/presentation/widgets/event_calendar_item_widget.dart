@@ -9,7 +9,7 @@ import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:path_provider/path_provider.dart';
 
 class EventCalendarItemWidget extends StatefulWidget {
-  EventCalendarItemWidget({
+  const EventCalendarItemWidget({
     Key? key,
     required this.day,
     required this.note,
@@ -59,7 +59,7 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return AddNewNoteScreen(
+              return AddNewNoteScreenWrapper(
                 images: images,
                 time: widget.day,
                 mood: widget.note!.mood,

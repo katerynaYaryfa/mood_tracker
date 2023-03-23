@@ -25,8 +25,7 @@ class NoteProvider with ChangeNotifier {
 
   Future<void> saveNote(DateTime date) async {
     final path = (await getApplicationDocumentsDirectory()).path;
-    String formattedTodayDate =
-        DateFormat('yyyy-M-d').format(DateTime(2023, 03, 07));
+    String formattedTodayDate = DateFormat('yyyy-M-d').format(date);
     List<String> pathList = [];
 
     if (images.isNotEmpty) {
@@ -41,7 +40,7 @@ class NoteProvider with ChangeNotifier {
     String jsonPathList = jsonEncode(pathList);
 
     _repository.saveNote(NoteModel(
-      date: DateTime(2023, 03, 07),
+      date: date,
       mood: mood,
       text: text,
       images: jsonPathList,
@@ -58,7 +57,7 @@ class NoteProvider with ChangeNotifier {
   List<File> images = [];
   Mood mood = Mood.none;
 
-  void deleteImage(image) {
+  void deleteImage(File image) {
     images.remove(image);
     notifyListeners();
   }

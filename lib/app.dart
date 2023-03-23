@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/custom_navigation_bar.dart';
-import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
-import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
 import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
@@ -18,12 +16,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider.value(
+          value: dataBaseWrapper,
+        ),
         ChangeNotifierProvider<PinProvider>(
           create: (_) => PinProvider(),
-        ),
-        ChangeNotifierProvider<NoteProvider>(
-          create: (_) => NoteProvider(
-              repository: NoteRepository(dataBaseWrapper: dataBaseWrapper)),
         ),
         ChangeNotifierProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
@@ -31,7 +28,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<CalendarProvider>(
           create: (_) => CalendarProvider(
               NotesRepository(dataBaseWrapper: dataBaseWrapper)),
-        )
+        ),
       ],
       child: const CustomNavigationBar(),
     );

@@ -10,6 +10,8 @@ import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_o
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
+import 'package:mood_tracker/services/data_base_wrapper.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -119,9 +121,13 @@ class AddNewNoteScreen extends StatelessWidget {
             width: double.infinity,
             child: Column(
               children: [
-                HowWasYourDayWidget(mood: mood),
+                HowWasYourDayWidget(
+                  mood: mood,
+                ),
                 const SpaceH16(),
-                DayInOneSentenceWidget(title: text),
+                DayInOneSentenceWidget(
+                  title: text,
+                ),
                 const SpaceH16(),
                 PhotoOfTheDayWidget(
                   images: images ?? pickedImages,
@@ -130,6 +136,38 @@ class AddNewNoteScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AddNewNoteScreenWrapper extends StatelessWidget {
+  const AddNewNoteScreenWrapper({
+    required this.time,
+    this.mood,
+    this.text,
+    this.images,
+    Key? key,
+  }) : super(key: key);
+
+  final DateTime time;
+  final Mood? mood;
+  final String? text;
+  final List<File>? images;
+
+  @override
+  Widget build(BuildContext context) {
+    final dataBaseWrapper = context.read<DataBaseWrapper>();
+
+    return ChangeNotifierProvider<NoteProvider>(
+      create: (_) => NoteProvider(
+        repository: NoteRepository(dataBaseWrapper: dataBaseWrapper),
+      ),
+      child: AddNewNoteScreen(
+        time: time,
+        mood: mood,
+        text: text,
+        images: images,
       ),
     );
   }

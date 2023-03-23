@@ -20,6 +20,8 @@ class CalendarProvider with ChangeNotifier {
   DateTime get firstDay => DateTime.utc(2000, 01, 01);
   String get formattedTodayDate => DateFormat.yMMMM().format(todayDate);
   String get formattedANNSDate => DateFormat.MMMMEEEEd().format(todayDate);
+  String get formattedTodayYear => DateFormat.y().format(todayDate);
+  String get formattedTodayMonth => DateFormat.MMMM().format(todayDate);
 
   String get formattedSelectedDate =>
       DateFormat.yMMMM().format(selectedDate ?? todayDate);
@@ -62,18 +64,38 @@ class CalendarProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  int itemMonth = 0;
+  int itemYear = 0;
+
   void _init() {
     DateFormat dateFormat = DateFormat("yyyy");
     String stringYear = dateFormat.format(todayDate);
     int intYear = int.parse(stringYear);
     int firstYear = 2000;
+    int indexY = 0;
+    int indexM = 0;
 
-    for (intYear; intYear + 1 > firstYear; firstYear++) {
+    for (intYear; intYear + 2 > firstYear; firstYear++) {
       years.add(firstYear.toString());
     }
 
-    selectedMonth = months[0];
-    selectedYear = years[0];
+    for (int i = 0; i < years.length; i++) {
+      if (years[i] == formattedTodayYear) {
+        indexY = i;
+      }
+    }
+
+    for (int i = 0; i < months.length; i++) {
+      if (months[i] == formattedTodayMonth) {
+        indexM = i;
+      }
+    }
+
+    selectedMonth = months[indexM];
+    selectedYear = years[indexY];
+
+    itemMonth = indexM;
+    itemYear = indexY;
 
     notifyListeners();
   }

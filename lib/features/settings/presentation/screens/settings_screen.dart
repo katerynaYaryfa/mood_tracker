@@ -74,10 +74,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'Data security',
                     ),
                     const Spacer(),
-                    CupertinoSwitch(
-                      value: false,
-                      onChanged: (bool value) {},
-                    )
+                    SvgPicture.asset(
+                      'images/arrowRight.svg',
+                      color: AppColors.grey,
+                    ),
                   ],
                 ),
               ),
@@ -113,9 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   const SpaceW12(),
                   const Text('Language'),
-                  Expanded(
-                    child: Container(),
-                  ),
+                  const Spacer(),
                   SvgPicture.asset(
                     'images/arrowRight.svg',
                     color: AppColors.grey,
@@ -167,9 +165,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     const Text(
                       'Color scheme',
                     ),
-                    Expanded(
-                      child: Container(),
-                    ),
+                    const Spacer(),
                     SvgPicture.asset(
                       'images/arrowRight.svg',
                       color: AppColors.grey,
@@ -211,9 +207,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const Text(
                     'Start of the week',
                   ),
-                  Expanded(
-                    child: Container(),
-                  ),
+                  const Spacer(),
                   SvgPicture.asset(
                     'images/arrowRight.svg',
                     color: AppColors.grey,

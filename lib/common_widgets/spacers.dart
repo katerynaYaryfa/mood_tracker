@@ -88,6 +88,17 @@ class SpaceH32 extends StatelessWidget {
   }
 }
 
+class SpaceH40 extends StatelessWidget {
+  const SpaceH40({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 40,
+    );
+  }
+}
+
 class SpaceW12 extends StatelessWidget {
   const SpaceW12({Key? key}) : super(key: key);
 

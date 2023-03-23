@@ -27,12 +27,6 @@ class CalendarScreen extends StatefulWidget {
 
 class CalendarScreenState extends State<CalendarScreen> {
   @override
-  void initState() {
-    super.initState();
-    //
-  }
-
-  @override
   Widget build(BuildContext context) {
     final todayDate = context.watch<CalendarProvider>().todayDate;
     final firstDay = context.read<CalendarProvider>().firstDay;
@@ -61,10 +55,11 @@ class CalendarScreenState extends State<CalendarScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                  selectedDate != null
-                      ? formattedSelectedDate
-                      : formattedTodayDate,
-                  style: s14W600CBlack2),
+                selectedDate != null
+                    ? formattedSelectedDate
+                    : formattedTodayDate,
+                style: s14W600CBlack2,
+              ),
               SvgPicture.asset(
                 'images/arrowDown.svg',
                 height: 24,
@@ -76,7 +71,10 @@ class CalendarScreenState extends State<CalendarScreen> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 16, left: 30),
+            padding: const EdgeInsets.only(
+              right: 16,
+              left: 30,
+            ),
             child: InkWell(
               onTap: () {},
               child: SvgPicture.asset(
@@ -92,7 +90,9 @@ class CalendarScreenState extends State<CalendarScreen> {
       body: ListView(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+            ),
             child: StreamBuilder<List<NoteData>>(
                 stream: events,
                 builder: (context, snapshot) {
@@ -194,6 +194,8 @@ class CalendarScreenState extends State<CalendarScreen> {
             final years = context.read<CalendarProvider>().years;
             final changeYearDate =
                 context.read<CalendarProvider>().changeYearDate;
+            final itemYear = context.watch<CalendarProvider>().itemYear;
+            final itemMonth = context.watch<CalendarProvider>().itemMonth;
 
             return SizedBox(
               width: MediaQuery.of(context).size.width - 96,
@@ -210,10 +212,14 @@ class CalendarScreenState extends State<CalendarScreen> {
                       DatePickerWidget(
                         dates: months,
                         onDatePicked: changeMonthDate,
+                        intInitialItem: itemMonth,
+                        selectedIndex: itemMonth,
                       ),
                       DatePickerWidget(
                         dates: years,
                         onDatePicked: changeYearDate,
+                        intInitialItem: itemYear,
+                        selectedIndex: itemYear,
                       ),
                       const SpaceH20(),
                     ],

@@ -44,186 +44,186 @@ class _PinScreenState extends State<PinScreen> {
     final pin1 = context.watch<PinProvider>().pin1;
     final pin2 = context.watch<PinProvider>().pin2;
     var wrongPin = context.watch<PinProvider>().wrongPin;
+    final pinCodeEnabled = context.watch<PinProvider>().pinCodeEnabled;
 
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
 
-    if (pin2.length == 4 && pin1 == pin2) {
-      var storage = StorageService();
-      storage.write(
-        key: 'pin',
-        value: pin1,
-      );
-
-      Future.delayed(Duration.zero, () {
+    context.read<PinProvider>().writePin(context);
+    if (pinCodeEnabled) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pop(context);
       });
     }
 
-    return Scaffold(
-      backgroundColor: scaffoldBackgroundColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              height: 18.0,
-            ),
-            Container(
-              width: 90,
-              height: 90,
-              padding: const EdgeInsets.symmetric(
-                vertical: 26,
-                horizontal: 25,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: scaffoldBackgroundColor,
+        body: SafeArea(
+          child: Column(
+            children: [
+              Container(
+                height: 18.0,
               ),
-              decoration: BoxDecoration(
-                color: AppColors.green,
-                borderRadius: BorderRadius.circular(32.0),
-                boxShadow: const [],
-              ),
-              child: SvgPicture.asset(
-                'images/lock.svg',
-              ),
-            ),
-            const SpaceH32(),
-            if (pin1.length != 4)
-              const Text(
-                'Create your PIN-code',
-                style: s16W700CBlack,
-              ),
-            if (pin1.length == 4)
-              const Text(
-                'Enter your PIN-code',
-                style: s16W700CBlack,
-              ),
-            const SpaceH24(),
-            if (pin1.length != 4) PasswordInputField(pin: pin1),
-            if (pin1.length == 4) PasswordInputField(pin: pin2),
-            if (wrongPin)
-              const PinsDontMatch()
-            else
-              const SizedBox(
-                height: 80,
-                child: Center(
-                  child: Text(
-                    '',
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 16,
-                    ),
-                  ),
+              Container(
+                width: 90,
+                height: 90,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 26,
+                  horizontal: 25,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.green,
+                  borderRadius: BorderRadius.circular(32.0),
+                  boxShadow: const [],
+                ),
+                child: SvgPicture.asset(
+                  'images/lock.svg',
                 ),
               ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                SpaceW36(),
-                PinButtons(
-                  title: '1',
+              const SpaceH32(),
+              if (pin1.length != 4)
+                const Text(
+                  'Create your PIN-code',
+                  style: s16W700CBlack,
                 ),
-                SpaceW24(),
-                PinButtons(
-                  title: '2',
+              if (pin1.length == 4)
+                const Text(
+                  'Enter your PIN-code',
+                  style: s16W700CBlack,
                 ),
-                SpaceW24(),
-                PinButtons(
-                  title: '3',
-                ),
-                SpaceW36(),
-              ],
-            ),
-            const SpaceH30(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                PinButtons(
-                  title: '4',
-                ),
-                SpaceW24(),
-                PinButtons(
-                  title: '5',
-                ),
-                SpaceW24(),
-                PinButtons(
-                  title: '6',
-                ),
-              ],
-            ),
-            const SpaceH30(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                PinButtons(
-                  title: '7',
-                ),
-                SpaceW24(),
-                PinButtons(
-                  title: '8',
-                ),
-                SpaceW24(),
-                PinButtons(
-                  title: '9',
-                ),
-              ],
-            ),
-            const SpaceH30(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      border: Border.all(
-                        width: 1.0,
-                        color: AppColors.white2,
+              const SpaceH24(),
+              if (pin1.length != 4) PasswordInputField(pin: pin1),
+              if (pin1.length == 4) PasswordInputField(pin: pin2),
+              if (wrongPin)
+                const PinsDontMatch()
+              else
+                const SizedBox(
+                  height: 80,
+                  child: Center(
+                    child: Text(
+                      '',
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: 16,
                       ),
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    child: Center(
-                      child: SvgPicture.asset('images/arrowBack.svg'),
                     ),
                   ),
                 ),
-                const SpaceW24(),
-                const PinButtons(
-                  title: '0',
-                ),
-                const SpaceW24(),
-                InkWell(
-                  onTap: () {
-                    context.read<PinProvider>().deleteLastIndex();
-                  },
-                  child: Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      border: Border.all(
-                        width: 1.0,
-                        color: AppColors.white2,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  SpaceW36(),
+                  PinButtons(
+                    title: '1',
+                  ),
+                  SpaceW24(),
+                  PinButtons(
+                    title: '2',
+                  ),
+                  SpaceW24(),
+                  PinButtons(
+                    title: '3',
+                  ),
+                  SpaceW36(),
+                ],
+              ),
+              const SpaceH30(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  PinButtons(
+                    title: '4',
+                  ),
+                  SpaceW24(),
+                  PinButtons(
+                    title: '5',
+                  ),
+                  SpaceW24(),
+                  PinButtons(
+                    title: '6',
+                  ),
+                ],
+              ),
+              const SpaceH30(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  PinButtons(
+                    title: '7',
+                  ),
+                  SpaceW24(),
+                  PinButtons(
+                    title: '8',
+                  ),
+                  SpaceW24(),
+                  PinButtons(
+                    title: '9',
+                  ),
+                ],
+              ),
+              const SpaceH30(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 80,
+                      width: 80,
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        border: Border.all(
+                          width: 1.0,
+                          color: AppColors.white2,
+                        ),
+                        borderRadius: BorderRadius.circular(100.0),
                       ),
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    child: Center(
-                      child: SvgPicture.asset('images/back.svg'),
+                      child: Center(
+                        child: SvgPicture.asset('images/arrowBack.svg'),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Container(),
-            ),
-            const Text(
-              'This keeps your data private',
-              style: s14WNormalCGrey2,
-            ),
-          ],
+                  const SpaceW24(),
+                  const PinButtons(
+                    title: '0',
+                  ),
+                  const SpaceW24(),
+                  InkWell(
+                    onTap: () {
+                      context.read<PinProvider>().deleteLastIndex();
+                    },
+                    child: Container(
+                      height: 80,
+                      width: 80,
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        border: Border.all(
+                          width: 1.0,
+                          color: AppColors.white2,
+                        ),
+                        borderRadius: BorderRadius.circular(100.0),
+                      ),
+                      child: Center(
+                        child: SvgPicture.asset('images/back.svg'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              const Text(
+                'This keeps your data private',
+                style: s14WNormalCGrey2,
+              ),
+            ],
+          ),
         ),
       ),
     );

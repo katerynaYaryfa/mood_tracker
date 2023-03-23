@@ -50,4 +50,41 @@ class PinProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void writePin(BuildContext context) async {
+    if (pin2.length == 4 && pin1 == pin2 && !pinCodeEnabled) {
+      var storage = StorageService();
+
+      await storage.write(
+        key: 'pin',
+        value: pin1,
+      );
+
+      pinCodeEnabled = true;
+      notifyListeners();
+    }
+  }
+
+  bool pinCodeEnabled = false;
+
+  void readStorageService() async {
+    final storage = StorageService();
+    final pin = await storage.read(
+      key: 'pin',
+    );
+    if (pin != null) {
+      pinCodeEnabled = true;
+    }
+    notifyListeners();
+  }
+
+  void pinCodeFalse() {
+    pinCodeEnabled = false;
+    notifyListeners();
+  }
+
+  void pinCodeTrue() {
+    pinCodeEnabled = true;
+    notifyListeners();
+  }
 }
