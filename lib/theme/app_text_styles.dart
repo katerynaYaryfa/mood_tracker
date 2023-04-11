@@ -41,6 +41,12 @@ const TextStyle s14WNormalCGrey2 = TextStyle(
   color: AppColors.grey2,
 );
 
+const TextStyle s14WNormalWithoutColor = TextStyle(
+  fontSize: 14.0,
+  fontWeight: FontWeight.w500,
+  height: 17.5 / 14,
+);
+
 const TextStyle s14W600CBlack2 = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w600,
@@ -49,11 +55,26 @@ const TextStyle s14W600CBlack2 = TextStyle(
   fontFamily: 'Quicksand',
 );
 
-const TextStyle s12WBoldCGrey2 = TextStyle(
+const TextStyle s16W700CBlack2 = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w700,
+  height: 20 / 16,
+  color: AppColors.black2,
+  fontFamily: 'Quicksand',
+);
+
+const TextStyle s10W700CGrey2 = TextStyle(
   color: AppColors.grey2,
   fontWeight: FontWeight.w700,
   height: 12.5 / 10,
   fontSize: 10,
+);
+
+const TextStyle s12W600CGrey2 = TextStyle(
+  color: AppColors.grey2,
+  fontWeight: FontWeight.w500,
+  height: 15 / 12,
+  fontSize: 12,
 );
 
 const TextStyle s12WBoldCWhite = TextStyle(

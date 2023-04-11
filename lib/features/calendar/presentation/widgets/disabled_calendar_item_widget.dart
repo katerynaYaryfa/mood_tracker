@@ -19,7 +19,7 @@ class DisabledCalendarItemWidget extends StatelessWidget {
         children: [
           Text(
             '${day.day}',
-            style: s12WBoldCGrey2,
+            style: s10W700CGrey2,
           ),
           const SpaceH4(),
           Container(
