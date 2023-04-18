@@ -76,6 +76,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return const PinScreen(
+                            backButton: true,
                             deletePin: true,
                           );
                         },
@@ -133,6 +134,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return const PinScreen(
+                            backButton: true,
                             deletePin: true,
                           );
                         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
+import 'package:mood_tracker/loading_page.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -48,96 +49,108 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         .floatingActionButtonTheme
         .backgroundColor;
 
-    return MaterialApp(
-      theme: context.watch<ThemeProvider>().currentTheme,
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: _widgetOptions[selectedIndex],
-        floatingActionButton: Container(
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(50),
+    return Scaffold(
+      body: _widgetOptions[selectedIndex],
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(50),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: backgroundColor?.withOpacity(0.3) ?? AppColors.black,
+              spreadRadius: 7,
+              blurRadius: 10,
+              offset: const Offset(0, 0),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: backgroundColor?.withOpacity(0.3) ?? AppColors.black,
-                spreadRadius: 7,
-                blurRadius: 10,
-                offset: const Offset(0, 0),
+          ],
+        ),
+        child: Builder(
+          builder: (context) {
+            return FloatingActionButton(
+              focusColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              elevation: 0.0,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AddNewNoteScreen(),
+                  ),
+                );
+              },
+              child: SvgPicture.asset('images/Human.svg'),
+            );
+          },
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        elevation: 100,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 16,
+        child: SizedBox(
+          height: 56.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _onItemTapped(0);
+                },
+                child: SvgPicture.asset(
+                  'images/calender.svg',
+                  color: selectedIndex == 0 ? primaryColor : AppColors.grey,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _onItemTapped(1);
+                },
+                child: SvgPicture.asset(
+                  'images/server.svg',
+                  color: selectedIndex == 1 ? primaryColor : AppColors.grey,
+                ),
+              ),
+              const SizedBox(
+                width: 80,
+              ),
+              GestureDetector(
+                onTap: () {
+                  _onItemTapped(2);
+                },
+                child: SvgPicture.asset(
+                  'images/barGraph.svg',
+                  color: selectedIndex == 2 ? primaryColor : AppColors.grey,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _onItemTapped(3);
+                },
+                child: SvgPicture.asset(
+                  'images/settings.svg',
+                  color: selectedIndex == 3 ? primaryColor : AppColors.grey,
+                ),
               ),
             ],
           ),
-          child: Builder(
-            builder: (context) {
-              return FloatingActionButton(
-                elevation: 0.0,
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const AddNewNoteScreen(),
-                    ),
-                  );
-                },
-                child: SvgPicture.asset('images/Human.svg'),
-              );
-            },
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          elevation: 100,
-          shape: const CircularNotchedRectangle(),
-          notchMargin: 16,
-          child: SizedBox(
-            height: 56.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    _onItemTapped(0);
-                  },
-                  child: SvgPicture.asset(
-                    'images/calender.svg',
-                    color: selectedIndex == 0 ? primaryColor : AppColors.grey,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    _onItemTapped(1);
-                  },
-                  child: SvgPicture.asset(
-                    'images/server.svg',
-                    color: selectedIndex == 1 ? primaryColor : AppColors.grey,
-                  ),
-                ),
-                const SizedBox(
-                  width: 80,
-                ),
-                InkWell(
-                  onTap: () {
-                    _onItemTapped(2);
-                  },
-                  child: SvgPicture.asset(
-                    'images/barGraph.svg',
-                    color: selectedIndex == 2 ? primaryColor : AppColors.grey,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    _onItemTapped(3);
-                  },
-                  child: SvgPicture.asset(
-                    'images/settings.svg',
-                    color: selectedIndex == 3 ? primaryColor : AppColors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
+    );
+  }
+}
+
+class PreLoadingPage extends StatelessWidget {
+  const PreLoadingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: context.watch<ThemeProvider>().currentTheme,
+      debugShowCheckedModeBanner: false,
+      home: LoadingPage(),
     );
   }
 }

@@ -26,6 +26,9 @@ class AddNewNoteScreen extends StatelessWidget {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        focusColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
         elevation: 0,
         onPressed: () {},
         child: Container(
