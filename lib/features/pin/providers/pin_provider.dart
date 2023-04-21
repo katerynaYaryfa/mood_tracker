@@ -4,7 +4,7 @@ import 'package:mood_tracker/services/storage_service.dart';
 
 class PinProvider with ChangeNotifier {
   PinProvider() {
-    _init();
+    init();
   }
 
   bool isPressed = false;
@@ -72,11 +72,12 @@ class PinProvider with ChangeNotifier {
     return pinCode;
   }
 
-  void _init() async {
+  void init() async {
     Future<String?> pinCode = readCode();
 
     myCode = await pinCode ?? '';
     pin1 = myCode;
+    print('pin1 = $pin1');
     notifyListeners();
   }
 }

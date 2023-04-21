@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
-import 'package:mood_tracker/loading_page.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -138,19 +137,6 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class PreLoadingPage extends StatelessWidget {
-  const PreLoadingPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: context.watch<ThemeProvider>().currentTheme,
-      debugShowCheckedModeBanner: false,
-      home: LoadingPage(),
     );
   }
 }

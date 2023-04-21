@@ -31,6 +31,7 @@ class _PinScreenState extends State<PinScreen> {
     super.initState();
 
     context.read<PinProvider>().clearState();
+    context.read<PinProvider>().init();
 
     if (widget.deletePin == true) {
       var storage = StorageService();
@@ -50,6 +51,8 @@ class _PinScreenState extends State<PinScreen> {
 
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+    // final myProvider = Provider.of<PinProvider>(context, listen: false);
+    // myProvider.init();
 
     if (pin2.length == 4 && pin1 == pin2) {
       var storage = StorageService();

@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.17.0
   screenshot: ^1.2.3
   share_plus: ^6.0.0
+  shared_preferences: ^2.1.0
 
 
 
