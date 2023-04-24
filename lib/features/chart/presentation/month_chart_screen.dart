@@ -72,7 +72,7 @@ class MonthChartScreen extends StatelessWidget {
               ],
             ),
             margin: const EdgeInsets.all(16),
-            height: 250,
+            height: 244,
             child: Column(
               children: [
                 const SpaceH16(),
@@ -87,7 +87,7 @@ class MonthChartScreen extends StatelessWidget {
                 ),
                 const SpaceH24(),
                 SizedBox(
-                  height: 180,
+                  height: 165,
                   child: BarChart(
                     BarChartData(
                       gridData: FlGridData(
@@ -143,6 +143,33 @@ class MonthChartScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Container(
+                //   height: 15,
+                //   child: Row(
+                //     children: [
+                //       SizedBox(
+                //         width: 6,
+                //       ),
+                //       Text('1', style: s12W600CGrey2),
+                //       SizedBox(
+                //         width: 60,
+                //       ),
+                //       Text('7', style: s12W600CGrey2),
+                //       SizedBox(
+                //         width: 67,
+                //       ),
+                //       Text('14', style: s12W600CGrey2),
+                //       SizedBox(
+                //         width: 65,
+                //       ),
+                //       Text('21', style: s12W600CGrey2),
+                //       SizedBox(
+                //         width: 64,
+                //       ),
+                //       Text('28', style: s12W600CGrey2),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -270,127 +297,127 @@ class MonthChartScreen extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: AppColors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.greyOpacity.withOpacity(0.03),
-                  spreadRadius: 10,
-                  blurRadius: 15,
-                  offset: const Offset(0, 0),
-                ),
-              ],
-            ),
-            margin: const EdgeInsets.all(16),
-            height: 107,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Image(
-                      height: 40,
-                      width: 40,
-                      image: AssetImage(
-                        'images/face6.png',
-                      ),
-                    ),
-                    SizedBox(
-                      width: 13,
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          'Average mood',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700),
-                        ),
-                        Text(
-                          'vs. previous period',
-                          style: TextStyle(
-                              fontSize: 12, color: Colors.grey.shade500),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Text(
-                      '-4%',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blue),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        height: 20,
-                        color: Colors.white,
-                        child: RotatedBox(
-                          quarterTurns: 2,
-                          child: ProgressBar(
-                            gradientDefault: const [
-                              Alignment.topCenter,
-                              Alignment.bottomCenter
-                            ],
-                            colorsDefault: const [
-                              AppColors.blue2,
-                              AppColors.blue2,
-                            ],
-                            gradientCompleted: const [
-                              Alignment.centerLeft,
-                              Alignment.centerRight
-                            ],
-                            colorsCompleted: const [
-                              AppColors.blue,
-                              AppColors.blue,
-                            ],
-                            height: 24.0,
-                            radius: 70.0,
-                            ratio: 0.04, // 40%
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 20,
-                        color: Colors.white,
-                        child: ProgressBar(
-                          gradientDefault: const [
-                            Alignment.topCenter,
-                            Alignment.bottomCenter
-                          ],
-                          colorsDefault: const [
-                            AppColors.green3,
-                            AppColors.green3
-                          ],
-                          gradientCompleted: const [
-                            Alignment.centerLeft,
-                            Alignment.centerRight
-                          ],
-                          colorsCompleted: const [
-                            AppColors.green,
-                            AppColors.green
-                          ],
-                          height: 24.0,
-                          radius: 70.0,
-                          ratio: 0.0, // 40%
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.all(16),
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(16),
+          //     color: AppColors.white,
+          //     boxShadow: [
+          //       BoxShadow(
+          //         color: AppColors.greyOpacity.withOpacity(0.03),
+          //         spreadRadius: 10,
+          //         blurRadius: 15,
+          //         offset: const Offset(0, 0),
+          //       ),
+          //     ],
+          //   ),
+          //   margin: const EdgeInsets.all(16),
+          //   height: 107,
+          //   child: Column(
+          //     children: [
+          //       Row(
+          //         children: [
+          //           Image(
+          //             height: 40,
+          //             width: 40,
+          //             image: AssetImage(
+          //               'images/face6.png',
+          //             ),
+          //           ),
+          //           SizedBox(
+          //             width: 13,
+          //           ),
+          //           Column(
+          //             children: [
+          //               Text(
+          //                 'Average mood',
+          //                 style: TextStyle(
+          //                     fontSize: 16, fontWeight: FontWeight.w700),
+          //               ),
+          //               Text(
+          //                 'vs. previous period',
+          //                 style: TextStyle(
+          //                     fontSize: 12, color: Colors.grey.shade500),
+          //               ),
+          //             ],
+          //           ),
+          //           const Spacer(),
+          //           Text(
+          //             '-4%',
+          //             style: TextStyle(
+          //                 fontSize: 20,
+          //                 fontWeight: FontWeight.w600,
+          //                 color: AppColors.blue),
+          //           )
+          //         ],
+          //       ),
+          //       SizedBox(
+          //         height: 15,
+          //       ),
+          //       Row(
+          //         children: [
+          //           Expanded(
+          //             child: Container(
+          //               height: 20,
+          //               color: Colors.white,
+          //               child: RotatedBox(
+          //                 quarterTurns: 2,
+          //                 child: ProgressBar(
+          //                   gradientDefault: const [
+          //                     Alignment.topCenter,
+          //                     Alignment.bottomCenter
+          //                   ],
+          //                   colorsDefault: const [
+          //                     AppColors.blue2,
+          //                     AppColors.blue2,
+          //                   ],
+          //                   gradientCompleted: const [
+          //                     Alignment.centerLeft,
+          //                     Alignment.centerRight
+          //                   ],
+          //                   colorsCompleted: const [
+          //                     AppColors.blue,
+          //                     AppColors.blue,
+          //                   ],
+          //                   height: 24.0,
+          //                   radius: 70.0,
+          //                   ratio: 0.04, // 40%
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //           Expanded(
+          //             child: Container(
+          //               height: 20,
+          //               color: Colors.white,
+          //               child: ProgressBar(
+          //                 gradientDefault: const [
+          //                   Alignment.topCenter,
+          //                   Alignment.bottomCenter
+          //                 ],
+          //                 colorsDefault: const [
+          //                   AppColors.green3,
+          //                   AppColors.green3
+          //                 ],
+          //                 gradientCompleted: const [
+          //                   Alignment.centerLeft,
+          //                   Alignment.centerRight
+          //                 ],
+          //                 colorsCompleted: const [
+          //                   AppColors.green,
+          //                   AppColors.green
+          //                 ],
+          //                 height: 24.0,
+          //                 radius: 70.0,
+          //                 ratio: 0.0, // 40%
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
