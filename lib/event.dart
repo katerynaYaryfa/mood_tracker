@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:table_calendar/table_calendar.dart';
 
+// TODO delete unused class and file
 class Event {
   final String title;
 

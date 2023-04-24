@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
+  // TODO think about better place to create class. I think app should be const
   final dataBaseWrapper = DataBaseWrapper();
 
   @override
@@ -27,6 +28,7 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<CalendarProvider>(
           create: (_) => CalendarProvider(
+              // TODO ,
               NotesRepository(dataBaseWrapper: dataBaseWrapper)),
         ),
       ],

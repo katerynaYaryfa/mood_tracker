@@ -8,6 +8,7 @@ import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 import 'package:path_provider/path_provider.dart';
 
+// TODO extract this class to separate file or place it in note_model.dart
 enum Mood {
   none,
   crying,
@@ -18,11 +19,14 @@ enum Mood {
   veryGood,
 }
 
+// TODO extends ChangeNotifier
 class NoteProvider with ChangeNotifier {
   File? savedImage;
 
   final INoteRepository _repository;
 
+  // TODO try to refactor this method. For example you can extract logic of working with
+  // TODO images and files
   Future<void> saveNote(DateTime date) async {
     final path = (await getApplicationDocumentsDirectory()).path;
     String formattedTodayDate = DateFormat('yyyy-M-d').format(date);
@@ -31,8 +35,8 @@ class NoteProvider with ChangeNotifier {
     if (images.isNotEmpty) {
       for (int i = 0; i < images.length; i++) {
         var image = images[i];
-        final copiedImage =
-            await image.copy('$path/${formattedTodayDate}_$i.jpg');
+        // TODO you don't need copiedImage. Just call image.copy method
+        final copiedImage = await image.copy('$path/${formattedTodayDate}_$i.jpg');
         pathList.add('${formattedTodayDate}_$i.jpg');
       }
     }
@@ -47,6 +51,7 @@ class NoteProvider with ChangeNotifier {
     ));
   }
 
+  // TODO all variables should be in the top of the class
   String text = '';
 
   void saveText(String text) {
@@ -54,6 +59,7 @@ class NoteProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO all variables should be in the top of the class
   List<File> images = [];
   Mood mood = Mood.none;
 
@@ -77,6 +83,7 @@ class NoteProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO all constructors should be in the top of the class
   NoteProvider({
     required INoteRepository repository,
   }) : _repository = repository;

@@ -52,10 +52,16 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
             children: [
               MoodIcon(
                 image: const AssetImage(
+                  // TODO extract such hardcoded paths to classes, constants
                   'images/face6.png',
                 ),
-                opacity: (widget.mood ?? mood) == Mood.crying ||
-                        (widget.mood ?? mood) == Mood.none
+                // TODO "widget.mood ?? mood" can be extracted into variable so you don't need
+                // TODO to write "widget.mood ?? mood" everywhere.
+                // TODO also you can extract this check into private function in order to get rid of
+                // TODO duplicated logic.
+                // TODO Just pass Mood.crying, Mood.veryBad, etc to this function and it will
+                // TODO return true or false for opacity check
+                opacity: (widget.mood ?? mood) == Mood.crying || (widget.mood ?? mood) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {
@@ -64,10 +70,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               ),
               MoodIcon(
                 image: const AssetImage(
+                  // TODO extract such hardcoded paths to classes, constants
                   'images/face5.png',
                 ),
-                opacity: (widget.mood ?? mood) == Mood.veryBad ||
-                        (widget.mood ?? mood) == Mood.none
+                opacity: (widget.mood ?? mood) == Mood.veryBad || (widget.mood ?? mood) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {
@@ -76,10 +82,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               ),
               MoodIcon(
                 image: const AssetImage(
+                  // TODO extract such hardcoded paths to classes, constants
                   'images/face1.png',
                 ),
-                opacity: (widget.mood ?? mood) == Mood.bad ||
-                        (widget.mood ?? mood) == Mood.none
+                opacity: (widget.mood ?? mood) == Mood.bad || (widget.mood ?? mood) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {
@@ -88,10 +94,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               ),
               MoodIcon(
                 image: const AssetImage(
+                  // TODO extract such hardcoded paths to classes, constants
                   'images/face4.png',
                 ),
-                opacity: (widget.mood ?? mood) == Mood.normal ||
-                        (widget.mood ?? mood) == Mood.none
+                opacity: (widget.mood ?? mood) == Mood.normal || (widget.mood ?? mood) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {
@@ -100,10 +106,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               ),
               MoodIcon(
                 image: const AssetImage(
+                  // TODO extract such hardcoded paths to classes, constants
                   'images/face3.png',
                 ),
-                opacity: (widget.mood ?? mood) == Mood.good ||
-                        (widget.mood ?? mood) == Mood.none
+                opacity: (widget.mood ?? mood) == Mood.good || (widget.mood ?? mood) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {
@@ -112,12 +118,13 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               ),
               MoodIcon(
                 image: const AssetImage(
+                  // TODO extract such hardcoded paths to classes, constants
                   'images/face2.png',
                 ),
-                opacity: (widget.mood ?? mood) == Mood.veryGood ||
-                        (widget.mood ?? mood) == Mood.none
-                    ? 1.0
-                    : 0.5,
+                opacity:
+                    (widget.mood ?? mood) == Mood.veryGood || (widget.mood ?? mood) == Mood.none
+                        ? 1.0
+                        : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.veryGood);
                 },

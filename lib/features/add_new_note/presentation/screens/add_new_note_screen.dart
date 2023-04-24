@@ -34,14 +34,12 @@ class AddNewNoteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pickedImages = context.watch<NoteProvider>().images;
-    final backgroundColor = context
-        .watch<ThemeProvider>()
-        .currentTheme
-        .floatingActionButtonTheme
-        .backgroundColor;
+    final backgroundColor =
+        context.watch<ThemeProvider>().currentTheme.floatingActionButtonTheme.backgroundColor;
 
     final saveNote = context.watch<NoteProvider>().saveNote;
 
+    // TODO give it more understandable name. Or just formattedDate
     String formattedANNSDate = DateFormat.MMMMEEEEd().format(time);
 
     return GestureDetector(
@@ -52,6 +50,7 @@ class AddNewNoteScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           onPressed: () {
+            // TODO it is better to do the logic and then call the Navigator
             Navigator.pop(context);
             saveNote(time);
           },
@@ -110,6 +109,8 @@ class AddNewNoteScreen extends StatelessWidget {
                   right: 26,
                 ),
                 child: SvgPicture.asset(
+                  // TODO extract to general class SvgIcons. And use it like SvgIcons.settings.
+                  // TODO instead of hardcoding paths.
                   'images/settings.svg',
                 ),
               ),
@@ -141,6 +142,9 @@ class AddNewNoteScreen extends StatelessWidget {
   }
 }
 
+// TODO it is better to add this wrapper inside AddNewNoteScreen.
+// TODO so you'll navigate to AddNewNoteScreen instead of AddNewNoteScreenWrapper
+// TODO and make it private then
 class AddNewNoteScreenWrapper extends StatelessWidget {
   const AddNewNoteScreenWrapper({
     required this.time,
@@ -150,6 +154,7 @@ class AddNewNoteScreenWrapper extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  // TODO rename to date
   final DateTime time;
   final Mood? mood;
   final String? text;

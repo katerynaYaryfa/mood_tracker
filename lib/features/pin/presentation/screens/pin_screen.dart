@@ -29,6 +29,7 @@ class _PinScreenState extends State<PinScreen> {
 
     context.read<PinProvider>().clearState();
 
+    // TODO move work with StorageService to provider
     if (widget.deletePin == true) {
       var storage = StorageService();
       storage.delete(
@@ -36,6 +37,7 @@ class _PinScreenState extends State<PinScreen> {
       );
     }
 
+    // TODO do you really need it?
     Future.delayed(Duration.zero, () async {});
   }
 
@@ -43,13 +45,17 @@ class _PinScreenState extends State<PinScreen> {
   Widget build(BuildContext context) {
     final pin1 = context.watch<PinProvider>().pin1;
     final pin2 = context.watch<PinProvider>().pin2;
+    // TODO final
     var wrongPin = context.watch<PinProvider>().wrongPin;
     final pinCodeEnabled = context.watch<PinProvider>().pinCodeEnabled;
 
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
 
+    // TODO it is not good practice to call function in build method because it can be called
+    // TODO multiple times. Let's refactor it together
     context.read<PinProvider>().writePin(context);
+    // TODO same here
     if (pinCodeEnabled) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pop(context);
@@ -65,6 +71,7 @@ class _PinScreenState extends State<PinScreen> {
         body: SafeArea(
           child: Column(
             children: [
+              // TODO spaceh18 or sizedbox
               Container(
                 height: 18.0,
               ),
@@ -85,18 +92,24 @@ class _PinScreenState extends State<PinScreen> {
                 ),
               ),
               const SpaceH32(),
+              // TODO 4 is magic number, please refactor
+              // TODO also refactor to variable like shouldCreatePin or createPin
               if (pin1.length != 4)
                 const Text(
                   'Create your PIN-code',
                   style: s16W700CBlack,
                 ),
+              // TODO 4 is magic number, please refactor
+              // TODO also refactor to variable like shouldEnterPin or enterPin
               if (pin1.length == 4)
                 const Text(
                   'Enter your PIN-code',
                   style: s16W700CBlack,
                 ),
               const SpaceH24(),
+              // TODO 4 is magic number, please refactor
               if (pin1.length != 4) PasswordInputField(pin: pin1),
+              // TODO 4 is magic number, please refactor
               if (pin1.length == 4) PasswordInputField(pin: pin2),
               if (wrongPin)
                 const PinsDontMatch()
@@ -172,6 +185,7 @@ class _PinScreenState extends State<PinScreen> {
                   InkWell(
                     onTap: () {
                       Navigator.pop(context);
+                      // TODO delete comment
                       // Navigator.pop(context);
                     },
                     child: Container(
@@ -230,6 +244,7 @@ class _PinScreenState extends State<PinScreen> {
   }
 }
 
+// TODO rename to PinErrorLabel or something like that
 class PinsDontMatch extends StatelessWidget {
   const PinsDontMatch({
     Key? key,

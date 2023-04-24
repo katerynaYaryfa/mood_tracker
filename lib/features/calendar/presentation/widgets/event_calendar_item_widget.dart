@@ -19,21 +19,20 @@ class EventCalendarItemWidget extends StatefulWidget {
   final NoteData? note;
 
   @override
-  State<EventCalendarItemWidget> createState() =>
-      _EventCalendarItemWidgetState();
+  State<EventCalendarItemWidget> createState() => _EventCalendarItemWidgetState();
 }
 
 class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
   List<File> images = [];
 
+  // TODO let's refactor this method together
   Future<void> _parseList() async {
     final jsonPathList = jsonDecode(widget.note?.images ?? '');
     final castt = jsonPathList as List<dynamic>;
     final imageNames = castt.cast<String>();
 
     final appDirectory = (await getApplicationDocumentsDirectory());
-    final appDirectoryFiles =
-        appDirectory.listSync().map((event) => File(event.path));
+    final appDirectoryFiles = appDirectory.listSync().map((event) => File(event.path));
     imageNames.forEach((imageName) {
       appDirectoryFiles.forEach((file) {
         if (file.path.contains(imageName)) {

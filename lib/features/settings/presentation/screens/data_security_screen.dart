@@ -21,7 +21,9 @@ class DataSecurityScreen extends StatefulWidget {
 class _DataSecurityScreenState extends State<DataSecurityScreen> {
   @override
   void initState() {
+    // TODO readPinCode
     context.read<PinProvider>().readStorageService();
+    // TODO super init state should be in the start of method
     super.initState();
   }
 
@@ -45,6 +47,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 color: AppColors.white,
                 value: pinCodeEnabled,
                 onChanged: (bool value) {
+                  // TODO move work with storage service to provider
                   if (pinCodeEnabled) {
                     final storage = StorageService();
                     storage.delete(

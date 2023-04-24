@@ -22,11 +22,13 @@ class DayInOneSentenceWidget extends StatefulWidget {
 
 class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
   late TextEditingController _controller;
+  // TODO as far as I remember it is possible to change text of note. So we can refactor this logic
   bool canWriteText = true;
 
   @override
   void initState() {
     super.initState();
+    // TODO it is possible to make late final textcontroller and assign it the declaration
     _controller = TextEditingController(
       text: widget.title ?? '',
     );

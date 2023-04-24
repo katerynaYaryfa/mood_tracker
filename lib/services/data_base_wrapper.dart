@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 part 'data_base_wrapper.g.dart';
 
+// TODO check this file
 class DataBaseWrapper {
   final db = Database();
 
@@ -18,6 +19,7 @@ class DataBaseWrapper {
               title: noteModel.text,
               mood: noteModel.mood,
               date: noteModel.date,
+              // TODO ,
               images: noteModel.images),
         );
   }

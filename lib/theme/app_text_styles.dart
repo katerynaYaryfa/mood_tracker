@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 
+// TODO it will be better to create class TextStyles and put all these styles into it.
+// TODO so you can use it like TextStyles.s22W700CBlack instead of just s22W700CBlack.
 const TextStyle s22W700CBlack = TextStyle(
   fontSize: 22,
   fontWeight: FontWeight.w700,

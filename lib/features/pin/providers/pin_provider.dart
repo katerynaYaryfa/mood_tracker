@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 
+// TODO extends ChangeNotifier
 class PinProvider with ChangeNotifier {
+  // TODO this variable is not used
   bool isPressed = false;
   String pin1 = '';
   String pin2 = '';
   bool wrongPin = false;
 
+  // TODO this variable is not used
   var color = Colors.grey.shade400;
 
   void clearState() {
@@ -16,6 +19,7 @@ class PinProvider with ChangeNotifier {
     isPressed = false;
   }
 
+  // TODO this method is not used
   Future<String?> readSavedPinCode() async {
     var storage = StorageService();
     final savedPin = await storage.read(
@@ -25,6 +29,7 @@ class PinProvider with ChangeNotifier {
     return savedPin;
   }
 
+  // TODO think about better name for method
   void pinCode(String num) async {
     if (pin1.length == 4) {
       pin2 = pin2 + num;
@@ -41,6 +46,7 @@ class PinProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO bad name for method. refactor to deleteSymbol or something else
   void deleteLastIndex() {
     if (pin1.isNotEmpty && pin2.isEmpty) {
       pin1 = pin1.substring(0, pin1.length - 1);
@@ -51,7 +57,11 @@ class PinProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO context is not used
   void writePin(BuildContext context) async {
+    // TODO 4 - is a magic number. refactor please
+    // TODO also this is hard to read. Refactor it to
+    // final shouldSavePin/shouldSave/etc = pin2.length == 4 && pin1 == pin2 && !pinCodeEnabled;
     if (pin2.length == 4 && pin1 == pin2 && !pinCodeEnabled) {
       var storage = StorageService();
 
@@ -65,6 +75,7 @@ class PinProvider with ChangeNotifier {
     }
   }
 
+  // TODO put in in the top of your class with other variables
   bool pinCodeEnabled = false;
 
   void readStorageService() async {
@@ -78,11 +89,13 @@ class PinProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO bad name for method. refactor to disablePinCode or something else
   void pinCodeFalse() {
     pinCodeEnabled = false;
     notifyListeners();
   }
 
+  // TODO this method is not used
   void pinCodeTrue() {
     pinCodeEnabled = true;
     notifyListeners();

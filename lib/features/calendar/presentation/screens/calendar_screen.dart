@@ -18,6 +18,7 @@ import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+// TODO refactor to StatelessWidget
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({Key? key}) : super(key: key);
 
@@ -31,14 +32,12 @@ class CalendarScreenState extends State<CalendarScreen> {
     final todayDate = context.watch<CalendarProvider>().todayDate;
     final firstDay = context.read<CalendarProvider>().firstDay;
     final selectedDate = context.read<CalendarProvider>().selectedDate;
-    final formattedTodayDate =
-        context.watch<CalendarProvider>().formattedTodayDate;
-    final formattedSelectedDate =
-        context.watch<CalendarProvider>().formattedSelectedDate;
-    final primaryColor =
-        context.watch<ThemeProvider>().currentTheme.primaryColor;
+    final formattedTodayDate = context.watch<CalendarProvider>().formattedTodayDate;
+    final formattedSelectedDate = context.watch<CalendarProvider>().formattedSelectedDate;
+    final primaryColor = context.watch<ThemeProvider>().currentTheme.primaryColor;
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+    // TODO rename to notes?
     final events = context.watch<CalendarProvider>().events;
 
     return Scaffold(
@@ -55,9 +54,7 @@ class CalendarScreenState extends State<CalendarScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                selectedDate != null
-                    ? formattedSelectedDate
-                    : formattedTodayDate,
+                selectedDate != null ? formattedSelectedDate : formattedTodayDate,
                 style: s14W600CBlack2,
               ),
               SvgPicture.asset(
@@ -93,17 +90,21 @@ class CalendarScreenState extends State<CalendarScreen> {
             padding: const EdgeInsets.symmetric(
               horizontal: 12,
             ),
+            // TODO actually SteramBuilder is not needed here. We can refactor it together
             child: StreamBuilder<List<NoteData>>(
                 stream: events,
                 builder: (context, snapshot) {
                   return TableCalendar(
                     rowHeight: 88,
                     eventLoader: (DateTime date) {
+                      // TODO refactor this function and give it understandable name
+                      // TODO what is "a"?
                       var a = snapshot.data?.firstWhereOrNull((element) {
+                        // TODO name it fully like date1Formatted
                         String dt1Formatted = DateFormat.yMd().format(date);
-                        String dt2Formatted =
-                            DateFormat.yMd().format(element.date);
+                        String dt2Formatted = DateFormat.yMd().format(element.date);
 
+                        // TODO give it more understandable name
                         bool compareDates = dt1Formatted == dt2Formatted;
 
                         return compareDates;
@@ -125,6 +126,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                       outsideDaysVisible: false,
                     ),
                   );
+                  // TODO ,
                 }),
           ),
         ],
@@ -144,6 +146,7 @@ class CalendarScreenState extends State<CalendarScreen> {
         return TodayCalendarItemWidget(day: day);
       },
       markerBuilder: (_, day, events) {
+        // TODO refactor and give more understandable names
         if (events.isNotEmpty) {
           var a = events.firstWhereOrNull((element) {
             String dt1Formatted = DateFormat.yMd().format(day);
@@ -186,18 +189,16 @@ class CalendarScreenState extends State<CalendarScreen> {
         insetPadding: EdgeInsets.zero,
         content: StatefulBuilder(
           builder: (BuildContext context, StateSetter dialogSetState) {
-            final primaryColor =
-                context.watch<ThemeProvider>().currentTheme.primaryColor;
+            final primaryColor = context.watch<ThemeProvider>().currentTheme.primaryColor;
             final months = context.read<CalendarProvider>().months;
-            final changeMonthDate =
-                context.read<CalendarProvider>().changeMonthDate;
+            final changeMonthDate = context.read<CalendarProvider>().changeMonthDate;
             final years = context.read<CalendarProvider>().years;
-            final changeYearDate =
-                context.read<CalendarProvider>().changeYearDate;
+            final changeYearDate = context.read<CalendarProvider>().changeYearDate;
             final itemYear = context.watch<CalendarProvider>().itemYear;
             final itemMonth = context.watch<CalendarProvider>().itemMonth;
 
             return SizedBox(
+              // TODO 96 is a magic number, refactor it please
               width: MediaQuery.of(context).size.width - 96,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -277,6 +278,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.white,
+                                  // TODO you have a lot of brackets. Refactor
                                 ),
                               ),
                             ),
