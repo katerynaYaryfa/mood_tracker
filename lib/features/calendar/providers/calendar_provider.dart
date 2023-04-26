@@ -3,39 +3,25 @@ import 'package:intl/intl.dart';
 import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
 import 'package:mood_tracker/services/data_base_wrapper.dart';
 
-// TODO extends ChangeNotifier
-class CalendarProvider with ChangeNotifier {
-  CalendarProvider(this._repository) {
-    _init();
-    readNote(todayDate);
-  }
-
+class CalendarProvider extends ChangeNotifier {
   final INotesRepository _repository;
-
-  // TODO can be private
-  void readNote(DateTime date) async {
-    events = await _repository.readNotes(date);
-    notifyListeners();
-  }
-
-  // TODO all variables should be in the top of class
   DateTime get todayDate => DateTime.now();
   DateTime get firstDay => DateTime.utc(2000, 01, 01);
   String get formattedTodayDate => DateFormat.yMMMM().format(todayDate);
   String get formattedANNSDate => DateFormat.MMMMEEEEd().format(todayDate);
   String get formattedTodayYear => DateFormat.y().format(todayDate);
   String get formattedTodayMonth => DateFormat.MMMM().format(todayDate);
-
-  String get formattedSelectedDate => DateFormat.yMMMM().format(selectedDate ?? todayDate);
+  String get formattedSelectedDate =>
+      DateFormat.yMMMM().format(selectedDate ?? todayDate);
 
   String selectedMonth = '';
   String selectedYear = '';
   DateTime? selectedDate;
+  int chosenMonth = 0;
+  int chosenYear = 0;
 
-  Stream<List<NoteData>> events = Stream.value([]);
-
+  Stream<List<NoteData>> notes = Stream.value([]);
   List<String> years = [];
-
   List<String> months = const [
     'January',
     'February',
@@ -51,6 +37,16 @@ class CalendarProvider with ChangeNotifier {
     'December'
   ];
 
+  CalendarProvider(this._repository) {
+    _init();
+    _readNote(todayDate);
+  }
+
+  void _readNote(DateTime date) async {
+    notes = await _repository.readNotes(date);
+    notifyListeners();
+  }
+
   void changeMonthDate(index) {
     selectedMonth = months[index];
   }
@@ -61,15 +57,10 @@ class CalendarProvider with ChangeNotifier {
 
   void pickDate() {
     selectedDate = DateFormat.yMMMM().parse('$selectedMonth $selectedYear');
-    readNote(selectedDate ?? todayDate);
+    _readNote(selectedDate ?? todayDate);
 
     notifyListeners();
   }
-
-  // TODO all variables should be in the top of class. And give oit more understandable name
-  // TODO what is item? what does it mean here?
-  int itemMonth = 0;
-  int itemYear = 0;
 
   // TODO method named init but has a lot of tricky logic.
   // TODO maybe try to refactor to separate small methods. Or give it more understandable name
@@ -100,8 +91,8 @@ class CalendarProvider with ChangeNotifier {
     selectedMonth = months[indexM];
     selectedYear = years[indexY];
 
-    itemMonth = indexM;
-    itemYear = indexY;
+    chosenMonth = indexM;
+    chosenYear = indexY;
 
     notifyListeners();
   }

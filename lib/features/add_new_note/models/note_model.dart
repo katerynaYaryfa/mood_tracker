@@ -1,5 +1,3 @@
-import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
-
 class NoteModel {
   DateTime date;
   Mood mood;
@@ -12,4 +10,14 @@ class NoteModel {
     required this.text,
     required this.images,
   });
+}
+
+enum Mood {
+  none,
+  crying,
+  veryBad,
+  bad,
+  normal,
+  good,
+  veryGood,
 }

@@ -8,23 +8,16 @@ import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 import 'package:path_provider/path_provider.dart';
 
-// TODO extract this class to separate file or place it in note_model.dart
-enum Mood {
-  none,
-  crying,
-  veryBad,
-  bad,
-  normal,
-  good,
-  veryGood,
-}
+class NoteProvider extends ChangeNotifier {
+  NoteProvider({
+    required INoteRepository repository,
+  }) : _repository = repository;
 
-// TODO extends ChangeNotifier
-class NoteProvider with ChangeNotifier {
   File? savedImage;
-
   final INoteRepository _repository;
-
+  String text = '';
+  List<File> images = [];
+  Mood mood = Mood.none;
   // TODO try to refactor this method. For example you can extract logic of working with
   // TODO images and files
   Future<void> saveNote(DateTime date) async {
@@ -35,8 +28,7 @@ class NoteProvider with ChangeNotifier {
     if (images.isNotEmpty) {
       for (int i = 0; i < images.length; i++) {
         var image = images[i];
-        // TODO you don't need copiedImage. Just call image.copy method
-        final copiedImage = await image.copy('$path/${formattedTodayDate}_$i.jpg');
+        await image.copy('$path/${formattedTodayDate}_$i.jpg');
         pathList.add('${formattedTodayDate}_$i.jpg');
       }
     }
@@ -51,17 +43,10 @@ class NoteProvider with ChangeNotifier {
     ));
   }
 
-  // TODO all variables should be in the top of the class
-  String text = '';
-
   void saveText(String text) {
     this.text = text;
     notifyListeners();
   }
-
-  // TODO all variables should be in the top of the class
-  List<File> images = [];
-  Mood mood = Mood.none;
 
   void deleteImage(File image) {
     images.remove(image);
@@ -82,9 +67,4 @@ class NoteProvider with ChangeNotifier {
     this.mood = mood;
     notifyListeners();
   }
-
-  // TODO all constructors should be in the top of the class
-  NoteProvider({
-    required INoteRepository repository,
-  }) : _repository = repository;
 }

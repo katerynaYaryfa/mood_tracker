@@ -19,7 +19,8 @@ class EventCalendarItemWidget extends StatefulWidget {
   final NoteData? note;
 
   @override
-  State<EventCalendarItemWidget> createState() => _EventCalendarItemWidgetState();
+  State<EventCalendarItemWidget> createState() =>
+      _EventCalendarItemWidgetState();
 }
 
 class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
@@ -32,7 +33,8 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
     final imageNames = castt.cast<String>();
 
     final appDirectory = (await getApplicationDocumentsDirectory());
-    final appDirectoryFiles = appDirectory.listSync().map((event) => File(event.path));
+    final appDirectoryFiles =
+        appDirectory.listSync().map((event) => File(event.path));
     imageNames.forEach((imageName) {
       appDirectoryFiles.forEach((file) {
         if (file.path.contains(imageName)) {
@@ -60,7 +62,7 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
             builder: (context) {
               return AddNewNoteScreenWrapper(
                 images: images,
-                time: widget.day,
+                date: widget.day,
                 mood: widget.note!.mood,
                 text: widget.note!.title,
               );
@@ -75,7 +77,7 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
           children: [
             Text(
               '${widget.day.day}',
-              style: s12WBoldCGrey2,
+              style: TextStyles.s12WBoldCGrey2,
             ),
             const SpaceH4(),
             const Image(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
+import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -76,12 +77,14 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => AddNewNoteScreenWrapper(
-                        time: DateTime.now(),
+                        date: DateTime.now(),
                       ),
                     ),
                   );
                 },
-                child: SvgPicture.asset('images/Human.svg'),
+                child: SvgPicture.asset(
+                  SvgIcons.human,
+                ),
               );
             },
           ),
@@ -101,7 +104,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     _onItemTapped(0);
                   },
                   child: SvgPicture.asset(
-                    'images/calender.svg',
+                    SvgIcons.calendar,
                     color: selectedIndex == 0 ? primaryColor : AppColors.grey,
                   ),
                 ),
@@ -110,7 +113,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     _onItemTapped(1);
                   },
                   child: SvgPicture.asset(
-                    'images/server.svg',
+                    SvgIcons.server,
                     color: selectedIndex == 1 ? primaryColor : AppColors.grey,
                   ),
                 ),
@@ -122,7 +125,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     _onItemTapped(2);
                   },
                   child: SvgPicture.asset(
-                    'images/barGraph.svg',
+                    SvgIcons.barGraph,
                     color: selectedIndex == 2 ? primaryColor : AppColors.grey,
                   ),
                 ),
@@ -131,7 +134,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     _onItemTapped(3);
                   },
                   child: SvgPicture.asset(
-                    'images/settings.svg',
+                    SvgIcons.settings,
                     color: selectedIndex == 3 ? primaryColor : AppColors.grey,
                   ),
                 ),

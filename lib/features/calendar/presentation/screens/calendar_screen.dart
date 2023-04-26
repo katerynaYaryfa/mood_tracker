@@ -4,41 +4,40 @@ import 'package:intl/intl.dart';
 import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/extension.dart';
+import 'package:mood_tracker/features/calendar/presentation/widgets/cancel_button_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/date_picker_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/default_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/disabled_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/event_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/header_face_button_widget.dart';
+import 'package:mood_tracker/features/calendar/presentation/widgets/ok_button_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/today_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
 import 'package:mood_tracker/services/data_base_wrapper.dart';
+import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-// TODO refactor to StatelessWidget
-class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({Key? key}) : super(key: key);
+class CalendarScreen extends StatelessWidget {
+  const CalendarScreen({super.key});
 
-  @override
-  CalendarScreenState createState() => CalendarScreenState();
-}
-
-class CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     final todayDate = context.watch<CalendarProvider>().todayDate;
     final firstDay = context.read<CalendarProvider>().firstDay;
     final selectedDate = context.read<CalendarProvider>().selectedDate;
-    final formattedTodayDate = context.watch<CalendarProvider>().formattedTodayDate;
-    final formattedSelectedDate = context.watch<CalendarProvider>().formattedSelectedDate;
-    final primaryColor = context.watch<ThemeProvider>().currentTheme.primaryColor;
+    final formattedTodayDate =
+        context.watch<CalendarProvider>().formattedTodayDate;
+    final formattedSelectedDate =
+        context.watch<CalendarProvider>().formattedSelectedDate;
+    final primaryColor =
+        context.watch<ThemeProvider>().currentTheme.primaryColor;
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
-    // TODO rename to notes?
-    final events = context.watch<CalendarProvider>().events;
+    final notes = context.watch<CalendarProvider>().notes;
 
     return Scaffold(
       backgroundColor: scaffoldBackgroundColor,
@@ -54,11 +53,13 @@ class CalendarScreenState extends State<CalendarScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                selectedDate != null ? formattedSelectedDate : formattedTodayDate,
-                style: s14W600CBlack2,
+                selectedDate != null
+                    ? formattedSelectedDate
+                    : formattedTodayDate,
+                style: TextStyles.s14W600CBlack2,
               ),
               SvgPicture.asset(
-                'images/arrowDown.svg',
+                SvgIcons.arrowDown,
                 height: 24,
                 width: 24,
                 color: primaryColor,
@@ -75,7 +76,7 @@ class CalendarScreenState extends State<CalendarScreen> {
             child: InkWell(
               onTap: () {},
               child: SvgPicture.asset(
-                'images/share.svg',
+                SvgIcons.share,
                 height: 24,
                 width: 24,
                 color: AppColors.grey,
@@ -92,42 +93,42 @@ class CalendarScreenState extends State<CalendarScreen> {
             ),
             // TODO actually SteramBuilder is not needed here. We can refactor it together
             child: StreamBuilder<List<NoteData>>(
-                stream: events,
-                builder: (context, snapshot) {
-                  return TableCalendar(
-                    rowHeight: 88,
-                    eventLoader: (DateTime date) {
-                      // TODO refactor this function and give it understandable name
-                      // TODO what is "a"?
-                      var a = snapshot.data?.firstWhereOrNull((element) {
-                        // TODO name it fully like date1Formatted
-                        String dt1Formatted = DateFormat.yMd().format(date);
-                        String dt2Formatted = DateFormat.yMd().format(element.date);
+              stream: notes,
+              builder: (context, snapshot) {
+                return TableCalendar(
+                  rowHeight: 88,
+                  eventLoader: (DateTime date) {
+                    // TODO refactor this function and give it understandable name
+                    // TODO what is "a"?
+                    var a = snapshot.data?.firstWhereOrNull((element) {
+                      String date1Formatted = DateFormat.yMd().format(date);
+                      String date2Formatted =
+                          DateFormat.yMd().format(element.date);
 
-                        // TODO give it more understandable name
-                        bool compareDates = dt1Formatted == dt2Formatted;
+                      // TODO give it more understandable name
+                      bool compareDates = date1Formatted == date2Formatted;
 
-                        return compareDates;
-                      });
-                      if (a != null) {
-                        return [a];
-                      } else {
-                        return [];
-                      }
-                    },
-                    availableGestures: AvailableGestures.none,
-                    firstDay: firstDay,
-                    lastDay: todayDate,
-                    focusedDay: selectedDate ?? todayDate,
-                    calendarFormat: CalendarFormat.month,
-                    headerVisible: false,
-                    calendarBuilders: _builders(context),
-                    calendarStyle: const CalendarStyle(
-                      outsideDaysVisible: false,
-                    ),
-                  );
-                  // TODO ,
-                }),
+                      return compareDates;
+                    });
+                    if (a != null) {
+                      return [a];
+                    } else {
+                      return [];
+                    }
+                  },
+                  availableGestures: AvailableGestures.none,
+                  firstDay: firstDay,
+                  lastDay: todayDate,
+                  focusedDay: selectedDate ?? todayDate,
+                  calendarFormat: CalendarFormat.month,
+                  headerVisible: false,
+                  calendarBuilders: _builders(context),
+                  calendarStyle: const CalendarStyle(
+                    outsideDaysVisible: false,
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -189,13 +190,16 @@ class CalendarScreenState extends State<CalendarScreen> {
         insetPadding: EdgeInsets.zero,
         content: StatefulBuilder(
           builder: (BuildContext context, StateSetter dialogSetState) {
-            final primaryColor = context.watch<ThemeProvider>().currentTheme.primaryColor;
+            final primaryColor =
+                context.watch<ThemeProvider>().currentTheme.primaryColor;
             final months = context.read<CalendarProvider>().months;
-            final changeMonthDate = context.read<CalendarProvider>().changeMonthDate;
+            final changeMonthDate =
+                context.read<CalendarProvider>().changeMonthDate;
             final years = context.read<CalendarProvider>().years;
-            final changeYearDate = context.read<CalendarProvider>().changeYearDate;
-            final itemYear = context.watch<CalendarProvider>().itemYear;
-            final itemMonth = context.watch<CalendarProvider>().itemMonth;
+            final changeYearDate =
+                context.read<CalendarProvider>().changeYearDate;
+            final itemYear = context.watch<CalendarProvider>().chosenYear;
+            final itemMonth = context.watch<CalendarProvider>().chosenMonth;
 
             return SizedBox(
               // TODO 96 is a magic number, refactor it please
@@ -205,7 +209,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                 children: [
                   const Text(
                     'Choose the date',
-                    style: s22W700CBlack,
+                    style: TextStyles.s22W700CBlack,
                   ),
                   const SpaceH32(),
                   Row(
@@ -229,62 +233,9 @@ class CalendarScreenState extends State<CalendarScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: primaryColor,
-                              width: 1,
-                            ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(30.0),
-                            ),
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Center(
-                              child: Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  color: primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      CancelButton(primaryColor: primaryColor),
                       const SpaceW24(),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            context.read<CalendarProvider>().pickDate();
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: primaryColor,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(30.0),
-                              ),
-                            ),
-                            height: 50,
-                            child: const Center(
-                              child: Text(
-                                'OK',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.white,
-                                  // TODO you have a lot of brackets. Refactor
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      OkButton(primaryColor: primaryColor),
                     ],
                   ),
                 ],

@@ -67,7 +67,7 @@ class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
         children: [
           const Text(
             'Describe your day',
-            style: s16W700CBlack,
+            style: TextStyles.s16W700CBlack,
           ),
           const SpaceH16(),
           TextField(
@@ -82,7 +82,7 @@ class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
             ],
             maxLines: 100,
             minLines: 1,
-            style: s16WNormalCBlack,
+            style: TextStyles.s16WNormalCBlack,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.only(
                 top: 10,

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/select_categories_screen.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_one_sentence_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
@@ -12,6 +13,7 @@ import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 import 'package:mood_tracker/services/data_base_wrapper.dart';
+import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -34,13 +36,15 @@ class AddNewNoteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pickedImages = context.watch<NoteProvider>().images;
-    final backgroundColor =
-        context.watch<ThemeProvider>().currentTheme.floatingActionButtonTheme.backgroundColor;
+    final backgroundColor = context
+        .watch<ThemeProvider>()
+        .currentTheme
+        .floatingActionButtonTheme
+        .backgroundColor;
 
     final saveNote = context.watch<NoteProvider>().saveNote;
 
-    // TODO give it more understandable name. Or just formattedDate
-    String formattedANNSDate = DateFormat.MMMMEEEEd().format(time);
+    String formattedDate = DateFormat.MMMMEEEEd().format(time);
 
     return GestureDetector(
       onTap: () {
@@ -50,9 +54,8 @@ class AddNewNoteScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           onPressed: () {
-            // TODO it is better to do the logic and then call the Navigator
-            Navigator.pop(context);
             saveNote(time);
+            Navigator.pop(context);
           },
           child: Container(
             width: 100,
@@ -89,8 +92,8 @@ class AddNewNoteScreen extends StatelessWidget {
             },
           ),
           title: Text(
-            formattedANNSDate,
-            style: s14W600CBlack2,
+            formattedDate,
+            style: TextStyles.s14W600CBlack2,
           ),
           actions: [
             InkWell(
@@ -109,9 +112,7 @@ class AddNewNoteScreen extends StatelessWidget {
                   right: 26,
                 ),
                 child: SvgPicture.asset(
-                  // TODO extract to general class SvgIcons. And use it like SvgIcons.settings.
-                  // TODO instead of hardcoding paths.
-                  'images/settings.svg',
+                  SvgIcons.barGraph,
                 ),
               ),
             )
@@ -147,15 +148,14 @@ class AddNewNoteScreen extends StatelessWidget {
 // TODO and make it private then
 class AddNewNoteScreenWrapper extends StatelessWidget {
   const AddNewNoteScreenWrapper({
-    required this.time,
+    required this.date,
     this.mood,
     this.text,
     this.images,
     Key? key,
   }) : super(key: key);
 
-  // TODO rename to date
-  final DateTime time;
+  final DateTime date;
   final Mood? mood;
   final String? text;
   final List<File>? images;
@@ -169,7 +169,7 @@ class AddNewNoteScreenWrapper extends StatelessWidget {
         repository: NoteRepository(dataBaseWrapper: dataBaseWrapper),
       ),
       child: AddNewNoteScreen(
-        time: time,
+        time: date,
         mood: mood,
         text: text,
         images: images,

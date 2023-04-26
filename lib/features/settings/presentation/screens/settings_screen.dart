@@ -6,6 +6,7 @@ import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/color_scheme_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/data_security_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
+import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 
@@ -24,7 +25,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         leading: SizedBox(),
         title: Text(
           'Settings',
-          style: s14W600CBlack2,
+          style: TextStyles.s14W600CBlack2,
         ),
       ),
       body: Center(
@@ -62,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: IconButton(
                         onPressed: () {},
                         icon: SvgPicture.asset(
-                          'images/securityUnlockKey.svg',
+                          SvgIcons.securityUnlockKey,
                           color: AppColors.white,
                           height: 24,
                           width: 24,
@@ -75,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     const Spacer(),
                     SvgPicture.asset(
-                      'images/arrowRight.svg',
+                      SvgIcons.arrowRight,
                       color: AppColors.grey,
                     ),
                   ],
@@ -104,7 +105,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: IconButton(
                       onPressed: () {},
                       icon: SvgPicture.asset(
-                        'images/language.svg',
+                        SvgIcons.language,
                         color: AppColors.white,
                         height: 24,
                         width: 24,
@@ -115,7 +116,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const Text('Language'),
                   const Spacer(),
                   SvgPicture.asset(
-                    'images/arrowRight.svg',
+                    SvgIcons.arrowRight,
                     color: AppColors.grey,
                   ),
                 ],
@@ -154,7 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: IconButton(
                         onPressed: () {},
                         icon: SvgPicture.asset(
-                          'images/scheme.svg',
+                          SvgIcons.scheme,
                           color: AppColors.white,
                           height: 24,
                           width: 24,
@@ -167,7 +168,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     const Spacer(),
                     SvgPicture.asset(
-                      'images/arrowRight.svg',
+                      SvgIcons.arrowRight,
                       color: AppColors.grey,
                     ),
                   ],
@@ -196,7 +197,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: IconButton(
                       onPressed: () {},
                       icon: SvgPicture.asset(
-                        'images/calender.svg',
+                        SvgIcons.calendar,
                         color: AppColors.white,
                         height: 24,
                         width: 24,
@@ -209,7 +210,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   const Spacer(),
                   SvgPicture.asset(
-                    'images/arrowRight.svg',
+                    SvgIcons.arrowRight,
                     color: AppColors.grey,
                   ),
                 ],
@@ -237,7 +238,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: IconButton(
                       onPressed: () {},
                       icon: SvgPicture.asset(
-                        'images/bell.svg',
+                        SvgIcons.bell,
                         color: AppColors.white,
                         height: 24,
                         width: 24,

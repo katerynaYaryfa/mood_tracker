@@ -28,8 +28,8 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<CalendarProvider>(
           create: (_) => CalendarProvider(
-              // TODO ,
-              NotesRepository(dataBaseWrapper: dataBaseWrapper)),
+            NotesRepository(dataBaseWrapper: dataBaseWrapper),
+          ),
         ),
       ],
       child: const CustomNavigationBar(),

@@ -7,6 +7,7 @@ import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
 import 'package:mood_tracker/services/storage_service.dart';
+import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:provider/provider.dart';
@@ -21,10 +22,8 @@ class DataSecurityScreen extends StatefulWidget {
 class _DataSecurityScreenState extends State<DataSecurityScreen> {
   @override
   void initState() {
-    // TODO readPinCode
-    context.read<PinProvider>().readStorageService();
-    // TODO super init state should be in the start of method
     super.initState();
+    context.read<PinProvider>().readPinCode();
   }
 
   @override
@@ -35,7 +34,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
       appBar: const CustomAppBar(
         title: Text(
           'Data Security',
-          style: s14W600CBlack2,
+          style: TextStyles.s14W600CBlack2,
         ),
       ),
       body: SafeArea(
@@ -53,7 +52,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                     storage.delete(
                       key: 'pin',
                     );
-                    context.read<PinProvider>().pinCodeFalse();
+                    context.read<PinProvider>().disablePinCode();
                   } else {
                     Navigator.push(
                       context,
@@ -70,7 +69,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 child: IconButton(
                   onPressed: () {},
                   icon: SvgPicture.asset(
-                    'images/pinCode.svg',
+                    SvgIcons.pinCode,
                     height: 24,
                     width: 24,
                     color: AppColors.grey,
@@ -88,7 +87,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 child: IconButton(
                   onPressed: () {},
                   icon: SvgPicture.asset(
-                    'images/touchID.svg',
+                    SvgIcons.touchID,
                     color: AppColors.grey,
                     height: 24,
                     width: 24,
@@ -106,7 +105,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 child: IconButton(
                   onPressed: () {},
                   icon: SvgPicture.asset(
-                    'images/faceID.svg',
+                    SvgIcons.faceID,
                     color: AppColors.grey,
                     height: 24,
                     width: 24,

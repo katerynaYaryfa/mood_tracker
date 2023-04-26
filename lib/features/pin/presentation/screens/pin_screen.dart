@@ -5,6 +5,7 @@ import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart'
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/services/storage_service.dart';
+import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -45,12 +46,14 @@ class _PinScreenState extends State<PinScreen> {
   Widget build(BuildContext context) {
     final pin1 = context.watch<PinProvider>().pin1;
     final pin2 = context.watch<PinProvider>().pin2;
-    // TODO final
-    var wrongPin = context.watch<PinProvider>().wrongPin;
+    final wrongPin = context.watch<PinProvider>().wrongPin;
     final pinCodeEnabled = context.watch<PinProvider>().pinCodeEnabled;
 
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+    const pinLength = 4;
+    final shouldEnterPin = pin1.length == pinLength;
+    final shouldCreatePin = pin1.length != pinLength;
 
     // TODO it is not good practice to call function in build method because it can be called
     // TODO multiple times. Let's refactor it together
@@ -71,10 +74,7 @@ class _PinScreenState extends State<PinScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              // TODO spaceh18 or sizedbox
-              Container(
-                height: 18.0,
-              ),
+              const SpaceH18(),
               Container(
                 width: 90,
                 height: 90,
@@ -88,31 +88,25 @@ class _PinScreenState extends State<PinScreen> {
                   boxShadow: const [],
                 ),
                 child: SvgPicture.asset(
-                  'images/lock.svg',
+                  SvgIcons.lock,
                 ),
               ),
               const SpaceH32(),
-              // TODO 4 is magic number, please refactor
-              // TODO also refactor to variable like shouldCreatePin or createPin
-              if (pin1.length != 4)
+              if (shouldCreatePin)
                 const Text(
                   'Create your PIN-code',
-                  style: s16W700CBlack,
+                  style: TextStyles.s16W700CBlack,
                 ),
-              // TODO 4 is magic number, please refactor
-              // TODO also refactor to variable like shouldEnterPin or enterPin
-              if (pin1.length == 4)
+              if (shouldEnterPin)
                 const Text(
                   'Enter your PIN-code',
-                  style: s16W700CBlack,
+                  style: TextStyles.s16W700CBlack,
                 ),
               const SpaceH24(),
-              // TODO 4 is magic number, please refactor
-              if (pin1.length != 4) PasswordInputField(pin: pin1),
-              // TODO 4 is magic number, please refactor
-              if (pin1.length == 4) PasswordInputField(pin: pin2),
+              if (pin1.length != pinLength) PasswordInputField(pin: pin1),
+              if (pin1.length == pinLength) PasswordInputField(pin: pin2),
               if (wrongPin)
-                const PinsDontMatch()
+                const PinErrorLabel()
               else
                 const SizedBox(
                   height: 80,
@@ -185,8 +179,6 @@ class _PinScreenState extends State<PinScreen> {
                   InkWell(
                     onTap: () {
                       Navigator.pop(context);
-                      // TODO delete comment
-                      // Navigator.pop(context);
                     },
                     child: Container(
                       height: 80,
@@ -200,7 +192,9 @@ class _PinScreenState extends State<PinScreen> {
                         borderRadius: BorderRadius.circular(100.0),
                       ),
                       child: Center(
-                        child: SvgPicture.asset('images/arrowBack.svg'),
+                        child: SvgPicture.asset(
+                          SvgIcons.arrowBack,
+                        ),
                       ),
                     ),
                   ),
@@ -211,7 +205,7 @@ class _PinScreenState extends State<PinScreen> {
                   const SpaceW24(),
                   InkWell(
                     onTap: () {
-                      context.read<PinProvider>().deleteLastIndex();
+                      context.read<PinProvider>().deleteSymbol();
                     },
                     child: Container(
                       height: 80,
@@ -225,7 +219,9 @@ class _PinScreenState extends State<PinScreen> {
                         borderRadius: BorderRadius.circular(100.0),
                       ),
                       child: Center(
-                        child: SvgPicture.asset('images/back.svg'),
+                        child: SvgPicture.asset(
+                          SvgIcons.back,
+                        ),
                       ),
                     ),
                   ),
@@ -234,7 +230,7 @@ class _PinScreenState extends State<PinScreen> {
               const Spacer(),
               const Text(
                 'This keeps your data private',
-                style: s14WNormalCGrey2,
+                style: TextStyles.s14WNormalCGrey2,
               ),
             ],
           ),
@@ -244,9 +240,8 @@ class _PinScreenState extends State<PinScreen> {
   }
 }
 
-// TODO rename to PinErrorLabel or something like that
-class PinsDontMatch extends StatelessWidget {
-  const PinsDontMatch({
+class PinErrorLabel extends StatelessWidget {
+  const PinErrorLabel({
     Key? key,
   }) : super(key: key);
 
@@ -257,7 +252,7 @@ class PinsDontMatch extends StatelessWidget {
       child: Center(
         child: Text(
           'You enter wrong PIN-code',
-          style: s16W600CRed,
+          style: TextStyles.s16W600CRed,
         ),
       ),
     );
