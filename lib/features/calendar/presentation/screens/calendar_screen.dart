@@ -99,19 +99,17 @@ class CalendarScreen extends StatelessWidget {
                   rowHeight: 88,
                   eventLoader: (DateTime date) {
                     // TODO refactor this function and give it understandable name
-                    // TODO what is "a"?
-                    var a = snapshot.data?.firstWhereOrNull((element) {
-                      String date1Formatted = DateFormat.yMd().format(date);
-                      String date2Formatted =
-                          DateFormat.yMd().format(element.date);
 
-                      // TODO give it more understandable name
-                      bool compareDates = date1Formatted == date2Formatted;
+                    var note = snapshot.data?.firstWhereOrNull((element) {
+                      String dayDate = DateFormat.yMd().format(date);
+                      String noteDay = DateFormat.yMd().format(element.date);
 
-                      return compareDates;
+                      bool isNoteVisible = dayDate == noteDay;
+
+                      return isNoteVisible;
                     });
-                    if (a != null) {
-                      return [a];
+                    if (note != null) {
+                      return [note];
                     } else {
                       return [];
                     }

@@ -38,7 +38,6 @@ class _PinScreenState extends State<PinScreen> {
       );
     }
 
-    // TODO do you really need it?
     Future.delayed(Duration.zero, () async {});
   }
 

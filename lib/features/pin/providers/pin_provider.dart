@@ -45,9 +45,8 @@ class PinProvider extends ChangeNotifier {
 
   // TODO context is not used
   void writePin(BuildContext context) async {
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TODO also this is hard to read. Refactor it to
-    // final shouldSavePin/shouldSave/etc = pin2.length == 4 && pin1 == pin2 && !pinCodeEnabled;
-    if (pin2.length == pinLength && pin1 == pin2 && !pinCodeEnabled) {
+    final shouldSavePin = pin2.length == 4 && pin1 == pin2 && !pinCodeEnabled;
+    if (shouldSavePin) {
       var storage = StorageService();
 
       await storage.write(
