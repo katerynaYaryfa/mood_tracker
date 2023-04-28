@@ -3,13 +3,13 @@ import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/features/chart/presentation/month_chart_screen.dart';
 import 'package:mood_tracker/features/chart/presentation/week_chart_screen.dart';
 import 'package:mood_tracker/features/chart/presentation/year_chart_screen.dart';
-import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/features/chart/widgets/charts_tab_bar_widget.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class MyTabBar extends StatelessWidget {
-  const MyTabBar({Key? key}) : super(key: key);
+class ChartsTabBarScreen extends StatelessWidget {
+  const ChartsTabBarScreen({Key? key}) : super(key: key);
 
   TabBar get _tabBar => const TabBar(
         tabs: [],
@@ -36,6 +36,7 @@ class MyTabBar extends StatelessWidget {
     ];
     List<double> weekSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
     List<double> moodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
+
     List<double> monthSum = [
       4.40,
       20.0,
@@ -82,7 +83,7 @@ class MyTabBar extends StatelessWidget {
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: _tabBar.preferredSize,
-            child: TabBarWidget(primaryColor: primaryColor),
+            child: ChartsTabBarWidget(primaryColor: primaryColor),
           ),
           body: TabBarView(
             children: [
@@ -102,58 +103,5 @@ class MyTabBar extends StatelessWidget {
       ),
     );
     /**/
-  }
-}
-
-class TabBarWidget extends StatelessWidget {
-  const TabBarWidget({
-    Key? key,
-    required this.primaryColor,
-  }) : super(key: key);
-
-  final Color primaryColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(100),
-        ),
-        padding: EdgeInsets.all(4),
-        child: TabBar(
-          // labelPadding: EdgeInsets.only(left: 10, right: 30),
-          labelColor: AppColors.white,
-          unselectedLabelColor: AppColors.grey2,
-          indicator: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(100),
-              ),
-              color: primaryColor),
-          tabs: const [
-            Tab(
-              child: Text(
-                'Week',
-                style: s14WNormalWithoutColor,
-              ),
-            ),
-            Tab(
-              child: Text(
-                'Month',
-                style: s14WNormalWithoutColor,
-              ),
-            ),
-            Tab(
-              child: Text(
-                'Year',
-                style: s14WNormalWithoutColor,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

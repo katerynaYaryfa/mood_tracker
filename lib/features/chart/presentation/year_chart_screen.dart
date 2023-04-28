@@ -1,16 +1,18 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/year_bar_data.dart';
-import 'package:mood_tracker/theme/app_colors.dart';
+import 'package:mood_tracker/features/chart/charts_data/year_bar_data.dart';
+import 'package:mood_tracker/features/chart/widgets/mood_chart_widget.dart';
+import 'package:mood_tracker/features/chart/widgets/year_chart_widget.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class YearChartScreen extends StatelessWidget {
-  const YearChartScreen(
-      {Key? key, required this.yearMonthsSum, required this.moodSum})
-      : super(key: key);
+  const YearChartScreen({
+    Key? key,
+    required this.yearMonthsSum,
+    required this.moodSum,
+  }) : super(key: key);
   final List yearMonthsSum;
   final List moodSum;
 
@@ -50,12 +52,12 @@ class YearChartScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          YearBarWidget(
+          YearChartWidget(
             myBarData: myBarData,
             primaryColor: primaryColor,
             scaffoldBackgroundColor: scaffoldBackgroundColor,
           ),
-          MoodBarWidget(
+          MoodChartWidget(
             moodBarData: moodBarData,
             primaryColor: primaryColor,
             scaffoldBackgroundColor: scaffoldBackgroundColor,
@@ -66,222 +68,7 @@ class YearChartScreen extends StatelessWidget {
   }
 }
 
-class YearBarWidget extends StatelessWidget {
-  const YearBarWidget({
-    Key? key,
-    required this.myBarData,
-    required this.primaryColor,
-    required this.scaffoldBackgroundColor,
-  }) : super(key: key);
-
-  final YearBarData myBarData;
-  final Color primaryColor;
-  final Color scaffoldBackgroundColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: AppColors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.greyOpacity.withOpacity(0.03),
-            spreadRadius: 10,
-            blurRadius: 15,
-            offset: const Offset(0, 0),
-          ),
-        ],
-      ),
-      margin: const EdgeInsets.all(16),
-      height: 244,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SpaceH16(),
-          Row(
-            children: const [
-              SpaceW16(),
-              Text(
-                'Mood chart',
-                style: s16W700CBlack2,
-              ),
-            ],
-          ),
-          const SpaceH24(),
-          SizedBox(
-            height: 165,
-            child: BarChart(
-              BarChartData(
-                gridData: FlGridData(
-                  show: false,
-                ),
-                borderData: FlBorderData(
-                  show: false,
-                ),
-                titlesData: FlTitlesData(
-                  topTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  rightTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: getBottomTitles,
-                    ),
-                  ),
-                ),
-                maxY: 100,
-                minY: 0,
-                barGroups: myBarData.yearBarData
-                    .map(
-                      (data) => BarChartGroupData(
-                        x: data.x,
-                        barRods: [
-                          BarChartRodData(
-                            toY: data.y,
-                            color: primaryColor,
-                            width: 12,
-                            borderRadius: BorderRadius.circular(20),
-                            backDrawRodData: BackgroundBarChartRodData(
-                              show: true,
-                              toY: 100,
-                              color: scaffoldBackgroundColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class MoodBarWidget extends StatelessWidget {
-  const MoodBarWidget({
-    Key? key,
-    required this.moodBarData,
-    required this.primaryColor,
-    required this.scaffoldBackgroundColor,
-  }) : super(key: key);
-
-  final MoodBarData moodBarData;
-  final Color primaryColor;
-  final Color scaffoldBackgroundColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: AppColors.white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.greyOpacity.withOpacity(0.03),
-            spreadRadius: 1,
-            blurRadius: 15,
-            offset: const Offset(0, 0),
-          ),
-        ],
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      height: 240,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SpaceH16(),
-          Row(
-            children: const [
-              SpaceW16(),
-              Text(
-                'Mood chart',
-                style: s16W700CBlack2,
-              ),
-            ],
-          ),
-          const SpaceH24(),
-          SizedBox(
-            height: 155,
-            child: BarChart(
-              BarChartData(
-                gridData: FlGridData(
-                  show: false,
-                ),
-                borderData: FlBorderData(
-                  show: false,
-                ),
-                titlesData: FlTitlesData(
-                  topTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  rightTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 65,
-                      getTitlesWidget: getMoodBottomTitles,
-                    ),
-                  ),
-                ),
-                maxY: 100,
-                minY: 0,
-                barGroups: moodBarData.moodBarData
-                    .map(
-                      (data) => BarChartGroupData(
-                        x: data.x,
-                        barRods: [
-                          BarChartRodData(
-                            toY: data.y,
-                            color: primaryColor,
-                            width: 20,
-                            borderRadius: BorderRadius.circular(8),
-                            backDrawRodData: BackgroundBarChartRodData(
-                              show: true,
-                              toY: 100,
-                              color: scaffoldBackgroundColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-Widget getBottomTitles(double value, TitleMeta meta) {
+Widget getYearChartBottomTitles(double value, TitleMeta meta) {
   late var text;
   switch (value.toInt()) {
     case 0:
@@ -334,7 +121,7 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
   switch (value.toInt()) {
     case 0:
       text = const Text('0%', style: s12W600CGrey2);
-      icon = Image(
+      icon = const Image(
         height: 34,
         width: 34,
         image: AssetImage(
@@ -344,7 +131,7 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
       break;
     case 1:
       text = const Text('10%', style: s12W600CGrey2);
-      icon = Image(
+      icon = const Image(
         height: 34,
         width: 34,
         image: AssetImage(
@@ -354,7 +141,7 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
       break;
     case 2:
       text = const Text('10%', style: s12W600CGrey2);
-      icon = Image(
+      icon = const Image(
         height: 34,
         width: 34,
         image: AssetImage(
@@ -364,7 +151,7 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
       break;
     case 3:
       text = const Text('0%', style: s12W600CGrey2);
-      icon = Image(
+      icon = const Image(
         height: 34,
         width: 34,
         image: AssetImage(
@@ -374,7 +161,7 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
       break;
     case 4:
       text = const Text('30%', style: s12W600CGrey2);
-      icon = Image(
+      icon = const Image(
         height: 34,
         width: 34,
         image: AssetImage(
@@ -384,7 +171,7 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
       break;
     case 5:
       text = const Text('30%', style: s12W600CGrey2);
-      icon = Image(
+      icon = const Image(
         height: 34,
         width: 34,
         image: AssetImage(
@@ -395,11 +182,11 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
   }
   return Column(
     children: [
-      SizedBox(
+      const SizedBox(
         height: 8,
       ),
       icon,
-      SizedBox(
+      const SizedBox(
         height: 8,
       ),
       text,

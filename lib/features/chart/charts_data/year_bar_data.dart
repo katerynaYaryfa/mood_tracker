@@ -49,6 +49,37 @@ class YearBarData {
   }
 }
 
+class YearLeftBarData {
+  final double cryingAmount;
+  final double veryBadAmount;
+  final double badAmount;
+  final double normalAmount;
+  final double goodAmount;
+  final double veryGoodAmount;
+
+  YearLeftBarData({
+    required this.cryingAmount,
+    required this.veryBadAmount,
+    required this.badAmount,
+    required this.normalAmount,
+    required this.goodAmount,
+    required this.veryGoodAmount,
+  });
+
+  List<IndividualBar> yearLeftBarData = [];
+
+  void initializeYearLeftBarData() {
+    yearLeftBarData = [
+      IndividualBar(0, cryingAmount),
+      IndividualBar(1, veryBadAmount),
+      IndividualBar(2, badAmount),
+      IndividualBar(3, normalAmount),
+      IndividualBar(4, goodAmount),
+      IndividualBar(5, veryGoodAmount),
+    ];
+  }
+}
+
 class MoodBarData {
   final double cryingAmount;
   final double veryBadAmount;

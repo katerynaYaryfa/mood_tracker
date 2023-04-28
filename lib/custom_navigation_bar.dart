@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
-import 'package:mood_tracker/features/chart/my_tab_bar.dart';
+import 'package:mood_tracker/features/chart/presentation/charts_tab_bar_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -26,7 +26,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       'Index 1: Server',
       style: optionStyle,
     ),
-    const MyTabBar(),
+    const ChartsTabBarScreen(),
     const SettingsScreen(),
   ];
 
