@@ -20,19 +20,19 @@ class ChartsTabBarScreen extends StatelessWidget {
     final primaryColor =
         context.watch<ThemeProvider>().currentTheme.primaryColor;
 
-    List<double> threeMonthsSum = [
-      36.50,
-      65.0,
-      48.0,
-      20.0,
-      30.50,
-      24.0,
-      50.0,
-      100.0,
-      24.0,
-      38.0,
-      74.0,
-      64.0
+    List<double> yearSum = [
+      24.50,
+      59,
+      42,
+      6,
+      24.50,
+      24.50,
+      42,
+      93,
+      24.50,
+      42,
+      76,
+      59
     ];
     List<double> weekSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
     List<double> moodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
@@ -94,7 +94,7 @@ class ChartsTabBarScreen extends StatelessWidget {
                 monthSummary: monthSum,
               ),
               YearChartScreen(
-                yearMonthsSum: threeMonthsSum,
+                yearMonthsSum: yearSum,
                 moodSum: moodSum,
               ),
             ],

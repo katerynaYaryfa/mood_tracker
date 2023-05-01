@@ -57,58 +57,58 @@ class YearChartWidget extends StatelessWidget {
               Column(
                 children: [
                   Container(
-                    height: 160,
+                    height: 165,
                     child: Column(
                       children: [
                         Image(
-                          height: 16,
-                          width: 16,
+                          height: 20,
+                          width: 20,
                           image: AssetImage(
                             'images/face2.png',
                           ),
                         ),
                         Expanded(child: Container()),
                         Image(
-                          height: 16,
-                          width: 16,
+                          height: 20,
+                          width: 20,
                           image: AssetImage(
                             'images/face3.png',
                           ),
                         ),
                         Expanded(child: Container()),
                         Image(
-                          height: 16,
-                          width: 16,
+                          height: 20,
+                          width: 20,
                           image: AssetImage(
                             'images/face1.png',
                           ),
                         ),
                         Expanded(child: Container()),
                         Image(
-                          height: 16,
-                          width: 16,
+                          height: 20,
+                          width: 20,
                           image: AssetImage(
                             'images/face4.png',
                           ),
                         ),
                         Expanded(child: Container()),
                         Image(
-                          height: 16,
-                          width: 16,
+                          height: 20,
+                          width: 20,
                           image: AssetImage(
                             'images/face5.png',
                           ),
                         ),
                         Expanded(child: Container()),
                         Image(
-                          height: 16,
-                          width: 16,
+                          height: 20,
+                          width: 20,
                           image: AssetImage(
                             'images/face6.png',
                           ),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 22,
                         ),
                       ],
                     ),
