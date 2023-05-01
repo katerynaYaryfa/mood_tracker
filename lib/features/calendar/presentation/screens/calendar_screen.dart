@@ -98,21 +98,10 @@ class CalendarScreen extends StatelessWidget {
                 return TableCalendar(
                   rowHeight: 88,
                   eventLoader: (DateTime date) {
-                    // TODO refactor this function and give it understandable name
-
-                    var note = snapshot.data?.firstWhereOrNull((element) {
-                      String dayDate = DateFormat.yMd().format(date);
-                      String noteDay = DateFormat.yMd().format(element.date);
-
-                      bool isNoteVisible = dayDate == noteDay;
-
-                      return isNoteVisible;
-                    });
-                    if (note != null) {
-                      return [note];
-                    } else {
-                      return [];
-                    }
+                    return _getNotesFor(
+                      month: date,
+                      notes: snapshot.data,
+                    );
                   },
                   availableGestures: AvailableGestures.none,
                   firstDay: firstDay,
@@ -131,6 +120,26 @@ class CalendarScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  List<NoteData> _getNotesFor({
+    required DateTime month,
+    required List<NoteData>? notes,
+  }) {
+    var note = notes?.firstWhereOrNull((element) {
+      String dayDate = DateFormat.yMd().format(month);
+      String noteDay = DateFormat.yMd().format(element.date);
+
+      bool isNoteVisible = dayDate == noteDay;
+
+      return isNoteVisible;
+    });
+
+    if (note != null) {
+      return [note];
+    } else {
+      return [];
+    }
   }
 
   CalendarBuilders _builders(BuildContext context) {

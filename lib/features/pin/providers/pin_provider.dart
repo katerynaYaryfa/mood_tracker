@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 
 class PinProvider extends ChangeNotifier {
+  PinProvider({required StorageService storage}) : _storage = storage;
+
+  final StorageService _storage;
+
   // TODO this variable is not used
   bool isPressed = false;
   String pin1 = '';
@@ -9,6 +13,12 @@ class PinProvider extends ChangeNotifier {
   bool wrongPin = false;
   bool pinCodeEnabled = false;
   final int pinLength = 4;
+
+  void deletePin() {
+    _storage.delete(
+      key: pinKey,
+    );
+  }
 
   void clearState() {
     pin1 = '';
@@ -47,10 +57,8 @@ class PinProvider extends ChangeNotifier {
   void writePin(BuildContext context) async {
     final shouldSavePin = pin2.length == 4 && pin1 == pin2 && !pinCodeEnabled;
     if (shouldSavePin) {
-      var storage = StorageService();
-
-      await storage.write(
-        key: 'pin',
+      await _storage.write(
+        key: pinKey,
         value: pin1,
       );
 
@@ -60,9 +68,8 @@ class PinProvider extends ChangeNotifier {
   }
 
   void readPinCode() async {
-    final storage = StorageService();
-    final pin = await storage.read(
-      key: 'pin',
+    final pin = await _storage.read(
+      key: pinKey,
     );
     if (pin != null) {
       pinCodeEnabled = true;

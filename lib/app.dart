@@ -4,6 +4,7 @@ import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart'
 import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/services/data_base_wrapper.dart';
+import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class App extends StatelessWidget {
 
   // TODO think about better place to create class. I think app should be const
   final dataBaseWrapper = DataBaseWrapper();
+  final storageService = StorageService();
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +22,22 @@ class App extends StatelessWidget {
         Provider.value(
           value: dataBaseWrapper,
         ),
+        Provider.value(
+          value: storageService,
+        ),
         ChangeNotifierProvider<PinProvider>(
-          create: (_) => PinProvider(),
+          create: (_) => PinProvider(
+            storage: storageService,
+          ),
         ),
         ChangeNotifierProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
         ),
         ChangeNotifierProvider<CalendarProvider>(
           create: (_) => CalendarProvider(
-            NotesRepository(dataBaseWrapper: dataBaseWrapper),
+            NotesRepository(
+              dataBaseWrapper: dataBaseWrapper,
+            ),
           ),
         ),
       ],

@@ -21,6 +21,38 @@ import 'package:provider/provider.dart';
 
 class AddNewNoteScreen extends StatelessWidget {
   const AddNewNoteScreen({
+    required this.date,
+    this.mood,
+    this.text,
+    this.images,
+    Key? key,
+  }) : super(key: key);
+
+  final DateTime date;
+  final Mood? mood;
+  final String? text;
+  final List<File>? images;
+
+  @override
+  Widget build(BuildContext context) {
+    final dataBaseWrapper = context.read<DataBaseWrapper>();
+
+    return ChangeNotifierProvider<NoteProvider>(
+      create: (_) => NoteProvider(
+        repository: NoteRepository(dataBaseWrapper: dataBaseWrapper),
+      ),
+      child: AddNewNoteScreenContainer(
+        time: date,
+        mood: mood,
+        text: text,
+        images: images,
+      ),
+    );
+  }
+}
+
+class AddNewNoteScreenContainer extends StatelessWidget {
+  const AddNewNoteScreenContainer({
     required this.time,
     this.mood,
     this.text,
@@ -138,41 +170,6 @@ class AddNewNoteScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-// TODO it is better to add this wrapper inside AddNewNoteScreen.
-// TODO so you'll navigate to AddNewNoteScreen instead of AddNewNoteScreenWrapper
-// TODO and make it private then
-class AddNewNoteScreenWrapper extends StatelessWidget {
-  const AddNewNoteScreenWrapper({
-    required this.date,
-    this.mood,
-    this.text,
-    this.images,
-    Key? key,
-  }) : super(key: key);
-
-  final DateTime date;
-  final Mood? mood;
-  final String? text;
-  final List<File>? images;
-
-  @override
-  Widget build(BuildContext context) {
-    final dataBaseWrapper = context.read<DataBaseWrapper>();
-
-    return ChangeNotifierProvider<NoteProvider>(
-      create: (_) => NoteProvider(
-        repository: NoteRepository(dataBaseWrapper: dataBaseWrapper),
-      ),
-      child: AddNewNoteScreen(
-        time: date,
-        mood: mood,
-        text: text,
-        images: images,
       ),
     );
   }

@@ -10,10 +10,10 @@ part 'data_base_wrapper.g.dart';
 
 // TODO check this file
 class DataBaseWrapper {
-  final db = Database();
+  final _dataBase = Database();
 
   void insertData(NoteModel noteModel) async {
-    await db.into(db.note).insert(
+    await _dataBase.into(_dataBase.note).insert(
           NoteCompanion.insert(
             title: noteModel.text,
             mood: noteModel.mood,
@@ -24,7 +24,7 @@ class DataBaseWrapper {
   }
 
   Future<Stream<List<NoteData>>> selectData(DateTime date) async {
-    final list = (db.select(db.note)).watch();
+    final list = (_dataBase.select(_dataBase.note)).watch();
     return list;
   }
 }
@@ -57,6 +57,4 @@ LazyDatabase _openConnection() {
     final file = File(p.join(dbFolder.path, 'db.sqlite'));
     return NativeDatabase.createInBackground(file);
   });
-
-// class widget extends StatelessWidget {}
 }

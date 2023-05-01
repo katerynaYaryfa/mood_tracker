@@ -60,7 +60,7 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return AddNewNoteScreenWrapper(
+              return AddNewNoteScreen(
                 images: images,
                 date: widget.day,
                 mood: widget.note!.mood,

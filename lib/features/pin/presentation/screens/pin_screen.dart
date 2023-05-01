@@ -4,7 +4,6 @@ import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
-import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
@@ -30,12 +29,8 @@ class _PinScreenState extends State<PinScreen> {
 
     context.read<PinProvider>().clearState();
 
-    // TODO move work with StorageService to provider
     if (widget.deletePin == true) {
-      var storage = StorageService();
-      storage.delete(
-        key: 'pin',
-      );
+      context.read<PinProvider>().deletePin();
     }
 
     Future.delayed(Duration.zero, () async {});

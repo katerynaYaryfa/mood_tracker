@@ -76,7 +76,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => AddNewNoteScreenWrapper(
+                      builder: (context) => AddNewNoteScreen(
                         date: DateTime.now(),
                       ),
                     ),

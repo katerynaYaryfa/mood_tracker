@@ -21,7 +21,7 @@ class DefaultCalendarItemWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return AddNewNoteScreenWrapper(
+                return AddNewNoteScreen(
                   date: day,
                 );
               },
