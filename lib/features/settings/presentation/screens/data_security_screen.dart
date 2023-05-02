@@ -6,7 +6,6 @@ import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
-import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
@@ -46,12 +45,8 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 color: AppColors.white,
                 value: pinCodeEnabled,
                 onChanged: (bool value) {
-                  // TODO move work with storage service to provider
                   if (pinCodeEnabled) {
-                    final storage = StorageService();
-                    storage.delete(
-                      key: 'pin',
-                    );
+                    context.read<PinProvider>().deletePin();
                     context.read<PinProvider>().disablePinCode();
                   } else {
                     Navigator.push(

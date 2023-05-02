@@ -154,9 +154,8 @@ class CalendarScreen extends StatelessWidget {
         return TodayCalendarItemWidget(day: day);
       },
       markerBuilder: (_, day, events) {
-        // TODO refactor and give more understandable names
         if (events.isNotEmpty) {
-          var a = events.firstWhereOrNull((element) {
+          var event = events.firstWhereOrNull((element) {
             String dt1Formatted = DateFormat.yMd().format(day);
             String dt2Formatted = DateFormat.yMd().format(element.date);
 
@@ -173,7 +172,7 @@ class CalendarScreen extends StatelessWidget {
           return compareDates
               ? const SizedBox()
               : EventCalendarItemWidget(
-                  note: a,
+                  note: event,
                   day: day,
                 );
         } else if (isSameDay(day, DateTime.now())) {

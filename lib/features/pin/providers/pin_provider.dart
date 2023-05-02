@@ -6,7 +6,6 @@ class PinProvider extends ChangeNotifier {
 
   final StorageService _storage;
 
-  // TODO this variable is not used
   bool isPressed = false;
   String pin1 = '';
   String pin2 = '';
@@ -53,8 +52,7 @@ class PinProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // TODO context is not used
-  void writePin(BuildContext context) async {
+  void writePin() async {
     final shouldSavePin = pin2.length == 4 && pin1 == pin2 && !pinCodeEnabled;
     if (shouldSavePin) {
       await _storage.write(

@@ -51,7 +51,7 @@ class _PinScreenState extends State<PinScreen> {
 
     // TODO it is not good practice to call function in build method because it can be called
     // TODO multiple times. Let's refactor it together
-    context.read<PinProvider>().writePin(context);
+    context.read<PinProvider>().writePin();
     // TODO same here
     if (pinCodeEnabled) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
