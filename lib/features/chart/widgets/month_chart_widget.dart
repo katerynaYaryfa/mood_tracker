@@ -110,6 +110,9 @@ class MonthChartWidget extends StatelessWidget {
                   ],
                 ),
               ),
+              // SizedBox(
+              //   width: 8,
+              // ),
               SizedBox(
                 height: 165,
                 width: MediaQuery.of(context).size.width - 80,
