@@ -20,7 +20,7 @@ class _PinButtonsState extends State<PinButtons> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.read<PinProvider>().pinCode(widget.title);
+        context.read<PinProvider>().checkPinCode(widget.title);
       },
       child: Container(
         height: 80,

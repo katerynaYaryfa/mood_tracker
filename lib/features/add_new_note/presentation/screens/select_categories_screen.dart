@@ -16,7 +16,7 @@ class _SelectCategoriesScreenState extends State<SelectCategoriesScreen> {
       appBar: CustomAppBar(
         title: Text(
           'Select categories',
-          style: s14W600CBlack2,
+          style: TextStyles.s14W600CBlack2,
         ),
       ),
     );

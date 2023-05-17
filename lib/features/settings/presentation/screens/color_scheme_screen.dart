@@ -20,7 +20,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
       appBar: const CustomAppBar(
         title: Text(
           'Color scheme',
-          style: s14W600CBlack2,
+          style: TextStyles.s14W600CBlack2,
         ),
       ),
       backgroundColor:
@@ -50,7 +50,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                 children: const [
                   Text(
                     'Select your Mood Pal',
-                    style: s16W700CBlack,
+                    style: TextStyles.s16W700CBlack,
                   ),
                   SizedBox(
                     height: 100,
@@ -80,7 +80,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                 children: [
                   const Text(
                     'Select color scheme',
-                    style: s16W700CBlack,
+                    style: TextStyles.s16W700CBlack,
                   ),
                   const SpaceH24(),
                   Row(

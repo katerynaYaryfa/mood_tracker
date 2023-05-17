@@ -1,12 +1,11 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+const pinKey = 'pin';
+
 class StorageService {
   final _secureStorage = const FlutterSecureStorage();
 
-  Future<void> write({
-    required String key,
-    required String value,
-  }) async {
+  Future<void> write({required String key, required String value}) async {
     await _secureStorage.write(key: key, value: value);
   }
 
