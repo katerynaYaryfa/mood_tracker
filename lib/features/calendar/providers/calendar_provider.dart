@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
-import 'package:mood_tracker/services/data_base_wrapper.dart';
 
 class CalendarProvider extends ChangeNotifier {
+  CalendarProvider(this._repository) {
+    _init();
+    _readNote(todayDate);
+  }
+
   final INotesRepository _repository;
+
   DateTime get todayDate => DateTime.now();
   DateTime get firstDay => DateTime.utc(2000, 01, 01);
   String get formattedTodayDate => DateFormat.yMMMM().format(todayDate);
@@ -14,13 +20,13 @@ class CalendarProvider extends ChangeNotifier {
   String get formattedSelectedDate =>
       DateFormat.yMMMM().format(selectedDate ?? todayDate);
 
+  List<NoteModel> notes = [];
   String selectedMonth = '';
   String selectedYear = '';
   DateTime? selectedDate;
   int chosenMonth = 0;
   int chosenYear = 0;
 
-  Stream<List<NoteData>> notes = Stream.value([]);
   List<String> years = [];
   List<String> months = const [
     'January',
@@ -37,14 +43,13 @@ class CalendarProvider extends ChangeNotifier {
     'December'
   ];
 
-  CalendarProvider(this._repository) {
-    _init();
-    _readNote(todayDate);
-  }
-
   void _readNote(DateTime date) async {
-    notes = await _repository.readNotes(date);
-    notifyListeners();
+    final notesStream = await _repository.readNotes(date);
+
+    notesStream.listen((event) {
+      notes = event;
+      notifyListeners();
+    });
   }
 
   void changeMonthDate(index) {
@@ -62,8 +67,6 @@ class CalendarProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // TODO method named init but has a lot of tricky logic.
-  // TODO maybe try to refactor to separate small methods. Or give it more understandable name
   void _init() {
     DateFormat dateFormat = DateFormat("yyyy");
     String stringYear = dateFormat.format(todayDate);

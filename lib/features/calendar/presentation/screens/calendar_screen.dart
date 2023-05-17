@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/extension.dart';
+import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/cancel_button_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/date_picker_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/default_calendar_item_widget.dart';
@@ -13,7 +14,6 @@ import 'package:mood_tracker/features/calendar/presentation/widgets/header_face_
 import 'package:mood_tracker/features/calendar/presentation/widgets/ok_button_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/today_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
-import 'package:mood_tracker/services/data_base_wrapper.dart';
 import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
@@ -91,30 +91,24 @@ class CalendarScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
               horizontal: 12,
             ),
-            // TODO actually SteramBuilder is not needed here. We can refactor it together
-            child: StreamBuilder<List<NoteData>>(
-              stream: notes,
-              builder: (context, snapshot) {
-                return TableCalendar(
-                  rowHeight: 88,
-                  eventLoader: (DateTime date) {
-                    return _getNotesFor(
-                      month: date,
-                      notes: snapshot.data,
-                    );
-                  },
-                  availableGestures: AvailableGestures.none,
-                  firstDay: firstDay,
-                  lastDay: todayDate,
-                  focusedDay: selectedDate ?? todayDate,
-                  calendarFormat: CalendarFormat.month,
-                  headerVisible: false,
-                  calendarBuilders: _builders(context),
-                  calendarStyle: const CalendarStyle(
-                    outsideDaysVisible: false,
-                  ),
+            child: TableCalendar(
+              rowHeight: 88,
+              eventLoader: (DateTime date) {
+                return _getNotesFor(
+                  month: date,
+                  notes: notes,
                 );
               },
+              availableGestures: AvailableGestures.none,
+              firstDay: firstDay,
+              lastDay: todayDate,
+              focusedDay: selectedDate ?? todayDate,
+              calendarFormat: CalendarFormat.month,
+              headerVisible: false,
+              calendarBuilders: _builders(context),
+              calendarStyle: const CalendarStyle(
+                outsideDaysVisible: false,
+              ),
             ),
           ),
         ],
@@ -122,9 +116,9 @@ class CalendarScreen extends StatelessWidget {
     );
   }
 
-  List<NoteData> _getNotesFor({
+  List<NoteModel> _getNotesFor({
     required DateTime month,
-    required List<NoteData>? notes,
+    required List<NoteModel>? notes,
   }) {
     var note = notes?.firstWhereOrNull((element) {
       String dayDate = DateFormat.yMd().format(month);
@@ -154,6 +148,7 @@ class CalendarScreen extends StatelessWidget {
         return TodayCalendarItemWidget(day: day);
       },
       markerBuilder: (_, day, events) {
+        // TODO(KY): refactor - move to separate function and think about naming
         if (events.isNotEmpty) {
           var event = events.firstWhereOrNull((element) {
             String dt1Formatted = DateFormat.yMd().format(day);
@@ -187,69 +182,66 @@ class CalendarScreen extends StatelessWidget {
   void openDateSelector(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(16.0),
-          ),
-        ),
-        insetPadding: EdgeInsets.zero,
-        content: StatefulBuilder(
-          builder: (BuildContext context, StateSetter dialogSetState) {
-            final primaryColor =
-                context.watch<ThemeProvider>().currentTheme.primaryColor;
-            final months = context.read<CalendarProvider>().months;
-            final changeMonthDate =
-                context.read<CalendarProvider>().changeMonthDate;
-            final years = context.read<CalendarProvider>().years;
-            final changeYearDate =
-                context.read<CalendarProvider>().changeYearDate;
-            final itemYear = context.watch<CalendarProvider>().chosenYear;
-            final itemMonth = context.watch<CalendarProvider>().chosenMonth;
-
-            return SizedBox(
-              // TODO 96 is a magic number, refactor it please
-              width: MediaQuery.of(context).size.width - 96,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'Choose the date',
-                    style: TextStyles.s22W700CBlack,
-                  ),
-                  const SpaceH32(),
-                  Row(
-                    children: [
-                      DatePickerWidget(
-                        dates: months,
-                        onDatePicked: changeMonthDate,
-                        intInitialItem: itemMonth,
-                        selectedIndex: itemMonth,
-                      ),
-                      DatePickerWidget(
-                        dates: years,
-                        onDatePicked: changeYearDate,
-                        intInitialItem: itemYear,
-                        selectedIndex: itemYear,
-                      ),
-                      const SpaceH20(),
-                    ],
-                  ),
-                  const SpaceH32(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CancelButton(primaryColor: primaryColor),
-                      const SpaceW24(),
-                      OkButton(primaryColor: primaryColor),
-                    ],
-                  ),
-                ],
+      builder: (BuildContext context) {
+        return Dialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16.0),
               ),
-            );
-          },
-        ),
-      ),
+            ),
+            insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter dialogSetState) {
+                final primaryColor =
+                    context.watch<ThemeProvider>().currentTheme.primaryColor;
+                final months = context.read<CalendarProvider>().months;
+                final changeMonthDate =
+                    context.read<CalendarProvider>().changeMonthDate;
+                final years = context.read<CalendarProvider>().years;
+                final changeYearDate =
+                    context.read<CalendarProvider>().changeYearDate;
+                final itemYear = context.watch<CalendarProvider>().chosenYear;
+                final itemMonth = context.watch<CalendarProvider>().chosenMonth;
+
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Choose the date',
+                      style: TextStyles.s22W700CBlack,
+                    ),
+                    const SpaceH32(),
+                    Row(
+                      children: [
+                        DatePickerWidget(
+                          dates: months,
+                          onDatePicked: changeMonthDate,
+                          intInitialItem: itemMonth,
+                          selectedIndex: itemMonth,
+                        ),
+                        DatePickerWidget(
+                          dates: years,
+                          onDatePicked: changeYearDate,
+                          intInitialItem: itemYear,
+                          selectedIndex: itemYear,
+                        ),
+                        const SpaceH20(),
+                      ],
+                    ),
+                    const SpaceH32(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CancelButton(primaryColor: primaryColor),
+                        const SpaceW24(),
+                        OkButton(primaryColor: primaryColor),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            ));
+      },
     );
   }
 }

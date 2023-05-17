@@ -1,16 +1,16 @@
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
-import 'package:mood_tracker/services/data_base_wrapper.dart';
+import 'package:mood_tracker/services/database/data_base_service.dart';
 
 abstract class INoteRepository {
   void saveNote(NoteModel model);
 }
 
 class NoteRepository extends INoteRepository {
-  final DataBaseWrapper dataBaseWrapper;
+  final DataBaseService dataBaseWrapper;
 
   @override
   void saveNote(NoteModel model) {
-    dataBaseWrapper.insertData(model);
+    dataBaseWrapper.insertNote(model);
   }
 
   NoteRepository({

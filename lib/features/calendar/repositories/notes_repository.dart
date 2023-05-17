@@ -1,7 +1,8 @@
-import 'package:mood_tracker/services/data_base_wrapper.dart';
+import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
+import 'package:mood_tracker/services/database/data_base_service.dart';
 
 abstract class INotesRepository {
-  Future<Stream<List<NoteData>>> readNotes(DateTime date);
+  Future<Stream<List<NoteModel>>> readNotes(DateTime date);
 }
 
 class NotesRepository extends INotesRepository {
@@ -9,10 +10,10 @@ class NotesRepository extends INotesRepository {
     required this.dataBaseWrapper,
   });
 
-  final DataBaseWrapper dataBaseWrapper;
+  final DataBaseService dataBaseWrapper;
 
   @override
-  Future<Stream<List<NoteData>>> readNotes(DateTime date) {
-    return dataBaseWrapper.selectData(date);
+  Future<Stream<List<NoteModel>>> readNotes(DateTime date) {
+    return dataBaseWrapper.selectNotes(date);
   }
 }
