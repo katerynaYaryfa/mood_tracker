@@ -1,15 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:provider/provider.dart';
 
 const _maxCharacterLength = 2000;
 
-class DayInOneSentenceWidget extends StatelessWidget {
+class DayInOneSentenceWidget extends StatefulWidget {
   const DayInOneSentenceWidget({
+    required this.title,
     Key? key,
   }) : super(key: key);
+
+  final String? title;
+
+  @override
+  State<DayInOneSentenceWidget> createState() => _DayInOneSentenceWidgetState();
+}
+
+class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
+  late final TextEditingController _controller = TextEditingController(
+    text: widget.title ?? '',
+  );
+  // TODO as far as I remember it is possible to change text of note. So we can refactor this logic
+  bool canWriteText = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.title != null) {
+      canWriteText = false;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +65,22 @@ class DayInOneSentenceWidget extends StatelessWidget {
         children: [
           const Text(
             'Describe your day',
-            style: s16W700CBlack,
+            style: TextStyles.s16W700CBlack,
           ),
           const SpaceH16(),
           TextField(
+            enabled: canWriteText,
+            controller: _controller,
+            onChanged: (String text) {
+              context.read<NoteProvider>().saveText(text);
+            },
             keyboardType: TextInputType.multiline,
             inputFormatters: [
               LengthLimitingTextInputFormatter(_maxCharacterLength),
             ],
             maxLines: 100,
             minLines: 1,
-            style: s16WNormalCBlack,
+            style: TextStyles.s16WNormalCBlack,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.only(
                 top: 10,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/const_image.dart';
+import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/mood_icon_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
@@ -8,8 +10,11 @@ import 'package:provider/provider.dart';
 
 class HowWasYourDayWidget extends StatefulWidget {
   const HowWasYourDayWidget({
+    required this.mood,
     Key? key,
   }) : super(key: key);
+
+  final Mood? mood;
 
   @override
   State<HowWasYourDayWidget> createState() => _HowWasYourDayWidgetState();
@@ -19,6 +24,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
   @override
   Widget build(BuildContext context) {
     final mood = context.watch<NoteProvider>().mood;
+    final _moodComparing = widget.mood ?? mood;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -41,7 +47,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
         children: [
           const Text(
             'How was your day?',
-            style: s16W700CBlack,
+            style: TextStyles.s16W700CBlack,
           ),
           const SpaceH16(),
           Row(
@@ -49,54 +55,72 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
             children: [
               MoodIcon(
                 image: const AssetImage(
-                  'images/face6.png',
+                  ConstImage.face6Crying,
                 ),
-                opacity: mood == Mood.crying || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (_moodComparing) == Mood.crying ||
+                        (_moodComparing) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.crying);
                 },
               ),
               MoodIcon(
                 image: const AssetImage(
-                  'images/face5.png',
+                  ConstImage.face5VeryBad,
                 ),
-                opacity: mood == Mood.veryBad || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (_moodComparing) == Mood.veryBad ||
+                        (_moodComparing) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.veryBad);
                 },
               ),
               MoodIcon(
                 image: const AssetImage(
-                  'images/face1.png',
+                  ConstImage.face4Bad,
                 ),
-                opacity: mood == Mood.bad || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (_moodComparing) == Mood.bad ||
+                        (_moodComparing) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.bad);
                 },
               ),
               MoodIcon(
                 image: const AssetImage(
-                  'images/face4.png',
+                  ConstImage.face1Normal,
                 ),
-                opacity: mood == Mood.normal || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (_moodComparing) == Mood.normal ||
+                        (_moodComparing) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.normal);
                 },
               ),
               MoodIcon(
                 image: const AssetImage(
-                  'images/face3.png',
+                  ConstImage.face3Good,
                 ),
-                opacity: mood == Mood.good || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (_moodComparing) == Mood.good ||
+                        (_moodComparing) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.good);
                 },
               ),
               MoodIcon(
                 image: const AssetImage(
-                  'images/face2.png',
+                  ConstImage.face2VeryGood,
                 ),
-                opacity: mood == Mood.veryGood || mood == Mood.none ? 1.0 : 0.5,
+                opacity: (_moodComparing) == Mood.veryGood ||
+                        (_moodComparing) == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.veryGood);
                 },

@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mood_tracker/services/secure_storage_service.dart';
+import 'package:mood_tracker/services/storage_service.dart';
 
-class PinProvider with ChangeNotifier {
-  PinProvider() {
-    init();
-  }
+class PinProvider extends ChangeNotifier {
+  PinProvider({required StorageService storage}) : _storage = storage;
+
+  final StorageService _storage;
 
   bool isPressed = false;
   String pin1 = '';
   String pin2 = '';
   bool wrongPin = false;
-  String myCode = '';
+  bool pinCodeEnabled = false;
+  final int pinLength = 4;
+
+  void deletePin() {
+    _storage.delete(
+      key: pinKey,
+    );
+  }
 
   void clearState() {
     pin1 = '';
@@ -21,26 +28,23 @@ class PinProvider with ChangeNotifier {
   }
 
   Future<String?> readSavedPinCode() async {
-    var storage = SecureStorageService();
+    var storage = StorageService();
     final savedPin = await storage.read(
-      key: pinKey,
+      key: 'pin',
     );
 
     return savedPin;
   }
 
-  var color = Colors.grey.shade400;
-  var wrongPinColor = Colors.transparent;
-
-  void pinCode(String num) async {
-    if (pin1.length == 4) {
+  void checkPinCode(String num) async {
+    if (pin1.length == pinLength) {
       pin2 = pin2 + num;
       wrongPin = false;
     } else {
       pin1 = pin1 + num;
     }
 
-    if (pin2.length == 4 && pin2 != pin1) {
+    if (pin2.length == pinLength && pin2 != pin1) {
       pin2 = '';
       wrongPin = true;
       Future.delayed(
@@ -55,7 +59,7 @@ class PinProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteLastIndex() {
+  void deleteSymbol() {
     if (pin1.isNotEmpty && pin2.isEmpty) {
       pin1 = pin1.substring(0, pin1.length - 1);
     }
@@ -65,19 +69,31 @@ class PinProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  final storage = FlutterSecureStorage();
+  void writePin() async {
+    final shouldSavePin = pin2.length == 4 && pin1 == pin2 && !pinCodeEnabled;
+    if (shouldSavePin) {
+      await _storage.write(
+        key: pinKey,
+        value: pin1,
+      );
 
-  Future<String?> readCode() async {
-    String? pinCode = await storage.read(key: pinKey);
-    return pinCode;
+      pinCodeEnabled = true;
+      notifyListeners();
+    }
   }
 
-  void init() async {
-    Future<String?> pinCode = readCode();
+  void readPinCode() async {
+    final pin = await _storage.read(
+      key: pinKey,
+    );
+    if (pin != null) {
+      pinCodeEnabled = true;
+    }
+    notifyListeners();
+  }
 
-    myCode = await pinCode ?? '';
-    pin1 = myCode;
-    print('pin1 = $pin1');
+  void disablePinCode() {
+    pinCodeEnabled = false;
     notifyListeners();
   }
 }
