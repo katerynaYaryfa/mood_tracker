@@ -5,7 +5,7 @@ import 'package:mood_tracker/custom_navigation_bar.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
-import 'package:mood_tracker/services/storage_service.dart';
+import 'package:mood_tracker/services/secure_storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -34,9 +34,9 @@ class _PinScreenState extends State<PinScreen> {
     context.read<PinProvider>().init();
 
     if (widget.deletePin == true) {
-      var storage = StorageService();
+      var storage = SecureStorageService();
       storage.delete(
-        key: 'pin',
+        key: pinKey,
       );
     }
 
@@ -55,9 +55,9 @@ class _PinScreenState extends State<PinScreen> {
     // myProvider.init();
 
     if (pin2.length == 4 && pin1 == pin2) {
-      var storage = StorageService();
+      var storage = SecureStorageService();
       storage.write(
-        key: 'pin',
+        key: pinKey,
         value: pin1,
       );
 

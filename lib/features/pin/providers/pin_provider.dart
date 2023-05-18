@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mood_tracker/services/storage_service.dart';
+import 'package:mood_tracker/services/secure_storage_service.dart';
 
 class PinProvider with ChangeNotifier {
   PinProvider() {
@@ -21,9 +21,9 @@ class PinProvider with ChangeNotifier {
   }
 
   Future<String?> readSavedPinCode() async {
-    var storage = StorageService();
+    var storage = SecureStorageService();
     final savedPin = await storage.read(
-      key: 'pin',
+      key: pinKey,
     );
 
     return savedPin;
@@ -68,7 +68,7 @@ class PinProvider with ChangeNotifier {
   final storage = FlutterSecureStorage();
 
   Future<String?> readCode() async {
-    String? pinCode = await storage.read(key: 'pin');
+    String? pinCode = await storage.read(key: pinKey);
     return pinCode;
   }
 

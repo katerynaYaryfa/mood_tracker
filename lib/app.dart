@@ -4,16 +4,20 @@ import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart'
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/loading_page.dart';
 import 'package:mood_tracker/loading_page_provider.dart';
+import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider.value(
+          value: StorageService(),
+        ),
         ChangeNotifierProvider<PinProvider>(
           create: (_) => PinProvider(),
         ),
@@ -27,7 +31,7 @@ class App extends StatelessWidget {
           create: (_) => CalendarProvider(),
         ),
         ChangeNotifierProvider<LoadingPageProvider>(
-          create: (_) => LoadingPageProvider(),
+          create: (_) => LoadingPageProvider(StorageService()),
         )
       ],
       child: PreLoadingPage(),

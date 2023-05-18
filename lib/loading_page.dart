@@ -32,17 +32,14 @@ class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('_________${state.name}');
-    print(
-        'loadingPageWidget isPasswordRequired = ${notifier.isPasswordRequired}');
+    notifier.checkPasswordRequired();
     if (state == AppLifecycleState.resumed &&
         notifier.isPasswordRequired == true) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        print('### didChangeAppLifecycleState resumed');
         Navigator.push(
           context,
           PageRouteBuilder(
-            transitionDuration: Duration(milliseconds: 200),
+            transitionDuration: const Duration(milliseconds: 200),
             transitionsBuilder: (_, animation, __, child) {
               return FadeTransition(
                 opacity: animation,
@@ -54,6 +51,7 @@ class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
             ),
           ),
         );
+        notifier.setIsPasswordRequiredFalse();
         // notifier.isPasswordRequired = false;
       });
     }
@@ -65,28 +63,27 @@ class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
         break;
       case LoadingState.pin:
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          print('### _onVariableChanged pin');
-          // TODO(KY): pushReplacement
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              transitionDuration: Duration(milliseconds: 200),
-              transitionsBuilder: (_, animation, __, child) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-              pageBuilder: (_, __, ___) => const PinScreen(
-                backButton: false,
+          if (notifier.isPasswordRequired) {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 200),
+                transitionsBuilder: (_, animation, __, child) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                pageBuilder: (_, __, ___) => const PinScreen(
+                  backButton: false,
+                ),
               ),
-            ),
-          );
+            );
+          }
         });
         break;
       case LoadingState.home:
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          // TODO(KY): pushReplacement
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -100,7 +97,7 @@ class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const SizedBox();
   }
 }
 
@@ -112,7 +109,7 @@ class PreLoadingPage extends StatelessWidget {
     return MaterialApp(
       theme: context.watch<ThemeProvider>().currentTheme,
       debugShowCheckedModeBanner: false,
-      home: LoadingPage(),
+      home: const LoadingPage(),
     );
   }
 }
