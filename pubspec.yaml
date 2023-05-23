@@ -24,15 +24,20 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  provider: ^6.0.3
-  flutter_secure_storage: ^5.0.2
-  flutter_svg: ^1.1.1+1
-  image_picker: ^0.8.5
-  table_calendar: ^3.0.7
-  intl: ^0.17.0
-  screenshot: ^1.2.3
-  share_plus: ^6.0.0
+  cupertino_icons: ^1.0.5
+  provider: ^6.0.5
+  flutter_secure_storage: ^8.0.0
+  flutter_svg: ^2.0.6
+  image_picker: ^0.8.7+5
+  table_calendar: ^3.0.9
+  intl: ^0.18.1
+  screenshot: ^2.1.0
+  share_plus: ^7.0.0
+  drift: ^2.8.0
+  sqlite3_flutter_libs: ^0.5.15
+  path_provider: ^2.0.15
+  path: ^1.8.3
+  shared_preferences: ^2.1.1
   fl_chart: ^0.61.0
 
 
@@ -40,9 +45,9 @@ dependencies:
 
 dev_dependencies:
 
-  drift_dev: ^2.4.1
-  build_runner: ^2.3.3
-  flutter_lints: ^2.0.0
+  drift_dev: ^2.8.2
+  build_runner: ^2.4.4
+  flutter_lints: ^2.0.1
 
 
 

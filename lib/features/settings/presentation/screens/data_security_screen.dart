@@ -5,28 +5,26 @@ import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
-import 'package:mood_tracker/services/storage_service.dart';
+import 'package:mood_tracker/services/secure_storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 
 class DataSecurityScreen extends StatefulWidget {
   const DataSecurityScreen({Key? key}) : super(key: key);
-
   @override
   State<DataSecurityScreen> createState() => _DataSecurityScreenState();
 }
 
 class _DataSecurityScreenState extends State<DataSecurityScreen> {
   bool pinCodeEnabled = false;
-
   @override
   void initState() {
     Future.delayed(
       Duration.zero,
       () async {
-        final storage = StorageService();
+        final storage = SecureStorageService();
         final pin = await storage.read(
-          key: 'pin',
+          key: pinKey,
         );
 
         if (pin != null) {
@@ -38,7 +36,6 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
         }
       },
     );
-
     super.initState();
   }
 
@@ -48,7 +45,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
       appBar: const CustomAppBar(
         title: Text(
           'Data Security',
-          style: s14W600CBlack2,
+          style: TextStyles.s14W600CBlack2,
         ),
       ),
       body: SafeArea(
@@ -61,9 +58,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 value: pinCodeEnabled,
                 onChanged: (bool value) async {
                   if (pinCodeEnabled) {
-                    final storage = StorageService();
+                    final storage = SecureStorageService();
                     await storage.delete(
-                      key: 'pin',
+                      key: pinKey,
                     );
                     setState(
                       () {
@@ -76,6 +73,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return const PinScreen(
+                            backButton: true,
                             deletePin: true,
                           );
                         },
@@ -120,9 +118,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 value: false,
                 onChanged: (bool value) async {
                   if (pinCodeEnabled) {
-                    final storage = StorageService();
+                    final storage = SecureStorageService();
                     await storage.delete(
-                      key: 'pin',
+                      key: pinKey,
                     );
                     setState(() {
                       pinCodeEnabled = false;
@@ -133,6 +131,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return const PinScreen(
+                            backButton: true,
                             deletePin: true,
                           );
                         },

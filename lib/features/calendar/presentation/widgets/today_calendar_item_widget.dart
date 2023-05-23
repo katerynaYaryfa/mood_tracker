@@ -36,7 +36,7 @@ class TodayCalendarItemWidget extends StatelessWidget {
         children: [
           Text(
             '${day.day}',
-            style: s12WBoldCWhite,
+            style: TextStyles.s12WBoldCWhite,
           ),
           const Image(
             height: 34,

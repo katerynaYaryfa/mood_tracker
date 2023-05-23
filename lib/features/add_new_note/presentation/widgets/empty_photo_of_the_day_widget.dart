@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mood_tracker/common_widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:provider/provider.dart';
@@ -31,13 +32,13 @@ class EmptyPhotoOfTheDayWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset(
-                      'images/addPhoto.svg',
+                      SvgIcons.addPhoto,
                       color: AppColors.grey,
                     ),
                     const SpaceH11(),
                     const Text(
                       'Add up to 3 photo',
-                      style: s16WBoldCGrey,
+                      style: TextStyles.s16WBoldCGrey,
                     ),
                   ],
                 ),
