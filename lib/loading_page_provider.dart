@@ -11,7 +11,7 @@ class LoadingPageProvider with ChangeNotifier {
 
   late DateTime lastLoginTime;
 
-  bool isPasswordRequired = false;
+  bool isPasswordRequired = true;
   LoadingState state = LoadingState.loading;
 
   Future<void> _initPrefs() async {

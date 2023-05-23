@@ -58,6 +58,7 @@ class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
   }
 
   void _onVariableChanged() {
+    print('________${notifier.state}');
     switch (notifier.state) {
       case LoadingState.loading:
         break;

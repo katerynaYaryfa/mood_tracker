@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
-import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +75,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const AddNewNoteScreen(),
+                    builder: (context) => AddNewNoteScreen(
+                      date: DateTime.now(),
+                    ),
                   ),
                 );
               },

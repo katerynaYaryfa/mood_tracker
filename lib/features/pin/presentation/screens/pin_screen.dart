@@ -6,7 +6,6 @@ import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart'
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/services/secure_storage_service.dart';
-import 'package:mood_tracker/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -35,7 +34,10 @@ class _PinScreenState extends State<PinScreen> {
     context.read<PinProvider>().init();
 
     if (widget.deletePin == true) {
-      context.read<PinProvider>().deletePin();
+      var storage = SecureStorageService();
+      storage.delete(
+        key: pinKey,
+      );
     }
 
     Future.delayed(Duration.zero, () async {});
@@ -45,35 +47,47 @@ class _PinScreenState extends State<PinScreen> {
   Widget build(BuildContext context) {
     final pin1 = context.watch<PinProvider>().pin1;
     final pin2 = context.watch<PinProvider>().pin2;
-    final wrongPin = context.watch<PinProvider>().wrongPin;
-    final pinCodeEnabled = context.watch<PinProvider>().pinCodeEnabled;
+    var wrongPin = context.watch<PinProvider>().wrongPin;
 
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
-    const pinLength = 4;
-    final shouldEnterPin = pin1.length == pinLength;
-    final shouldCreatePin = pin1.length != pinLength;
 
-    // TODO it is not good practice to call function in build method because it can be called
-    // TODO multiple times. Let's refactor it together
-    context.read<PinProvider>().writePin();
-    // TODO same here
-    if (pinCodeEnabled) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pop(context);
+    if (pin2.length == 4 && pin1 == pin2) {
+      var storage = SecureStorageService();
+      storage.write(
+        key: pinKey,
+        value: pin1,
+      );
+
+      Future.delayed(const Duration(milliseconds: 200), () {
+        {
+          Navigator.pushReplacement(
+            context,
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 0),
+              transitionsBuilder: (_, animation, __, child) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              },
+              pageBuilder: (_, __, ___) => const CustomNavigationBar(),
+            ),
+          );
+        }
       });
     }
 
     return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
+      onWillPop: () async => false,
       child: Scaffold(
         backgroundColor: scaffoldBackgroundColor,
         body: SafeArea(
           child: Column(
             children: [
-              const SpaceH18(),
+              Container(
+                height: 18.0,
+              ),
               Container(
                 width: 90,
                 height: 90,
@@ -87,25 +101,25 @@ class _PinScreenState extends State<PinScreen> {
                   boxShadow: const [],
                 ),
                 child: SvgPicture.asset(
-                  SvgIcons.lock,
+                  'images/lock.svg',
                 ),
               ),
               const SpaceH32(),
-              if (shouldCreatePin)
+              if (pin1.length != 4)
                 const Text(
                   'Create your PIN-code',
                   style: TextStyles.s16W700CBlack,
                 ),
-              if (shouldEnterPin)
+              if (pin1.length == 4)
                 const Text(
                   'Enter your PIN-code',
                   style: TextStyles.s16W700CBlack,
                 ),
               const SpaceH24(),
-              if (pin1.length != pinLength) PasswordInputField(pin: pin1),
-              if (pin1.length == pinLength) PasswordInputField(pin: pin2),
+              if (pin1.length != 4) PasswordInputField(pin: pin1),
+              if (pin1.length == 4) PasswordInputField(pin: pin2),
               if (wrongPin)
-                const PinErrorLabel()
+                const PinsDontMatch()
               else
                 const SizedBox(
                   height: 80,
@@ -179,54 +193,29 @@ class _PinScreenState extends State<PinScreen> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        border: Border.all(
-                          width: 1.0,
-                          color: AppColors.white2,
-                        ),
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          SvgIcons.arrowBack,
-                        ),
-                      ),
-                    ),
+                    child: widget.backButton
+                        ? const PinBackButton()
+                        : Container(
+                            width: 80,
+                          ),
                   ),
                   const SpaceW24(),
                   const PinButtons(
                     title: '0',
                   ),
                   const SpaceW24(),
-                  InkWell(
-                    onTap: () {
-                      context.read<PinProvider>().deleteSymbol();
-                    },
-                    child: Container(
-                      height: 80,
+                  if (widget.backButton == true) const DeleteLastIndexButton(),
+                  if (pin2.isEmpty && widget.backButton == false)
+                    Container(
                       width: 80,
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        border: Border.all(
-                          width: 1.0,
-                          color: AppColors.white2,
-                        ),
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          SvgIcons.back,
-                        ),
-                      ),
                     ),
-                  ),
+                  if (pin2.isNotEmpty && widget.backButton == false)
+                    const DeleteLastIndexButton(),
                 ],
               ),
-              const Spacer(),
+              Expanded(
+                child: Container(),
+              ),
               const Text(
                 'This keeps your data private',
                 style: TextStyles.s14WNormalCGrey2,
@@ -239,11 +228,10 @@ class _PinScreenState extends State<PinScreen> {
   }
 }
 
-class PinErrorLabel extends StatelessWidget {
-  const PinErrorLabel({
+class PinsDontMatch extends StatelessWidget {
+  const PinsDontMatch({
     Key? key,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
