@@ -20,6 +20,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
 
   @override
+  Size get preferredSize => const Size.fromHeight(56);
+
+  @override
   Widget build(BuildContext context) {
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
@@ -43,7 +46,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: scaffoldBackgroundColor,
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(56);
 }

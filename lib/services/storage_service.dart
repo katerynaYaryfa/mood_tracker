@@ -7,13 +7,13 @@ class StorageService {
     required String key,
     required String value,
   }) async {
-    (await SharedPreferences.getInstance()).setString(key, value);
+    await (await SharedPreferences.getInstance()).setString(key, value);
   }
 
   Future<String?> read({
     required String key,
   }) async {
-    var readData = (await SharedPreferences.getInstance()).getString(key);
+    final readData = (await SharedPreferences.getInstance()).getString(key);
     return readData;
   }
 

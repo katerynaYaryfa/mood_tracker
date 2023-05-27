@@ -6,13 +6,14 @@ class PinProvider with ChangeNotifier {
     init();
   }
 
-  final SecureStorageService _storage;
-
   bool isPressed = false;
   String pin1 = '';
   String pin2 = '';
   bool wrongPin = false;
   String myCode = '';
+
+  final SecureStorageService _storage;
+
   void clearState() {
     pin1 = '';
     pin2 = '';
@@ -28,9 +29,7 @@ class PinProvider with ChangeNotifier {
     return savedPin;
   }
 
-  var color = Colors.grey.shade400;
-  var wrongPinColor = Colors.transparent;
-  void pinCode(String num) async {
+  Future<void> pinCode(String num) async {
     if (pin1.length == 4) {
       pin2 = pin2 + num;
       wrongPin = false;
@@ -62,12 +61,12 @@ class PinProvider with ChangeNotifier {
   }
 
   Future<String?> readCode() async {
-    String? pinCode = await _storage.read(key: pinKey);
+    final pinCode = await _storage.read(key: pinKey);
     return pinCode;
   }
 
-  void init() async {
-    Future<String?> pinCode = readCode();
+  Future<void> init() async {
+    final pinCode = readCode();
     myCode = await pinCode ?? '';
     pin1 = myCode;
     notifyListeners();

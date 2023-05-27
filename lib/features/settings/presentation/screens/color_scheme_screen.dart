@@ -42,7 +42,6 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                     color: AppColors.greyOpacity.withOpacity(0.03),
                     spreadRadius: 1,
                     blurRadius: 15,
-                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -54,7 +53,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                   ),
                   SizedBox(
                     height: 100,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -72,7 +71,6 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                     color: AppColors.greyOpacity.withOpacity(0.03),
                     spreadRadius: 1,
                     blurRadius: 15,
-                    offset: const Offset(0, 0),
                   ),
                 ],
               ),
@@ -151,12 +149,12 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

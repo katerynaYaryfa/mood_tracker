@@ -62,7 +62,7 @@ class App extends StatelessWidget {
             storageService,
             secureStorageService,
           ),
-        )
+        ),
       ],
       child: const MaterialAppWrapper(),
     );

@@ -1,19 +1,6 @@
 import 'package:mood_tracker/features/chart/indidvidual_bar.dart';
 
 class YearBarData {
-  final double january;
-  final double february;
-  final double march;
-  final double april;
-  final double may;
-  final double june;
-  final double july;
-  final double august;
-  final double september;
-  final double october;
-  final double november;
-  final double december;
-
   YearBarData({
     required this.january,
     required this.february,
@@ -28,6 +15,19 @@ class YearBarData {
     required this.november,
     required this.december,
   });
+
+  final double january;
+  final double february;
+  final double march;
+  final double april;
+  final double may;
+  final double june;
+  final double july;
+  final double august;
+  final double september;
+  final double october;
+  final double november;
+  final double december;
 
   List<IndividualBar> yearBarData = [];
 
@@ -50,13 +50,6 @@ class YearBarData {
 }
 
 class YearLeftBarData {
-  final double cryingAmount;
-  final double veryBadAmount;
-  final double badAmount;
-  final double normalAmount;
-  final double goodAmount;
-  final double veryGoodAmount;
-
   YearLeftBarData({
     required this.cryingAmount,
     required this.veryBadAmount,
@@ -65,6 +58,13 @@ class YearLeftBarData {
     required this.goodAmount,
     required this.veryGoodAmount,
   });
+
+  final double cryingAmount;
+  final double veryBadAmount;
+  final double badAmount;
+  final double normalAmount;
+  final double goodAmount;
+  final double veryGoodAmount;
 
   List<IndividualBar> yearLeftBarData = [];
 
@@ -81,13 +81,6 @@ class YearLeftBarData {
 }
 
 class MoodBarData {
-  final double cryingAmount;
-  final double veryBadAmount;
-  final double badAmount;
-  final double normalAmount;
-  final double goodAmount;
-  final double veryGoodAmount;
-
   MoodBarData({
     required this.cryingAmount,
     required this.veryBadAmount,
@@ -96,6 +89,13 @@ class MoodBarData {
     required this.goodAmount,
     required this.veryGoodAmount,
   });
+
+  final double cryingAmount;
+  final double veryBadAmount;
+  final double badAmount;
+  final double normalAmount;
+  final double goodAmount;
+  final double veryGoodAmount;
 
   List<IndividualBar> yearMoodBarData = [];
 

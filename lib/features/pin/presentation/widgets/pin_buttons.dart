@@ -29,7 +29,6 @@ class _PinButtonsState extends State<PinButtons> {
         decoration: BoxDecoration(
           color: AppColors.white,
           border: Border.all(
-            width: 1.0,
             color: AppColors.white2,
           ),
           borderRadius: BorderRadius.circular(100.0),
@@ -64,7 +63,6 @@ class DeleteLastIndexButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.white,
           border: Border.all(
-            width: 1.0,
             color: AppColors.white2,
           ),
           borderRadius: BorderRadius.circular(100.0),
@@ -90,7 +88,6 @@ class PinBackButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         border: Border.all(
-          width: 1.0,
           color: AppColors.white2,
         ),
         borderRadius: BorderRadius.circular(100.0),

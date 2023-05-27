@@ -34,11 +34,10 @@ class _PinScreenState extends State<PinScreen> {
     context.read<PinProvider>().clearState();
     context.read<PinProvider>().init();
 
-    if (widget.deletePin == true) {
-      var storage = context.read<SecureStorageService>();
-      storage.delete(
-        key: pinKey,
-      );
+    if (widget.deletePin) {
+      context.read<SecureStorageService>().delete(
+            key: pinKey,
+          );
     }
 
     Future.delayed(Duration.zero, () async {});
@@ -48,7 +47,7 @@ class _PinScreenState extends State<PinScreen> {
   Widget build(BuildContext context) {
     final pin1 = context.watch<PinProvider>().pin1;
     final pin2 = context.watch<PinProvider>().pin2;
-    var wrongPin = context.watch<PinProvider>().wrongPin;
+    final wrongPin = context.watch<PinProvider>().wrongPin;
 
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
@@ -68,7 +67,7 @@ class _PinScreenState extends State<PinScreen> {
           Navigator.pushReplacement(
             context,
             PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 0),
+              transitionDuration: Duration.zero,
               transitionsBuilder: (_, animation, __, child) {
                 return FadeTransition(
                   opacity: animation,
@@ -208,12 +207,12 @@ class _PinScreenState extends State<PinScreen> {
                     title: '0',
                   ),
                   const SpaceW24(),
-                  if (widget.backButton == true) const DeleteLastIndexButton(),
-                  if (pin2.isEmpty && widget.backButton == false)
+                  if (widget.backButton) const DeleteLastIndexButton(),
+                  if (pin2.isEmpty && !widget.backButton)
                     Container(
                       width: 80,
                     ),
-                  if (pin2.isNotEmpty && widget.backButton == false)
+                  if (pin2.isNotEmpty && !widget.backButton)
                     const DeleteLastIndexButton(),
                 ],
               ),

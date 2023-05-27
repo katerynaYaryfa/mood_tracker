@@ -23,7 +23,7 @@ class EmptyPhotoOfTheDayWidget extends StatelessWidget {
               onTap: () {
                 context.read<NoteProvider>().pickImage();
               },
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: AppColors.scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(16.0),
@@ -33,7 +33,10 @@ class EmptyPhotoOfTheDayWidget extends StatelessWidget {
                   children: [
                     SvgPicture.asset(
                       SvgIcons.addPhoto,
-                      color: AppColors.grey,
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.grey,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     const SpaceH11(),
                     const Text(

@@ -3,14 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
+import 'package:mood_tracker/features/calendar/presentation/screens/calendar_screen.dart';
 import 'package:mood_tracker/features/chart/presentation/charts_tab_bar_screen.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_listener.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../../../calendar/presentation/screens/calendar_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
@@ -33,11 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const SettingsScreen(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return PinListener(
       child: Scaffold(
         body: _widgetOptions[selectedIndex],
-        floatingActionButton: Container(
+        floatingActionButton: DecoratedBox(
           decoration: BoxDecoration(
             color: Colors.transparent,
             borderRadius: const BorderRadius.all(
@@ -63,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: backgroundColor?.withOpacity(0.3) ?? AppColors.black,
                 spreadRadius: 7,
                 blurRadius: 10,
-                offset: const Offset(0, 0),
               ),
             ],
           ),
@@ -143,5 +136,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
   }
 }

@@ -5,12 +5,12 @@ import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 
 class PasswordInputField extends StatefulWidget {
-  final String pin;
-
   const PasswordInputField({
     required this.pin,
     Key? key,
   }) : super(key: key);
+
+  final String pin;
 
   @override
   State<PasswordInputField> createState() => _PasswordInputFieldState();
@@ -19,7 +19,7 @@ class PasswordInputField extends StatefulWidget {
 class _PasswordInputFieldState extends State<PasswordInputField> {
   @override
   Widget build(BuildContext context) {
-    bool wrongPin = context.watch<PinProvider>().wrongPin;
+    final wrongPin = context.watch<PinProvider>().wrongPin;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -84,10 +84,6 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
       return AppColors.red;
     }
 
-    if (widget.pin.length >= num) {
-      return AppColors.darkGrey;
-    } else {
-      return AppColors.white;
-    }
+    return widget.pin.length >= num ? AppColors.darkGrey : AppColors.white;
   }
 }

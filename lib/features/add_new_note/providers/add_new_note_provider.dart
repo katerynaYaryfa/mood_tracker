@@ -13,15 +13,15 @@ class NoteProvider extends ChangeNotifier {
     required INoteRepository repository,
   }) : _repository = repository;
 
-  final INoteRepository _repository;
-
   File? savedImage;
   String text = '';
   List<File> images = [];
   Mood mood = Mood.none;
 
+  final INoteRepository _repository;
+
   Future<void> saveNote(DateTime date) async {
-    NoteModel note = await _createNote(date);
+    final note = await _createNote(date);
 
     _repository.saveNote(note);
   }
@@ -53,18 +53,18 @@ class NoteProvider extends ChangeNotifier {
 
   Future<NoteModel> _createNote(DateTime date) async {
     final path = (await getApplicationDocumentsDirectory()).path;
-    String formattedTodayDate = DateFormat('yyyy-M-d').format(date);
-    List<String> pathList = [];
+    final formattedTodayDate = DateFormat('yyyy-M-d').format(date);
+    final pathList = <String>[];
 
     if (images.isNotEmpty) {
-      for (int i = 0; i < images.length; i++) {
-        var image = images[i];
+      for (var i = 0; i < images.length; i++) {
+        final image = images[i];
         await image.copy('$path/${formattedTodayDate}_$i.jpg');
         pathList.add('${formattedTodayDate}_$i.jpg');
       }
     }
 
-    String jsonPathList = jsonEncode(pathList);
+    final jsonPathList = jsonEncode(pathList);
 
     return NoteModel(
       date: date,

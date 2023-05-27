@@ -31,7 +31,12 @@ class _PinListenerState extends State<PinListener> with WidgetsBindingObserver {
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.resumed) {
       final shouldShowPin =
           await context.read<PinListenerProvider>().checkShouldShowPin();
@@ -50,10 +55,5 @@ class _PinListenerState extends State<PinListener> with WidgetsBindingObserver {
         builder: (context) => const PinScreen(),
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
   }
 }

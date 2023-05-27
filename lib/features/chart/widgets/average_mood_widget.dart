@@ -18,7 +18,6 @@ class AverageMoodWidget extends StatelessWidget {
             color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 10,
             blurRadius: 15,
-            offset: const Offset(0, 0),
           ),
         ],
       ),
@@ -54,10 +53,11 @@ class AverageMoodWidget extends StatelessWidget {
               const Text(
                 '+0%',
                 style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.green),
-              )
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.green,
+                ),
+              ),
             ],
           ),
           const SizedBox(
@@ -75,7 +75,7 @@ class AverageMoodWidget extends StatelessWidget {
                     child: ProgressBar(
                       gradientDefault: [
                         Alignment.topCenter,
-                        Alignment.bottomCenter
+                        Alignment.bottomCenter,
                       ],
                       colorsDefault: [
                         AppColors.blue2,
@@ -83,7 +83,7 @@ class AverageMoodWidget extends StatelessWidget {
                       ],
                       gradientCompleted: [
                         Alignment.centerLeft,
-                        Alignment.centerRight
+                        Alignment.centerRight,
                       ],
                       colorsCompleted: [
                         AppColors.blue,
@@ -104,12 +104,12 @@ class AverageMoodWidget extends StatelessWidget {
                   child: const ProgressBar(
                     gradientDefault: [
                       Alignment.topCenter,
-                      Alignment.bottomCenter
+                      Alignment.bottomCenter,
                     ],
                     colorsDefault: [AppColors.green3, AppColors.green3],
                     gradientCompleted: [
                       Alignment.centerLeft,
-                      Alignment.centerRight
+                      Alignment.centerRight,
                     ],
                     colorsCompleted: [AppColors.green, AppColors.green],
                     height: 24.0,

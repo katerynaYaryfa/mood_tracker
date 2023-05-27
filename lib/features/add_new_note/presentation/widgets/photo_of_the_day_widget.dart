@@ -34,7 +34,6 @@ class PhotoOfTheDayWidget extends StatelessWidget {
             color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
-            offset: const Offset(0, 0),
           ),
         ],
       ),
@@ -50,7 +49,10 @@ class PhotoOfTheDayWidget extends StatelessWidget {
               if (images.length == 3)
                 SvgPicture.asset(
                   SvgIcons.addNewImage,
-                  color: AppColors.redInactive,
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.redInactive,
+                    BlendMode.srcIn,
+                  ),
                 ),
               if (images.isNotEmpty && images.length < 3)
                 InkWell(
@@ -59,9 +61,12 @@ class PhotoOfTheDayWidget extends StatelessWidget {
                   },
                   child: SvgPicture.asset(
                     SvgIcons.addNewImage,
-                    color: images.length == 3
-                        ? AppColors.redInactive
-                        : AppColors.red,
+                    colorFilter: ColorFilter.mode(
+                      images.length == 3
+                          ? AppColors.redInactive
+                          : AppColors.red,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
             ],
@@ -84,7 +89,7 @@ class PhotoOfTheDayWidget extends StatelessWidget {
                 const SpaceW16(),
                 AddNewImage(
                   image: images[1],
-                )
+                ),
               ],
             ),
           if (images.length == 3)
@@ -100,10 +105,10 @@ class PhotoOfTheDayWidget extends StatelessWidget {
                 const SpaceW15(),
                 AddNewImage(
                   image: images[2],
-                )
+                ),
               ],
             ),
-          if (images.isEmpty) const EmptyPhotoOfTheDayWidget()
+          if (images.isEmpty) const EmptyPhotoOfTheDayWidget(),
         ],
       ),
     );

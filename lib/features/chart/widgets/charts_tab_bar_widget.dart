@@ -25,10 +25,11 @@ class ChartsTabBarWidget extends StatelessWidget {
           labelColor: AppColors.white,
           unselectedLabelColor: AppColors.grey2,
           indicator: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(100),
-              ),
-              color: primaryColor),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(100),
+            ),
+            color: primaryColor,
+          ),
           tabs: const [
             Tab(
               child: Text(

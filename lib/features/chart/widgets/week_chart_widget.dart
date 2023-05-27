@@ -29,7 +29,6 @@ class WeekChartWidget extends StatelessWidget {
             color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
-            offset: const Offset(0, 0),
           ),
         ],
       ),
@@ -79,7 +78,10 @@ class WeekChartWidget extends StatelessWidget {
                     sideTitles: SideTitles(
                       showTitles: true,
                       reservedSize: 61,
-                      getTitlesWidget: getWeekChartBottomTitles,
+                      getTitlesWidget: (value, meta) => WeekChartBottomTitles(
+                        value: value,
+                        meta: meta,
+                      ),
                     ),
                   ),
                 ),

@@ -1,6 +1,16 @@
 import 'package:mood_tracker/features/chart/indidvidual_bar.dart';
 
 class WeekBarData {
+  WeekBarData({
+    required this.sunAmount,
+    required this.monAmount,
+    required this.tueAmount,
+    required this.wedAmount,
+    required this.thurAmount,
+    required this.friAmount,
+    required this.satAmount,
+  });
+
   final double sunAmount;
   final double monAmount;
   final double tueAmount;
@@ -8,15 +18,6 @@ class WeekBarData {
   final double thurAmount;
   final double friAmount;
   final double satAmount;
-
-  WeekBarData(
-      {required this.sunAmount,
-      required this.monAmount,
-      required this.tueAmount,
-      required this.wedAmount,
-      required this.thurAmount,
-      required this.friAmount,
-      required this.satAmount});
 
   List<IndividualBar> weekBarData = [];
 
@@ -34,13 +35,6 @@ class WeekBarData {
 }
 
 class MoodBarData {
-  final double cryingAmount;
-  final double veryBadAmount;
-  final double badAmount;
-  final double normalAmount;
-  final double goodAmount;
-  final double veryGoodAmount;
-
   MoodBarData({
     required this.cryingAmount,
     required this.veryBadAmount,
@@ -49,6 +43,13 @@ class MoodBarData {
     required this.goodAmount,
     required this.veryGoodAmount,
   });
+
+  final double cryingAmount;
+  final double veryBadAmount;
+  final double badAmount;
+  final double normalAmount;
+  final double goodAmount;
+  final double veryGoodAmount;
 
   List<IndividualBar> weekMoodBarData = [];
 

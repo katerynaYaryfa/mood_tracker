@@ -29,7 +29,6 @@ class YearChartWidget extends StatelessWidget {
             color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 10,
             blurRadius: 15,
-            offset: const Offset(0, 0),
           ),
         ],
       ),
@@ -145,7 +144,11 @@ class YearChartWidget extends StatelessWidget {
                       bottomTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          getTitlesWidget: getYearChartBottomTitles,
+                          getTitlesWidget: (value, meta) =>
+                              YearChartBottomTitles(
+                            value: value,
+                            meta: meta,
+                          ),
                         ),
                       ),
                     ),

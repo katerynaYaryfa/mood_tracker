@@ -76,7 +76,7 @@ class AddNewNoteScreenContainer extends StatelessWidget {
 
     final saveNote = context.watch<NoteProvider>().saveNote;
 
-    String formattedDate = DateFormat.MMMMEEEEd().format(time);
+    final formattedDate = DateFormat.MMMMEEEEd().format(time);
 
     return GestureDetector(
       onTap: () {
@@ -101,7 +101,6 @@ class AddNewNoteScreenContainer extends StatelessWidget {
                   color: backgroundColor?.withOpacity(0.3) ?? AppColors.black,
                   spreadRadius: 7,
                   blurRadius: 10,
-                  offset: const Offset(0, 0),
                 ),
               ],
             ),
@@ -147,7 +146,7 @@ class AddNewNoteScreenContainer extends StatelessWidget {
                   SvgIcons.barGraph,
                 ),
               ),
-            )
+            ),
           ],
         ),
         body: SingleChildScrollView(
