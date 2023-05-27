@@ -36,8 +36,8 @@ class _PinScreenState extends State<PinScreen> {
 
     if (widget.deletePin) {
       context.read<SecureStorageService>().delete(
-        key: pinKey,
-      );
+            key: pinKey,
+          );
     }
 
     Future.delayed(Duration.zero, () async {});
