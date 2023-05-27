@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/common/consts/svg_icons.dart';
+import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddNewImage extends StatelessWidget {

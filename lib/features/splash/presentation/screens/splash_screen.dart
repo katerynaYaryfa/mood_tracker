@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/features/home/presentation/screens/home_screen.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
 import 'package:mood_tracker/features/splash/providers/splash_screen_provider.dart';
-import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,7 +11,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver {
+class _SplashScreenState extends State<SplashScreen>
+    with WidgetsBindingObserver {
   late final LoadingPageProvider notifier;
 
   @override

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:mood_tracker/common/consts/svg_icons.dart';
+import 'package:mood_tracker/common/extensions/iterable_extensions.dart';
 import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/common/extensions/iterable_extensions.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/cancel_button_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/date_picker_widget.dart';
@@ -14,7 +15,6 @@ import 'package:mood_tracker/features/calendar/presentation/widgets/header_face_
 import 'package:mood_tracker/features/calendar/presentation/widgets/ok_button_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/today_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
-import 'package:mood_tracker/common/consts/svg_icons.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
