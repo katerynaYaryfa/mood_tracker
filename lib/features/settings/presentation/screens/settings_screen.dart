@@ -1,12 +1,14 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/color_scheme_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/data_security_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
-import 'package:mood_tracker/svg_icons.dart';
+import 'package:mood_tracker/common/consts/svg_icons.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 

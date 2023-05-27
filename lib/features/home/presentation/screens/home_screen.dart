@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
@@ -7,7 +9,7 @@ import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-import 'features/calendar/presentation/screens/calendar_screen.dart';
+import '../../../calendar/presentation/screens/calendar_screen.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({Key? key}) : super(key: key);

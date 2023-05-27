@@ -4,8 +4,8 @@ import 'package:mood_tracker/features/add_new_note/repositories/note_repository.
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
 import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
-import 'package:mood_tracker/loading_page.dart';
-import 'package:mood_tracker/loading_page_provider.dart';
+import 'package:mood_tracker/features/splash/presentation/screens/splash_screen.dart';
+import 'package:mood_tracker/features/splash/providers/splash_screen_provider.dart';
 import 'package:mood_tracker/services/database/data_base_service.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -52,7 +52,20 @@ class App extends StatelessWidget {
           create: (_) => LoadingPageProvider(StorageService()),
         )
       ],
-      child: PreLoadingPage(),
+      child: const MaterialAppWrapper(),
+    );
+  }
+}
+
+class MaterialAppWrapper extends StatelessWidget {
+  const MaterialAppWrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: context.watch<ThemeProvider>().currentTheme,
+      debugShowCheckedModeBanner: false,
+      home: const SplashScreen(),
     );
   }
 }

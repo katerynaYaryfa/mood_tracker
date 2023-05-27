@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/chart/charts_data/week_bar_data.dart';
 import 'package:mood_tracker/features/chart/presentation/week_chart_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
@@ -33,14 +33,14 @@ class WeekChartWidget extends StatelessWidget {
           ),
         ],
       ),
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       height: 240,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SpaceH16(),
-          Row(
-            children: const [
+          const Row(
+            children: [
               SpaceW16(),
               Text(
                 'Mood chart',

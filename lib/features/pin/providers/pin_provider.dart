@@ -60,7 +60,7 @@ class PinProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
 
   Future<String?> readCode() async {
     String? pinCode = await storage.read(key: pinKey);

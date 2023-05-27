@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/charts_data/year_bar_data.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/chart/presentation/year_chart_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
@@ -9,14 +8,14 @@ import 'package:mood_tracker/theme/app_text_styles.dart';
 class MoodChartWidget extends StatelessWidget {
   const MoodChartWidget({
     Key? key,
-    required this.moodBarData,
     required this.primaryColor,
     required this.scaffoldBackgroundColor,
+    required this.groupData,
   }) : super(key: key);
 
-  final MoodBarData moodBarData;
   final Color primaryColor;
   final Color scaffoldBackgroundColor;
+  final List<BarChartGroupData> groupData;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +38,8 @@ class MoodChartWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SpaceH16(),
-          Row(
-            children: const [
+          const Row(
+            children: [
               SpaceW16(),
               Text(
                 'Mood chart',
@@ -53,59 +52,39 @@ class MoodChartWidget extends StatelessWidget {
             height: 155,
             child: BarChart(
               BarChartData(
-                gridData: FlGridData(
-                  show: false,
-                ),
-                borderData: FlBorderData(
-                  show: false,
-                ),
-                titlesData: FlTitlesData(
-                  topTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
+                  gridData: FlGridData(
+                    show: false,
                   ),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
+                  borderData: FlBorderData(
+                    show: false,
                   ),
-                  rightTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 65,
-                      getTitlesWidget: getMoodBottomTitles,
-                    ),
-                  ),
-                ),
-                maxY: 100,
-                minY: 0,
-                barGroups: moodBarData.moodBarData
-                    .map(
-                      (data) => BarChartGroupData(
-                        x: data.x,
-                        barRods: [
-                          BarChartRodData(
-                            toY: data.y,
-                            color: primaryColor,
-                            width: 20,
-                            borderRadius: BorderRadius.circular(8),
-                            backDrawRodData: BackgroundBarChartRodData(
-                              show: true,
-                              toY: 100,
-                              color: scaffoldBackgroundColor,
-                            ),
-                          ),
-                        ],
+                  titlesData: FlTitlesData(
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: false,
                       ),
-                    )
-                    .toList(),
-              ),
+                    ),
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: false,
+                      ),
+                    ),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: false,
+                      ),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 65,
+                        getTitlesWidget: getMoodBottomTitles,
+                      ),
+                    ),
+                  ),
+                  maxY: 100,
+                  minY: 0,
+                  barGroups: groupData),
             ),
           ),
         ],

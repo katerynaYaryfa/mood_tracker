@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/custom_navigation_bar.dart';
+import 'package:mood_tracker/features/home/presentation/screens/home_screen.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
-import 'package:mood_tracker/loading_page_provider.dart';
+import 'package:mood_tracker/features/splash/providers/splash_screen_provider.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class LoadingPage extends StatefulWidget {
-  const LoadingPage({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoadingPage> createState() => _LoadingPageState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
+class _SplashScreenState extends State<SplashScreen> with WidgetsBindingObserver {
   late final LoadingPageProvider notifier;
 
   @override
@@ -58,7 +58,6 @@ class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
   }
 
   void _onVariableChanged() {
-    print('________${notifier.state}');
     switch (notifier.state) {
       case LoadingState.loading:
         break;
@@ -99,18 +98,5 @@ class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return const SizedBox();
-  }
-}
-
-class PreLoadingPage extends StatelessWidget {
-  const PreLoadingPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: context.watch<ThemeProvider>().currentTheme,
-      debugShowCheckedModeBanner: false,
-      home: const LoadingPage(),
-    );
   }
 }

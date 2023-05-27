@@ -28,8 +28,8 @@ class LoadingPageProvider with ChangeNotifier {
 
   void checkPasswordRequired() {
     final now = DateTime.now();
-    final elapsedMinutes = now.difference(lastLoginTime).inMinutes;
-    isPasswordRequired = elapsedMinutes >= 60;
+    final elapsedMinutes = now.difference(lastLoginTime).inSeconds;
+    isPasswordRequired = elapsedMinutes >= 10;
     _storage.writeInt(
       key: lastLoginTimestamp,
       value: now.millisecondsSinceEpoch,
@@ -46,7 +46,7 @@ class LoadingPageProvider with ChangeNotifier {
       key: pinKey,
     );
 
-    if (pin1 != null) {
+    if (pin1 != null && isPasswordRequired == true) {
       state = LoadingState.pin;
     } else {
       state = LoadingState.home;

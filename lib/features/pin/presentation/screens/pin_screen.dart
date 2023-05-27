@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/custom_navigation_bar.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
+import 'package:mood_tracker/features/home/presentation/screens/home_screen.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
@@ -133,9 +133,9 @@ class _PinScreenState extends State<PinScreen> {
                     ),
                   ),
                 ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SpaceW36(),
                   PinButtons(
                     title: '1',
@@ -152,9 +152,9 @@ class _PinScreenState extends State<PinScreen> {
                 ],
               ),
               const SpaceH30(),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   PinButtons(
                     title: '4',
                   ),
@@ -169,9 +169,9 @@ class _PinScreenState extends State<PinScreen> {
                 ],
               ),
               const SpaceH30(),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   PinButtons(
                     title: '7',
                   ),

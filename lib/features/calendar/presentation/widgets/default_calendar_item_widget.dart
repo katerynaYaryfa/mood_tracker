@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
@@ -14,7 +14,7 @@ class DefaultCalendarItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         {
           Navigator.push(

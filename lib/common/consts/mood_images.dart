@@ -1,4 +1,4 @@
-abstract class ConstImage {
+abstract class MoodImages {
   static const face6Crying = 'images/face6.png';
   static const face5VeryBad = 'images/face5.png';
   static const face4Bad = 'images/face4.png';

@@ -9,7 +9,7 @@ class AverageMoodWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: AppColors.white,
@@ -27,21 +27,20 @@ class AverageMoodWidget extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image(
+              const Image(
                 height: 40,
                 width: 40,
                 image: AssetImage(
                   'images/face1.png',
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 13,
               ),
               Column(
                 children: [
-                  Text(
+                  const Text(
                     'Average mood',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
@@ -52,8 +51,8 @@ class AverageMoodWidget extends StatelessWidget {
                 ],
               ),
               Expanded(child: Container()),
-              Text(
-                '+23%',
+              const Text(
+                '+0%',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -61,7 +60,7 @@ class AverageMoodWidget extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(
@@ -71,22 +70,22 @@ class AverageMoodWidget extends StatelessWidget {
                   height: 20,
                   width: 148,
                   color: Colors.white,
-                  child: RotatedBox(
+                  child: const RotatedBox(
                     quarterTurns: 2,
                     child: ProgressBar(
-                      gradientDefault: const [
+                      gradientDefault: [
                         Alignment.topCenter,
                         Alignment.bottomCenter
                       ],
-                      colorsDefault: const [
+                      colorsDefault: [
                         AppColors.blue2,
                         AppColors.blue2,
                       ],
-                      gradientCompleted: const [
+                      gradientCompleted: [
                         Alignment.centerLeft,
                         Alignment.centerRight
                       ],
-                      colorsCompleted: const [
+                      colorsCompleted: [
                         AppColors.blue,
                         AppColors.blue,
                       ],
@@ -102,20 +101,20 @@ class AverageMoodWidget extends StatelessWidget {
                   height: 20,
                   width: 148,
                   color: Colors.white,
-                  child: ProgressBar(
-                    gradientDefault: const [
+                  child: const ProgressBar(
+                    gradientDefault: [
                       Alignment.topCenter,
                       Alignment.bottomCenter
                     ],
-                    colorsDefault: const [AppColors.green3, AppColors.green3],
-                    gradientCompleted: const [
+                    colorsDefault: [AppColors.green3, AppColors.green3],
+                    gradientCompleted: [
                       Alignment.centerLeft,
                       Alignment.centerRight
                     ],
-                    colorsCompleted: const [AppColors.green, AppColors.green],
+                    colorsCompleted: [AppColors.green, AppColors.green],
                     height: 24.0,
                     radius: 70.0,
-                    ratio: 0.23, // 40%
+                    ratio: 0,
                   ),
                 ),
               ),
@@ -156,7 +155,7 @@ class ProgressBar extends StatelessWidget {
         children: <Widget>[
           if (ratio < 1.0)
             ProgressBarElement(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 // topLeft: Radius.circular(20),
                 // bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(9),
@@ -171,7 +170,7 @@ class ProgressBar extends StatelessWidget {
               alignment: Alignment.centerLeft,
               widthFactor: ratio,
               child: ProgressBarElement(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   // topLeft: Radius.circular(20),
                   // bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(9),

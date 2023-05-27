@@ -1,7 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';

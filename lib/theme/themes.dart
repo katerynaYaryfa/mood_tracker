@@ -9,11 +9,11 @@ ThemeData mainTheme = ThemeData(
   ),
   fontFamily: 'Quicksand',
   textTheme: const TextTheme(
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       fontSize: 16,
       color: AppColors.black,
       fontFamily: 'Quicksand',
@@ -29,11 +29,11 @@ ThemeData greenTheme = ThemeData(
   ),
   fontFamily: 'Quicksand',
   textTheme: const TextTheme(
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w200,
       height: 17.5 / 14,
