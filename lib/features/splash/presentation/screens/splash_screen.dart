@@ -29,6 +29,11 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox();
+  }
+
   void _listenProvider() {
     switch (notifier.state) {
       case SplashState.loading:
@@ -48,10 +53,5 @@ class _SplashScreenState extends State<SplashScreen> {
         );
         break;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox();
   }
 }

@@ -26,26 +26,6 @@ class EventCalendarItemWidget extends StatefulWidget {
 class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
   List<File> images = [];
 
-  // TODO let's refactor this method together
-  Future<void> _parseList() async {
-    final jsonPathList = jsonDecode(widget.note?.images ?? '');
-    final listJson = jsonPathList as List<dynamic>;
-    final imageNames = listJson.cast<String>();
-
-    final appDirectory = (await getApplicationDocumentsDirectory());
-    final appDirectoryFiles =
-        appDirectory.listSync().map((event) => File(event.path));
-    imageNames.forEach((imageName) {
-      appDirectoryFiles.forEach((file) {
-        if (file.path.contains(imageName)) {
-          images.add(file);
-        }
-      });
-    });
-
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
@@ -91,5 +71,25 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
         ),
       ),
     );
+  }
+
+  // TODO let's refactor this method together
+  Future<void> _parseList() async {
+    final jsonPathList = jsonDecode(widget.note?.images ?? '');
+    final listJson = jsonPathList as List<dynamic>;
+    final imageNames = listJson.cast<String>();
+
+    final appDirectory = await getApplicationDocumentsDirectory();
+    final appDirectoryFiles =
+        appDirectory.listSync().map((event) => File(event.path));
+    for (final imageName in imageNames) {
+      for (final file in appDirectoryFiles) {
+        if (file.path.contains(imageName)) {
+          images.add(file);
+        }
+      }
+    }
+
+    setState(() {});
   }
 }

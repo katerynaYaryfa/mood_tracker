@@ -10,11 +10,13 @@ import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class WeekChartScreen extends StatelessWidget {
-  const WeekChartScreen(
-      {Key? key, required this.weeklySum, required this.moodSum})
-      : super(key: key);
-  final List weeklySum;
-  final List moodSum;
+  const WeekChartScreen({
+    Key? key,
+    required this.weeklySum,
+    required this.moodSum,
+  }) : super(key: key);
+  final List<double> weeklySum;
+  final List<double> moodSum;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class WeekChartScreen extends StatelessWidget {
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
 
-    WeekBarData myBarData = WeekBarData(
+    final myBarData = WeekBarData(
       sunAmount: weeklySum[0],
       monAmount: weeklySum[1],
       tueAmount: weeklySum[2],
@@ -31,20 +33,18 @@ class WeekChartScreen extends StatelessWidget {
       thurAmount: weeklySum[4],
       friAmount: weeklySum[5],
       satAmount: weeklySum[6],
-    );
-    myBarData.initializeWeekBarData();
+    )..initializeWeekBarData();
 
     /////
 
-    MoodBarData weekMoodBarData = MoodBarData(
+    final weekMoodBarData = MoodBarData(
       cryingAmount: moodSum[0],
       veryBadAmount: moodSum[1],
       badAmount: moodSum[2],
       normalAmount: moodSum[3],
       goodAmount: moodSum[4],
       veryGoodAmount: moodSum[5],
-    );
-    weekMoodBarData.initializeMoodBarData();
+    )..initializeMoodBarData();
 
     List<BarChartGroupData> weekGroupData() {
       return weekMoodBarData.weekMoodBarData
@@ -69,7 +69,7 @@ class WeekChartScreen extends StatelessWidget {
           .toList();
     }
 
-    List<BarChartGroupData> weekMoodData = weekGroupData();
+    final weekMoodData = weekGroupData();
 
     return Scaffold(
       body: ListView(
@@ -95,92 +95,104 @@ class WeekChartScreen extends StatelessWidget {
   }
 }
 
-Widget getWeekChartBottomTitles(double value, TitleMeta meta) {
-  late Text text;
-  late Image icon;
+class WeekChartBottomTitles extends StatelessWidget {
+  const WeekChartBottomTitles({
+    Key? key,
+    required this.value,
+    required this.meta,
+  }) : super(key: key);
 
-  switch (value.toInt()) {
-    case 0:
-      text = const Text('Sun', style: s12W600CGrey2);
-      icon = const Image(
-        height: 30,
-        width: 30,
-        image: AssetImage(
-          'images/face1.png',
+  final double value;
+  final TitleMeta meta;
+
+  @override
+  Widget build(BuildContext context) {
+    late Text text;
+    late Image icon;
+
+    switch (value.toInt()) {
+      case 0:
+        text = const Text('Sun', style: s12W600CGrey2);
+        icon = const Image(
+          height: 30,
+          width: 30,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        );
+        break;
+      case 1:
+        text = const Text('Mon', style: s12W600CGrey2);
+        icon = const Image(
+          height: 30,
+          width: 30,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        );
+        break;
+      case 2:
+        text = const Text('Tue', style: s12W600CGrey2);
+        icon = const Image(
+          height: 30,
+          width: 30,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        );
+        break;
+      case 3:
+        text = const Text('Wed', style: s12W600CGrey2);
+        icon = const Image(
+          height: 30,
+          width: 30,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        );
+        break;
+      case 4:
+        text = const Text('Thu', style: s12W600CGrey2);
+        icon = const Image(
+          height: 30,
+          width: 30,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        );
+        break;
+      case 5:
+        text = const Text('Fri', style: s12W600CGrey2);
+        icon = const Image(
+          height: 30,
+          width: 30,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        );
+        break;
+      case 6:
+        text = const Text('Sat', style: s12W600CGrey2);
+        icon = const Image(
+          height: 30,
+          width: 30,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        );
+        break;
+    }
+    return Column(
+      children: [
+        const SizedBox(
+          height: 8,
         ),
-      );
-      break;
-    case 1:
-      text = const Text('Mon', style: s12W600CGrey2);
-      icon = const Image(
-        height: 30,
-        width: 30,
-        image: AssetImage(
-          'images/face1.png',
+        icon,
+        const SizedBox(
+          height: 8,
         ),
-      );
-      break;
-    case 2:
-      text = const Text('Tue', style: s12W600CGrey2);
-      icon = const Image(
-        height: 30,
-        width: 30,
-        image: AssetImage(
-          'images/face1.png',
-        ),
-      );
-      break;
-    case 3:
-      text = const Text('Wed', style: s12W600CGrey2);
-      icon = const Image(
-        height: 30,
-        width: 30,
-        image: AssetImage(
-          'images/face1.png',
-        ),
-      );
-      break;
-    case 4:
-      text = const Text('Thu', style: s12W600CGrey2);
-      icon = const Image(
-        height: 30,
-        width: 30,
-        image: AssetImage(
-          'images/face1.png',
-        ),
-      );
-      break;
-    case 5:
-      text = const Text('Fri', style: s12W600CGrey2);
-      icon = const Image(
-        height: 30,
-        width: 30,
-        image: AssetImage(
-          'images/face1.png',
-        ),
-      );
-      break;
-    case 6:
-      text = const Text('Sat', style: s12W600CGrey2);
-      icon = const Image(
-        height: 30,
-        width: 30,
-        image: AssetImage(
-          'images/face1.png',
-        ),
-      );
-      break;
+        text,
+      ],
+    );
   }
-  return Column(
-    children: [
-      const SizedBox(
-        height: 8,
-      ),
-      icon,
-      const SizedBox(
-        height: 8,
-      ),
-      text,
-    ],
-  );
 }

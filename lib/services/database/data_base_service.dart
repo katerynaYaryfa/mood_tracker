@@ -4,7 +4,7 @@ import 'package:mood_tracker/services/database/database.dart';
 class DataBaseService {
   final _dataBase = Database();
 
-  void insertNote(NoteModel noteModel) async {
+  Future<void> insertNote(NoteModel noteModel) async {
     await _dataBase.into(_dataBase.note).insert(
           NoteCompanion.insert(
             title: noteModel.text,
@@ -16,7 +16,7 @@ class DataBaseService {
   }
 
   Future<Stream<List<NoteModel>>> selectNotes(DateTime date) async {
-    final list = (_dataBase.select(_dataBase.note)).watch();
+    final list = _dataBase.select(_dataBase.note).watch();
 
     return list.map(
       (event) => event

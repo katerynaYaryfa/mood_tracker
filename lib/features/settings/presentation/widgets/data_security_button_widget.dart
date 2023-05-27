@@ -42,10 +42,6 @@ class _DataSecurityButtonState extends State<DataSecurityButton> {
                 color: AppColors.greyOpacity.withOpacity(0.03),
                 spreadRadius: 1,
                 blurRadius: 15,
-                offset: const Offset(
-                  0,
-                  0,
-                ),
               ),
             ],
           ),

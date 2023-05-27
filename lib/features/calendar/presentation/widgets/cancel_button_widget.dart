@@ -16,7 +16,6 @@ class CancelButton extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             color: primaryColor,
-            width: 1,
           ),
           borderRadius: const BorderRadius.all(
             Radius.circular(30.0),

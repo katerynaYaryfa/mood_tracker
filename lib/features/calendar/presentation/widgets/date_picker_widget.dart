@@ -37,7 +37,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
           },
           children: List<Widget>.generate(
             widget.dates.length,
-            (int index) {
+            (index) {
               final isSelected = widget.selectedIndex == index;
               final weight = isSelected ? FontWeight.bold : FontWeight.normal;
 

@@ -21,11 +21,12 @@ class DayInOneSentenceWidget extends StatefulWidget {
 }
 
 class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
+  // TODO as far as I remember it is possible to change text of note. So we can refactor this logic
+  bool canWriteText = true;
+
   late final TextEditingController _controller = TextEditingController(
     text: widget.title ?? '',
   );
-  // TODO as far as I remember it is possible to change text of note. So we can refactor this logic
-  bool canWriteText = true;
 
   @override
   void initState() {
@@ -56,7 +57,6 @@ class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
             color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
-            offset: const Offset(0, 0),
           ),
         ],
       ),
@@ -71,7 +71,7 @@ class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
           TextField(
             enabled: canWriteText,
             controller: _controller,
-            onChanged: (String text) {
+            onChanged: (text) {
               context.read<NoteProvider>().saveText(text);
             },
             keyboardType: TextInputType.multiline,

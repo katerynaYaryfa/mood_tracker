@@ -63,7 +63,7 @@ class CalendarScreen extends StatelessWidget {
                   SvgIcons.arrowDown,
                   height: 24,
                   width: 24,
-                  color: primaryColor,
+                  colorFilter: ColorFilter.mode(primaryColor, BlendMode.srcIn),
                 ),
               ],
             ),
@@ -71,7 +71,7 @@ class CalendarScreen extends StatelessWidget {
           actions: [
             Container(
               width: 70,
-            )
+            ),
           ],
         ),
         body: ListView(
@@ -82,7 +82,7 @@ class CalendarScreen extends StatelessWidget {
               ),
               child: TableCalendar(
                 rowHeight: 88,
-                eventLoader: (DateTime date) {
+                eventLoader: (date) {
                   return _getNotesFor(
                     month: date,
                     notes: notes,
@@ -92,7 +92,6 @@ class CalendarScreen extends StatelessWidget {
                 firstDay: firstDay,
                 lastDay: todayDate,
                 focusedDay: selectedDate ?? todayDate,
-                calendarFormat: CalendarFormat.month,
                 headerVisible: false,
                 calendarBuilders: _builders(context),
                 calendarStyle: const CalendarStyle(
@@ -106,24 +105,93 @@ class CalendarScreen extends StatelessWidget {
     );
   }
 
+  void openDateSelector(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(16.0),
+            ),
+          ),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+          child: StatefulBuilder(
+            builder: (context, dialogSetState) {
+              final primaryColor =
+                  context.watch<ThemeProvider>().currentTheme.primaryColor;
+              final months = context.read<CalendarProvider>().months;
+              final changeMonthDate =
+                  context.read<CalendarProvider>().changeMonthDate;
+              final years = context.read<CalendarProvider>().years;
+              final changeYearDate =
+                  context.read<CalendarProvider>().changeYearDate;
+              final itemYear = context.watch<CalendarProvider>().chosenYear;
+              final itemMonth = context.watch<CalendarProvider>().chosenMonth;
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SpaceH24(),
+                  const Text(
+                    'Choose the date',
+                    style: TextStyles.s22W700CBlack,
+                  ),
+                  const SpaceH32(),
+                  Row(
+                    children: [
+                      Expanded(child: Container()),
+                      DatePickerWidget(
+                        dates: months,
+                        onDatePicked: changeMonthDate,
+                        intInitialItem: itemMonth,
+                        selectedIndex: itemMonth,
+                      ),
+                      const SpaceW16(),
+                      DatePickerWidget(
+                        dates: years,
+                        onDatePicked: changeYearDate,
+                        intInitialItem: itemYear,
+                        selectedIndex: itemYear,
+                      ),
+                      Expanded(child: Container()),
+                    ],
+                  ),
+                  const SpaceH32(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SpaceW24(),
+                      CancelButton(primaryColor: primaryColor),
+                      const SpaceW24(),
+                      OkButton(primaryColor: primaryColor),
+                      const SpaceW24(),
+                    ],
+                  ),
+                  const SpaceH24(),
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
   List<NoteModel> _getNotesFor({
     required DateTime month,
     required List<NoteModel>? notes,
   }) {
-    var note = notes?.firstWhereOrNull((element) {
-      String dayDate = DateFormat.yMd().format(month);
-      String noteDay = DateFormat.yMd().format(element.date);
+    final note = notes?.firstWhereOrNull((element) {
+      final dayDate = DateFormat.yMd().format(month);
+      final noteDay = DateFormat.yMd().format(element.date);
 
-      bool isNoteVisible = dayDate == noteDay;
+      final isNoteVisible = dayDate == noteDay;
 
       return isNoteVisible;
     });
 
-    if (note != null) {
-      return [note];
-    } else {
-      return [];
-    }
+    return note != null ? [note] : [];
   }
 
   CalendarBuilders _builders(BuildContext context) {
@@ -139,20 +207,20 @@ class CalendarScreen extends StatelessWidget {
       },
       markerBuilder: (_, day, events) {
         // TODO(KY): refactor - move to separate function and think about naming
-        if (events.isNotEmpty) {
-          var event = events.firstWhereOrNull((element) {
-            String dt1Formatted = DateFormat.yMd().format(day);
-            String dt2Formatted = DateFormat.yMd().format(element.date);
+        if (events.isNotEmpty && events is List<NoteModel>) {
+          final event = events.firstWhereOrNull((element) {
+            final dt1Formatted = DateFormat.yMd().format(day);
+            final dt2Formatted = DateFormat.yMd().format(element.date);
 
-            bool compareDates = dt1Formatted == dt2Formatted;
+            final compareDates = dt1Formatted == dt2Formatted;
 
             return compareDates;
           });
 
-          String dt1Formatted = DateFormat.yMd().format(day);
-          String dt2Formatted = DateFormat.yMd().format(DateTime.now());
+          final dt1Formatted = DateFormat.yMd().format(day);
+          final dt2Formatted = DateFormat.yMd().format(DateTime.now());
 
-          bool compareDates = dt1Formatted == dt2Formatted;
+          final compareDates = dt1Formatted == dt2Formatted;
 
           return compareDates
               ? const SizedBox()
@@ -165,78 +233,6 @@ class CalendarScreen extends StatelessWidget {
         } else {
           return DefaultCalendarItemWidget(day: day);
         }
-      },
-    );
-  }
-
-  void openDateSelector(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(16.0),
-              ),
-            ),
-            insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-            child: StatefulBuilder(
-              builder: (BuildContext context, StateSetter dialogSetState) {
-                final primaryColor =
-                    context.watch<ThemeProvider>().currentTheme.primaryColor;
-                final months = context.read<CalendarProvider>().months;
-                final changeMonthDate =
-                    context.read<CalendarProvider>().changeMonthDate;
-                final years = context.read<CalendarProvider>().years;
-                final changeYearDate =
-                    context.read<CalendarProvider>().changeYearDate;
-                final itemYear = context.watch<CalendarProvider>().chosenYear;
-                final itemMonth = context.watch<CalendarProvider>().chosenMonth;
-
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SpaceH24(),
-                    const Text(
-                      'Choose the date',
-                      style: TextStyles.s22W700CBlack,
-                    ),
-                    const SpaceH32(),
-                    Row(
-                      children: [
-                        Expanded(child: Container()),
-                        DatePickerWidget(
-                          dates: months,
-                          onDatePicked: changeMonthDate,
-                          intInitialItem: itemMonth,
-                          selectedIndex: itemMonth,
-                        ),
-                        const SpaceW16(),
-                        DatePickerWidget(
-                          dates: years,
-                          onDatePicked: changeYearDate,
-                          intInitialItem: itemYear,
-                          selectedIndex: itemYear,
-                        ),
-                        Expanded(child: Container()),
-                      ],
-                    ),
-                    const SpaceH32(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SpaceW24(),
-                        CancelButton(primaryColor: primaryColor),
-                        const SpaceW24(),
-                        OkButton(primaryColor: primaryColor),
-                        const SpaceW24(),
-                      ],
-                    ),
-                    const SpaceH24(),
-                  ],
-                );
-              },
-            ));
       },
     );
   }

@@ -11,16 +11,12 @@ import 'package:provider/provider.dart';
 class ChartsTabBarScreen extends StatelessWidget {
   const ChartsTabBarScreen({Key? key}) : super(key: key);
 
-  TabBar get _tabBar => const TabBar(
-        tabs: [],
-      );
-
   @override
   Widget build(BuildContext context) {
     final primaryColor =
         context.watch<ThemeProvider>().currentTheme.primaryColor;
 
-    List<double> yearSum = [
+    final yearSum = <double>[
       24.50,
       59,
       42,
@@ -32,14 +28,14 @@ class ChartsTabBarScreen extends StatelessWidget {
       24.50,
       42,
       76,
-      59
+      59,
     ];
-    List<double> weekSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
-    List<double> yearMoodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
-    List<double> monthMoodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
-    List<double> weekMoodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
+    final weekSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
+    final yearMoodSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
+    final monthMoodSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
+    final weekMoodSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
 
-    List<double> monthSum = [
+    final monthSum = <double>[
       31.50,
       65.50,
       48.50,
@@ -87,7 +83,7 @@ class ChartsTabBarScreen extends StatelessWidget {
       31.50,
       48.50,
       83.0,
-      65.50
+      65.50,
     ];
 
     return Scaffold(
@@ -102,7 +98,9 @@ class ChartsTabBarScreen extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: _tabBar.preferredSize,
+            preferredSize: const TabBar(
+              tabs: [],
+            ).preferredSize,
             child: ChartsTabBarWidget(primaryColor: primaryColor),
           ),
           body: TabBarView(

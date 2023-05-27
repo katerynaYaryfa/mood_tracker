@@ -39,7 +39,6 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
             color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
-            offset: const Offset(0, 0),
           ),
         ],
       ),
@@ -57,10 +56,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   MoodImages.face6Crying,
                 ),
-                opacity: (moodComparing) == Mood.crying ||
-                        (moodComparing) == Mood.none
-                    ? 1.0
-                    : 0.5,
+                opacity:
+                    moodComparing == Mood.crying || moodComparing == Mood.none
+                        ? 1.0
+                        : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.crying);
                 },
@@ -69,10 +68,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   MoodImages.face5VeryBad,
                 ),
-                opacity: (moodComparing) == Mood.veryBad ||
-                        (moodComparing) == Mood.none
-                    ? 1.0
-                    : 0.5,
+                opacity:
+                    moodComparing == Mood.veryBad || moodComparing == Mood.none
+                        ? 1.0
+                        : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.veryBad);
                 },
@@ -81,10 +80,9 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   MoodImages.face4Bad,
                 ),
-                opacity:
-                    (moodComparing) == Mood.bad || (moodComparing) == Mood.none
-                        ? 1.0
-                        : 0.5,
+                opacity: moodComparing == Mood.bad || moodComparing == Mood.none
+                    ? 1.0
+                    : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.bad);
                 },
@@ -93,10 +91,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   MoodImages.face1Normal,
                 ),
-                opacity: (moodComparing) == Mood.normal ||
-                        (moodComparing) == Mood.none
-                    ? 1.0
-                    : 0.5,
+                opacity:
+                    moodComparing == Mood.normal || moodComparing == Mood.none
+                        ? 1.0
+                        : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.normal);
                 },
@@ -106,7 +104,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                   MoodImages.face3Good,
                 ),
                 opacity:
-                    (moodComparing) == Mood.good || (moodComparing) == Mood.none
+                    moodComparing == Mood.good || moodComparing == Mood.none
                         ? 1.0
                         : 0.5,
                 onTap: () {
@@ -117,16 +115,16 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
                 image: const AssetImage(
                   MoodImages.face2VeryGood,
                 ),
-                opacity: (moodComparing) == Mood.veryGood ||
-                        (moodComparing) == Mood.none
-                    ? 1.0
-                    : 0.5,
+                opacity:
+                    moodComparing == Mood.veryGood || moodComparing == Mood.none
+                        ? 1.0
+                        : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.veryGood);
                 },
               ),
             ],
-          )
+          ),
         ],
       ),
     );

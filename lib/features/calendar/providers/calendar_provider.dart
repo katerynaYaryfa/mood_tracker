@@ -9,17 +9,6 @@ class CalendarProvider extends ChangeNotifier {
     _readNote(todayDate);
   }
 
-  final INotesRepository _repository;
-
-  DateTime get todayDate => DateTime.now();
-  DateTime get firstDay => DateTime.utc(2000, 01, 01);
-  String get formattedTodayDate => DateFormat.yMMMM().format(todayDate);
-  String get formattedANNSDate => DateFormat.MMMMEEEEd().format(todayDate);
-  String get formattedTodayYear => DateFormat.y().format(todayDate);
-  String get formattedTodayMonth => DateFormat.MMMM().format(todayDate);
-  String get formattedSelectedDate =>
-      DateFormat.yMMMM().format(selectedDate ?? todayDate);
-
   List<NoteModel> notes = [];
   String selectedMonth = '';
   String selectedYear = '';
@@ -40,23 +29,25 @@ class CalendarProvider extends ChangeNotifier {
     'September',
     'October',
     'November',
-    'December'
+    'December',
   ];
 
-  void _readNote(DateTime date) async {
-    final notesStream = await _repository.readNotes(date);
+  final INotesRepository _repository;
 
-    notesStream.listen((event) {
-      notes = event;
-      notifyListeners();
-    });
-  }
+  DateTime get todayDate => DateTime.now();
+  DateTime get firstDay => DateTime.utc(2000);
+  String get formattedTodayDate => DateFormat.yMMMM().format(todayDate);
+  String get formattedANNSDate => DateFormat.MMMMEEEEd().format(todayDate);
+  String get formattedTodayYear => DateFormat.y().format(todayDate);
+  String get formattedTodayMonth => DateFormat.MMMM().format(todayDate);
+  String get formattedSelectedDate =>
+      DateFormat.yMMMM().format(selectedDate ?? todayDate);
 
-  void changeMonthDate(index) {
+  void changeMonthDate(int index) {
     selectedMonth = months[index];
   }
 
-  void changeYearDate(index) {
+  void changeYearDate(int index) {
     selectedYear = years[index];
   }
 
@@ -67,25 +58,35 @@ class CalendarProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _init() {
-    DateFormat dateFormat = DateFormat("yyyy");
-    String stringYear = dateFormat.format(todayDate);
-    int intYear = int.parse(stringYear);
-    int firstYear = 2000;
-    int indexY = 0;
-    int indexM = 0;
+  Future<void> _readNote(DateTime date) async {
+    final notesStream = await _repository.readNotes(date);
 
-    for (intYear; intYear + 2 > firstYear; firstYear++) {
+    notesStream.listen((event) {
+      notes = event;
+      notifyListeners();
+    });
+  }
+
+  void _init() {
+    final dateFormat = DateFormat('yyyy');
+    final stringYear = dateFormat.format(todayDate);
+    var firstYear = 2000;
+    var indexY = 0;
+    var indexM = 0;
+
+    for (final intYear = int.parse(stringYear);
+        intYear + 2 > firstYear;
+        firstYear++) {
       years.add(firstYear.toString());
     }
 
-    for (int i = 0; i < years.length; i++) {
+    for (var i = 0; i < years.length; i++) {
       if (years[i] == formattedTodayYear) {
         indexY = i;
       }
     }
 
-    for (int i = 0; i < months.length; i++) {
+    for (var i = 0; i < months.length; i++) {
       if (months[i] == formattedTodayMonth) {
         indexM = i;
       }

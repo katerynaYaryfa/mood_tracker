@@ -58,7 +58,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 title: 'PIN-code',
                 color: AppColors.white,
                 value: pinCodeEnabled,
-                onChanged: (bool value) async {
+                onChanged: (value) async {
                   if (pinCodeEnabled) {
                     await context.read<SecureStorageService>().delete(
                           key: pinKey,
@@ -69,7 +69,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                       },
                     );
                   } else {
-                    Navigator.push(
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
@@ -99,7 +99,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 title: 'Toch-ID',
                 color: AppColors.white,
                 value: false,
-                onChanged: (bool value) async {},
+                onChanged: (value) async {},
                 child: IconButton(
                   onPressed: () {},
                   icon: SvgPicture.asset(
@@ -117,7 +117,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 title: 'Face-ID',
                 color: AppColors.white,
                 value: false,
-                onChanged: (bool value) async {
+                onChanged: (value) async {
                   if (pinCodeEnabled) {
                     await context.read<SecureStorageService>().delete(
                           key: pinKey,
@@ -126,7 +126,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                       pinCodeEnabled = false;
                     });
                   } else {
-                    Navigator.push(
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {

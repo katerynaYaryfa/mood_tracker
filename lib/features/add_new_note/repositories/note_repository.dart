@@ -6,14 +6,14 @@ abstract class INoteRepository {
 }
 
 class NoteRepository extends INoteRepository {
+  NoteRepository({
+    required this.dataBaseWrapper,
+  });
+
   final DataBaseService dataBaseWrapper;
 
   @override
   void saveNote(NoteModel model) {
     dataBaseWrapper.insertNote(model);
   }
-
-  NoteRepository({
-    required this.dataBaseWrapper,
-  });
 }

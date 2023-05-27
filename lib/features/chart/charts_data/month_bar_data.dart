@@ -1,40 +1,6 @@
 import 'package:mood_tracker/features/chart/indidvidual_bar.dart';
 
 class MonthBarData {
-  final double oneDay;
-  final double twoDay;
-  final double threeDay;
-  final double fourDay;
-  final double fiveDay;
-  final double sixDay;
-  final double sevenDay;
-  final double eightDay;
-  final double nineDay;
-  final double tenDay;
-
-  final double elevenDay;
-  final double twelveDay;
-  final double thirteenDay;
-  final double fourteenDay;
-  final double fifteenDay;
-  final double sixteenDay;
-  final double seventeenDay;
-  final double eighteenDay;
-  final double nineteenDay;
-  final double twentyDay;
-
-  final double twentyOneDay;
-  final double twentyTwoDay;
-  final double twentyThreeDay;
-  final double twentyFourDay;
-  final double twentyFiveDay;
-  final double twentySixDay;
-  final double twentySevenDay;
-  final double twentyEightDay;
-  final double twentyNineDay;
-  final double thirtyDay;
-  final double thirtyOneDay;
-
   MonthBarData({
     required this.oneDay,
     required this.twoDay,
@@ -68,6 +34,40 @@ class MonthBarData {
     required this.thirtyDay,
     required this.thirtyOneDay,
   });
+
+  final double oneDay;
+  final double twoDay;
+  final double threeDay;
+  final double fourDay;
+  final double fiveDay;
+  final double sixDay;
+  final double sevenDay;
+  final double eightDay;
+  final double nineDay;
+  final double tenDay;
+
+  final double elevenDay;
+  final double twelveDay;
+  final double thirteenDay;
+  final double fourteenDay;
+  final double fifteenDay;
+  final double sixteenDay;
+  final double seventeenDay;
+  final double eighteenDay;
+  final double nineteenDay;
+  final double twentyDay;
+
+  final double twentyOneDay;
+  final double twentyTwoDay;
+  final double twentyThreeDay;
+  final double twentyFourDay;
+  final double twentyFiveDay;
+  final double twentySixDay;
+  final double twentySevenDay;
+  final double twentyEightDay;
+  final double twentyNineDay;
+  final double thirtyDay;
+  final double thirtyOneDay;
 
   List<IndividualBar> monthBarData = [];
 
@@ -109,13 +109,6 @@ class MonthBarData {
 }
 
 class MoodBarData {
-  final double cryingAmount;
-  final double veryBadAmount;
-  final double badAmount;
-  final double normalAmount;
-  final double goodAmount;
-  final double veryGoodAmount;
-
   MoodBarData({
     required this.cryingAmount,
     required this.veryBadAmount,
@@ -124,6 +117,13 @@ class MoodBarData {
     required this.goodAmount,
     required this.veryGoodAmount,
   });
+
+  final double cryingAmount;
+  final double veryBadAmount;
+  final double badAmount;
+  final double normalAmount;
+  final double goodAmount;
+  final double veryGoodAmount;
 
   List<IndividualBar> monthMoodBarData = [];
 

@@ -28,7 +28,6 @@ class MoodChartWidget extends StatelessWidget {
             color: AppColors.greyOpacity.withOpacity(0.03),
             spreadRadius: 1,
             blurRadius: 15,
-            offset: const Offset(0, 0),
           ),
         ],
       ),
@@ -52,39 +51,43 @@ class MoodChartWidget extends StatelessWidget {
             height: 155,
             child: BarChart(
               BarChartData(
-                  gridData: FlGridData(
-                    show: false,
-                  ),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
-                  titlesData: FlTitlesData(
-                    topTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: false,
-                      ),
-                    ),
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: false,
-                      ),
-                    ),
-                    rightTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: false,
-                      ),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 65,
-                        getTitlesWidget: getMoodBottomTitles,
-                      ),
+                gridData: FlGridData(
+                  show: false,
+                ),
+                borderData: FlBorderData(
+                  show: false,
+                ),
+                titlesData: FlTitlesData(
+                  topTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: false,
                     ),
                   ),
-                  maxY: 100,
-                  minY: 0,
-                  barGroups: groupData),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: false,
+                    ),
+                  ),
+                  rightTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: false,
+                    ),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 65,
+                      getTitlesWidget: (value, meta) => MoodBottomTitles(
+                        value: value,
+                        meta: meta,
+                      ),
+                    ),
+                  ),
+                ),
+                maxY: 100,
+                minY: 0,
+                barGroups: groupData,
+              ),
             ),
           ),
         ],
