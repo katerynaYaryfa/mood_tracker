@@ -1,16 +1,16 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/charts_data/month_bar_data.dart';
-import 'package:mood_tracker/features/chart/widgets/average_mood_widget.dart';
-import 'package:mood_tracker/features/chart/widgets/month_chart_widget.dart';
-import 'package:mood_tracker/features/chart/widgets/mood_chart_widget.dart';
+import 'package:mood_tracker/features/chart/models/month_bar_data.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/average_mood_widget.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/month_chart_widget.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/mood_chart_widget.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class MonthChartScreen extends StatelessWidget {
-  const MonthChartScreen({
+class MonthTab extends StatelessWidget {
+  const MonthTab({
     Key? key,
     required this.monthSummary,
     required this.moodSum,

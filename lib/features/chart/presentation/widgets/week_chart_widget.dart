@@ -1,21 +1,22 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/presentation/year_chart_screen.dart';
+import 'package:mood_tracker/features/chart/models/week_bar_data.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/week_tab.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 
-class MoodChartWidget extends StatelessWidget {
-  const MoodChartWidget({
-    Key? key,
+class WeekChartWidget extends StatelessWidget {
+  const WeekChartWidget({
+    super.key,
+    required this.myBarData,
     required this.primaryColor,
     required this.scaffoldBackgroundColor,
-    required this.groupData,
-  }) : super(key: key);
+  });
 
+  final WeekBarData myBarData;
   final Color primaryColor;
   final Color scaffoldBackgroundColor;
-  final List<BarChartGroupData> groupData;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,7 @@ class MoodChartWidget extends StatelessWidget {
           ),
           const SpaceH24(),
           SizedBox(
-            height: 155,
+            height: 165,
             child: BarChart(
               BarChartData(
                 gridData: FlGridData(
@@ -76,8 +77,8 @@ class MoodChartWidget extends StatelessWidget {
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
-                      reservedSize: 65,
-                      getTitlesWidget: (value, meta) => MoodBottomTitles(
+                      reservedSize: 61,
+                      getTitlesWidget: (value, meta) => WeekChartBottomTitles(
                         value: value,
                         meta: meta,
                       ),
@@ -86,7 +87,26 @@ class MoodChartWidget extends StatelessWidget {
                 ),
                 maxY: 100,
                 minY: 0,
-                barGroups: groupData,
+                barGroups: myBarData.weekBarData
+                    .map(
+                      (data) => BarChartGroupData(
+                        x: data.x,
+                        barRods: [
+                          BarChartRodData(
+                            toY: data.y,
+                            color: primaryColor,
+                            width: 20,
+                            borderRadius: BorderRadius.circular(8),
+                            backDrawRodData: BackgroundBarChartRodData(
+                              show: true,
+                              toY: 100,
+                              color: scaffoldBackgroundColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),

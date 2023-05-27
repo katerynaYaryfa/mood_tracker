@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
-import 'package:mood_tracker/features/chart/presentation/month_chart_screen.dart';
-import 'package:mood_tracker/features/chart/presentation/week_chart_screen.dart';
-import 'package:mood_tracker/features/chart/presentation/year_chart_screen.dart';
-import 'package:mood_tracker/features/chart/widgets/charts_tab_bar_widget.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/charts_tab_bar_widget.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/month_tab.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/week_tab.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/year_tab.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class ChartsTabBarScreen extends StatelessWidget {
-  const ChartsTabBarScreen({Key? key}) : super(key: key);
+class ChartsScreen extends StatelessWidget {
+  const ChartsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,15 +105,15 @@ class ChartsTabBarScreen extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              WeekChartScreen(
+              WeekTab(
                 weeklySum: weekSum,
                 moodSum: weekMoodSum,
               ),
-              MonthChartScreen(
+              MonthTab(
                 monthSummary: monthSum,
                 moodSum: monthMoodSum,
               ),
-              YearChartScreen(
+              YearTab(
                 yearMonthsSum: yearSum,
                 moodSum: yearMoodSum,
               ),

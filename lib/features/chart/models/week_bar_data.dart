@@ -1,4 +1,4 @@
-import 'package:mood_tracker/features/chart/indidvidual_bar.dart';
+import 'package:mood_tracker/features/chart/models/indidvidual_bar.dart';
 
 class WeekBarData {
   WeekBarData({

@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/charts_data/month_bar_data.dart';
-import 'package:mood_tracker/features/chart/presentation/month_chart_screen.dart';
+import 'package:mood_tracker/features/chart/models/month_bar_data.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/month_tab.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 
