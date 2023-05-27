@@ -1,17 +1,21 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/chart/charts_data/month_bar_data.dart';
 import 'package:mood_tracker/features/chart/widgets/average_mood_widget.dart';
 import 'package:mood_tracker/features/chart/widgets/month_chart_widget.dart';
+import 'package:mood_tracker/features/chart/widgets/mood_chart_widget.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class MonthChartScreen extends StatelessWidget {
-  const MonthChartScreen({Key? key, required this.monthSummary})
+  const MonthChartScreen(
+      {Key? key, required this.monthSummary, required this.moodSum})
       : super(key: key);
 
   final List monthSummary;
+  final List moodSum;
 
   @override
   Widget build(BuildContext context) {
@@ -55,14 +59,58 @@ class MonthChartScreen extends StatelessWidget {
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
 
+    MoodBarData monthMoodBarData = MoodBarData(
+      cryingAmount: moodSum[0],
+      veryBadAmount: moodSum[1],
+      badAmount: moodSum[2],
+      normalAmount: moodSum[3],
+      goodAmount: moodSum[4],
+      veryGoodAmount: moodSum[5],
+    );
+    monthMoodBarData.initializeMoodBarData();
+
+    List<BarChartGroupData> monthGroupData() {
+      return monthMoodBarData.monthMoodBarData
+          .map(
+            (data) => BarChartGroupData(
+              x: data.x,
+              barRods: [
+                BarChartRodData(
+                  toY: data.y,
+                  color: primaryColor,
+                  width: 20,
+                  borderRadius: BorderRadius.circular(8),
+                  backDrawRodData: BackgroundBarChartRodData(
+                    show: true,
+                    toY: 100,
+                    color: scaffoldBackgroundColor,
+                  ),
+                ),
+              ],
+            ),
+          )
+          .toList();
+    }
+
+    List<BarChartGroupData> monthMoodData = monthGroupData();
+
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
+          const SpaceH16(),
           MonthChartWidget(
               myBarData: myBarData,
               primaryColor: primaryColor,
               scaffoldBackgroundColor: scaffoldBackgroundColor),
-          AverageMoodWidget(),
+          const SpaceH16(),
+          const AverageMoodWidget(),
+          const SpaceH16(),
+          MoodChartWidget(
+            primaryColor: primaryColor,
+            scaffoldBackgroundColor: scaffoldBackgroundColor,
+            groupData: monthMoodData,
+          ),
+          const SpaceH16(),
         ],
       ),
     );
@@ -70,7 +118,7 @@ class MonthChartScreen extends StatelessWidget {
 }
 
 Widget getMonthChartBottomTitles(double value, TitleMeta meta) {
-  late var text;
+  late Text text;
   switch (value.toInt()) {
     case 0:
       text = const Text('1', style: s12W600CGrey2);
@@ -170,7 +218,7 @@ Widget getMonthChartBottomTitles(double value, TitleMeta meta) {
       break;
   }
   return SideTitleWidget(
-    child: text,
     axisSide: meta.axisSide,
+    child: text,
   );
 }

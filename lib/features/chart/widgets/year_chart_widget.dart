@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/chart/charts_data/year_bar_data.dart';
 import 'package:mood_tracker/features/chart/presentation/year_chart_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
@@ -33,14 +33,14 @@ class YearChartWidget extends StatelessWidget {
           ),
         ],
       ),
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       height: 244,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SpaceH16(),
-          Row(
-            children: const [
+          const Row(
+            children: [
               SpaceW16(),
               Text(
                 'Mood chart',
@@ -51,16 +51,16 @@ class YearChartWidget extends StatelessWidget {
           const SpaceH24(),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 16,
               ),
               Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 165,
                     child: Column(
                       children: [
-                        Image(
+                        const Image(
                           height: 20,
                           width: 20,
                           image: AssetImage(
@@ -68,7 +68,7 @@ class YearChartWidget extends StatelessWidget {
                           ),
                         ),
                         Expanded(child: Container()),
-                        Image(
+                        const Image(
                           height: 20,
                           width: 20,
                           image: AssetImage(
@@ -76,7 +76,7 @@ class YearChartWidget extends StatelessWidget {
                           ),
                         ),
                         Expanded(child: Container()),
-                        Image(
+                        const Image(
                           height: 20,
                           width: 20,
                           image: AssetImage(
@@ -84,7 +84,7 @@ class YearChartWidget extends StatelessWidget {
                           ),
                         ),
                         Expanded(child: Container()),
-                        Image(
+                        const Image(
                           height: 20,
                           width: 20,
                           image: AssetImage(
@@ -92,7 +92,7 @@ class YearChartWidget extends StatelessWidget {
                           ),
                         ),
                         Expanded(child: Container()),
-                        Image(
+                        const Image(
                           height: 20,
                           width: 20,
                           image: AssetImage(
@@ -100,14 +100,14 @@ class YearChartWidget extends StatelessWidget {
                           ),
                         ),
                         Expanded(child: Container()),
-                        Image(
+                        const Image(
                           height: 20,
                           width: 20,
                           image: AssetImage(
                             'images/face6.png',
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 22,
                         ),
                       ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
+import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/features/chart/presentation/month_chart_screen.dart';
 import 'package:mood_tracker/features/chart/presentation/week_chart_screen.dart';
 import 'package:mood_tracker/features/chart/presentation/year_chart_screen.dart';
@@ -35,7 +35,9 @@ class ChartsTabBarScreen extends StatelessWidget {
       59
     ];
     List<double> weekSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
-    List<double> moodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
+    List<double> yearMoodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
+    List<double> monthMoodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
+    List<double> weekMoodSum = [5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
 
     List<double> monthSum = [
       31.50,
@@ -89,11 +91,12 @@ class ChartsTabBarScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: Text(
+      appBar: CustomAppBar(
+        title: const Text(
           'Charts',
           style: s14W600CBlack2,
         ),
+        leading: Container(),
       ),
       body: DefaultTabController(
         length: 3,
@@ -106,13 +109,15 @@ class ChartsTabBarScreen extends StatelessWidget {
             children: [
               WeekChartScreen(
                 weeklySum: weekSum,
+                moodSum: weekMoodSum,
               ),
               MonthChartScreen(
                 monthSummary: monthSum,
+                moodSum: monthMoodSum,
               ),
               YearChartScreen(
                 yearMonthsSum: yearSum,
-                moodSum: moodSum,
+                moodSum: yearMoodSum,
               ),
             ],
           ),

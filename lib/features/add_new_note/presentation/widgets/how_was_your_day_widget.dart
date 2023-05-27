@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/const_image.dart';
+import 'package:mood_tracker/common/consts/mood_images.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/mood_icon_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
@@ -24,7 +24,7 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
   @override
   Widget build(BuildContext context) {
     final mood = context.watch<NoteProvider>().mood;
-    final _moodComparing = widget.mood ?? mood;
+    final moodComparing = widget.mood ?? mood;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -55,10 +55,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
             children: [
               MoodIcon(
                 image: const AssetImage(
-                  ConstImage.face6Crying,
+                  MoodImages.face6Crying,
                 ),
-                opacity: (_moodComparing) == Mood.crying ||
-                        (_moodComparing) == Mood.none
+                opacity: (moodComparing) == Mood.crying ||
+                        (moodComparing) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {
@@ -67,10 +67,10 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               ),
               MoodIcon(
                 image: const AssetImage(
-                  ConstImage.face5VeryBad,
+                  MoodImages.face5VeryBad,
                 ),
-                opacity: (_moodComparing) == Mood.veryBad ||
-                        (_moodComparing) == Mood.none
+                opacity: (moodComparing) == Mood.veryBad ||
+                        (moodComparing) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {
@@ -79,22 +79,22 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               ),
               MoodIcon(
                 image: const AssetImage(
-                  ConstImage.face4Bad,
+                  MoodImages.face4Bad,
                 ),
-                opacity: (_moodComparing) == Mood.bad ||
-                        (_moodComparing) == Mood.none
-                    ? 1.0
-                    : 0.5,
+                opacity:
+                    (moodComparing) == Mood.bad || (moodComparing) == Mood.none
+                        ? 1.0
+                        : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.bad);
                 },
               ),
               MoodIcon(
                 image: const AssetImage(
-                  ConstImage.face1Normal,
+                  MoodImages.face1Normal,
                 ),
-                opacity: (_moodComparing) == Mood.normal ||
-                        (_moodComparing) == Mood.none
+                opacity: (moodComparing) == Mood.normal ||
+                        (moodComparing) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {
@@ -103,22 +103,22 @@ class _HowWasYourDayWidgetState extends State<HowWasYourDayWidget> {
               ),
               MoodIcon(
                 image: const AssetImage(
-                  ConstImage.face3Good,
+                  MoodImages.face3Good,
                 ),
-                opacity: (_moodComparing) == Mood.good ||
-                        (_moodComparing) == Mood.none
-                    ? 1.0
-                    : 0.5,
+                opacity:
+                    (moodComparing) == Mood.good || (moodComparing) == Mood.none
+                        ? 1.0
+                        : 0.5,
                 onTap: () {
                   context.read<NoteProvider>().changeMood(Mood.good);
                 },
               ),
               MoodIcon(
                 image: const AssetImage(
-                  ConstImage.face2VeryGood,
+                  MoodImages.face2VeryGood,
                 ),
-                opacity: (_moodComparing) == Mood.veryGood ||
-                        (_moodComparing) == Mood.none
+                opacity: (moodComparing) == Mood.veryGood ||
+                        (moodComparing) == Mood.none
                     ? 1.0
                     : 0.5,
                 onTap: () {

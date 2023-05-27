@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 
 class DataSecurityButton extends StatefulWidget {

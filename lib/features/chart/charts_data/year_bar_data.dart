@@ -97,10 +97,10 @@ class MoodBarData {
     required this.veryGoodAmount,
   });
 
-  List<IndividualBar> moodBarData = [];
+  List<IndividualBar> yearMoodBarData = [];
 
   void initializeMoodBarData() {
-    moodBarData = [
+    yearMoodBarData = [
       IndividualBar(0, cryingAmount),
       IndividualBar(1, veryBadAmount),
       IndividualBar(2, badAmount),

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
@@ -29,8 +29,8 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
   // TODO let's refactor this method together
   Future<void> _parseList() async {
     final jsonPathList = jsonDecode(widget.note?.images ?? '');
-    final castt = jsonPathList as List<dynamic>;
-    final imageNames = castt.cast<String>();
+    final listJson = jsonPathList as List<dynamic>;
+    final imageNames = listJson.cast<String>();
 
     final appDirectory = (await getApplicationDocumentsDirectory());
     final appDirectoryFiles =
@@ -54,7 +54,7 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.push(
           context,

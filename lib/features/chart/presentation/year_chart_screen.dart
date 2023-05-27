@@ -1,6 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/chart/charts_data/year_bar_data.dart';
+import 'package:mood_tracker/features/chart/widgets/average_mood_widget.dart';
 import 'package:mood_tracker/features/chart/widgets/mood_chart_widget.dart';
 import 'package:mood_tracker/features/chart/widgets/year_chart_widget.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
@@ -49,19 +51,49 @@ class YearChartScreen extends StatelessWidget {
     );
     moodBarData.initializeMoodBarData();
 
+    List<BarChartGroupData> yearGroupData() {
+      return moodBarData.yearMoodBarData
+          .map(
+            (data) => BarChartGroupData(
+              x: data.x,
+              barRods: [
+                BarChartRodData(
+                  toY: data.y,
+                  color: primaryColor,
+                  width: 20,
+                  borderRadius: BorderRadius.circular(8),
+                  backDrawRodData: BackgroundBarChartRodData(
+                    show: true,
+                    toY: 100,
+                    color: scaffoldBackgroundColor,
+                  ),
+                ),
+              ],
+            ),
+          )
+          .toList();
+    }
+
+    List<BarChartGroupData> yearMoodGroupData = yearGroupData();
+
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
+          const SpaceH16(),
           YearChartWidget(
             myBarData: myBarData,
             primaryColor: primaryColor,
             scaffoldBackgroundColor: scaffoldBackgroundColor,
           ),
+          const SpaceH16(),
+          const AverageMoodWidget(),
+          const SpaceH16(),
           MoodChartWidget(
-            moodBarData: moodBarData,
             primaryColor: primaryColor,
             scaffoldBackgroundColor: scaffoldBackgroundColor,
+            groupData: yearMoodGroupData,
           ),
+          const SpaceH16(),
         ],
       ),
     );
@@ -69,7 +101,7 @@ class YearChartScreen extends StatelessWidget {
 }
 
 Widget getYearChartBottomTitles(double value, TitleMeta meta) {
-  late var text;
+  late Text text;
   switch (value.toInt()) {
     case 0:
       text = const Text('J', style: s12W600CGrey2);
@@ -109,21 +141,21 @@ Widget getYearChartBottomTitles(double value, TitleMeta meta) {
       break;
   }
   return SideTitleWidget(
-    child: text,
     axisSide: meta.axisSide,
+    child: text,
   );
 }
 
 Widget getMoodBottomTitles(double value, TitleMeta meta) {
-  late var text;
-  late var icon;
+  late Text text;
+  late Image icon;
 
   switch (value.toInt()) {
     case 0:
       text = const Text('0%', style: s12W600CGrey2);
       icon = const Image(
-        height: 34,
-        width: 34,
+        height: 30,
+        width: 30,
         image: AssetImage(
           'images/face1.png',
         ),
@@ -132,8 +164,8 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
     case 1:
       text = const Text('10%', style: s12W600CGrey2);
       icon = const Image(
-        height: 34,
-        width: 34,
+        height: 30,
+        width: 30,
         image: AssetImage(
           'images/face1.png',
         ),
@@ -142,8 +174,8 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
     case 2:
       text = const Text('10%', style: s12W600CGrey2);
       icon = const Image(
-        height: 34,
-        width: 34,
+        height: 30,
+        width: 30,
         image: AssetImage(
           'images/face1.png',
         ),
@@ -152,8 +184,8 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
     case 3:
       text = const Text('0%', style: s12W600CGrey2);
       icon = const Image(
-        height: 34,
-        width: 34,
+        height: 30,
+        width: 30,
         image: AssetImage(
           'images/face1.png',
         ),
@@ -162,8 +194,8 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
     case 4:
       text = const Text('30%', style: s12W600CGrey2);
       icon = const Image(
-        height: 34,
-        width: 34,
+        height: 30,
+        width: 30,
         image: AssetImage(
           'images/face1.png',
         ),
@@ -172,8 +204,8 @@ Widget getMoodBottomTitles(double value, TitleMeta meta) {
     case 5:
       text = const Text('30%', style: s12W600CGrey2);
       icon = const Image(
-        height: 34,
-        width: 34,
+        height: 30,
+        width: 30,
         image: AssetImage(
           'images/face1.png',
         ),

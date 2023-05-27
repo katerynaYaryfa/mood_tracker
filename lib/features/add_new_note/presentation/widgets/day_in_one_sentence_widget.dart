@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';

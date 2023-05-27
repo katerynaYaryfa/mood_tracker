@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/chart/charts_data/month_bar_data.dart';
 import 'package:mood_tracker/features/chart/presentation/month_chart_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
@@ -33,13 +33,13 @@ class MonthChartWidget extends StatelessWidget {
           ),
         ],
       ),
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       height: 244,
       child: Column(
         children: [
           const SpaceH16(),
-          Row(
-            children: const [
+          const Row(
+            children: [
               SpaceW16(),
               Text(
                 'Mood chart',
@@ -50,14 +50,14 @@ class MonthChartWidget extends StatelessWidget {
           const SpaceH24(),
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 16,
               ),
-              Container(
+              SizedBox(
                 height: 160,
                 child: Column(
                   children: [
-                    Image(
+                    const Image(
                       height: 20,
                       width: 20,
                       image: AssetImage(
@@ -65,7 +65,7 @@ class MonthChartWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(child: Container()),
-                    Image(
+                    const Image(
                       height: 20,
                       width: 20,
                       image: AssetImage(
@@ -73,7 +73,7 @@ class MonthChartWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(child: Container()),
-                    Image(
+                    const Image(
                       height: 20,
                       width: 20,
                       image: AssetImage(
@@ -81,7 +81,7 @@ class MonthChartWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(child: Container()),
-                    Image(
+                    const Image(
                       height: 20,
                       width: 20,
                       image: AssetImage(
@@ -89,7 +89,7 @@ class MonthChartWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(child: Container()),
-                    Image(
+                    const Image(
                       height: 20,
                       width: 20,
                       image: AssetImage(
@@ -97,14 +97,14 @@ class MonthChartWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(child: Container()),
-                    Image(
+                    const Image(
                       height: 20,
                       width: 20,
                       image: AssetImage(
                         'images/face6.png',
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],

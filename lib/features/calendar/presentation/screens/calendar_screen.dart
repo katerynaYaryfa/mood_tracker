@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:mood_tracker/common_widgets/custom_app_bar.dart';
-import 'package:mood_tracker/common_widgets/spacers.dart';
-import 'package:mood_tracker/extension.dart';
+import 'package:mood_tracker/common/consts/svg_icons.dart';
+import 'package:mood_tracker/common/extensions/iterable_extensions.dart';
+import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
+import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/cancel_button_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/date_picker_widget.dart';
@@ -14,8 +15,6 @@ import 'package:mood_tracker/features/calendar/presentation/widgets/header_face_
 import 'package:mood_tracker/features/calendar/presentation/widgets/ok_button_widget.dart';
 import 'package:mood_tracker/features/calendar/presentation/widgets/today_calendar_item_widget.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
-import 'package:mood_tracker/svg_icons.dart';
-import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -39,79 +38,70 @@ class CalendarScreen extends StatelessWidget {
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
     final notes = context.watch<CalendarProvider>().notes;
 
-    return Scaffold(
-      backgroundColor: scaffoldBackgroundColor,
-      appBar: CustomAppBar(
-        leading: const HeaderFaceButtonWidget(),
-        title: InkWell(
-          highlightColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          onTap: () {
-            openDateSelector(context);
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                selectedDate != null
-                    ? formattedSelectedDate
-                    : formattedTodayDate,
-                style: TextStyles.s14W600CBlack2,
-              ),
-              SvgPicture.asset(
-                SvgIcons.arrowDown,
-                height: 24,
-                width: 24,
-                color: primaryColor,
-              ),
-            ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: scaffoldBackgroundColor,
+        appBar: CustomAppBar(
+          leading: const HeaderFaceButtonWidget(),
+          title: InkWell(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            onTap: () {
+              openDateSelector(context);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  selectedDate != null
+                      ? formattedSelectedDate
+                      : formattedTodayDate,
+                  style: TextStyles.s14W600CBlack2,
+                ),
+                SvgPicture.asset(
+                  SvgIcons.arrowDown,
+                  height: 24,
+                  width: 24,
+                  color: primaryColor,
+                ),
+              ],
+            ),
           ),
+          actions: [
+            Container(
+              width: 70,
+            )
+          ],
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 16,
-              left: 30,
-            ),
-            child: InkWell(
-              onTap: () {},
-              child: SvgPicture.asset(
-                SvgIcons.share,
-                height: 24,
-                width: 24,
-                color: AppColors.grey,
+        body: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+              ),
+              child: TableCalendar(
+                rowHeight: 88,
+                eventLoader: (DateTime date) {
+                  return _getNotesFor(
+                    month: date,
+                    notes: notes,
+                  );
+                },
+                availableGestures: AvailableGestures.none,
+                firstDay: firstDay,
+                lastDay: todayDate,
+                focusedDay: selectedDate ?? todayDate,
+                calendarFormat: CalendarFormat.month,
+                headerVisible: false,
+                calendarBuilders: _builders(context),
+                calendarStyle: const CalendarStyle(
+                  outsideDaysVisible: false,
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-      body: ListView(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-            ),
-            child: TableCalendar(
-              rowHeight: 88,
-              eventLoader: (DateTime date) {
-                return _getNotesFor(
-                  month: date,
-                  notes: notes,
-                );
-              },
-              availableGestures: AvailableGestures.none,
-              firstDay: firstDay,
-              lastDay: todayDate,
-              focusedDay: selectedDate ?? todayDate,
-              calendarFormat: CalendarFormat.month,
-              headerVisible: false,
-              calendarBuilders: _builders(context),
-              calendarStyle: const CalendarStyle(
-                outsideDaysVisible: false,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -206,6 +196,7 @@ class CalendarScreen extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    const SpaceH24(),
                     const Text(
                       'Choose the date',
                       style: TextStyles.s22W700CBlack,
@@ -213,30 +204,35 @@ class CalendarScreen extends StatelessWidget {
                     const SpaceH32(),
                     Row(
                       children: [
+                        Expanded(child: Container()),
                         DatePickerWidget(
                           dates: months,
                           onDatePicked: changeMonthDate,
                           intInitialItem: itemMonth,
                           selectedIndex: itemMonth,
                         ),
+                        const SpaceW16(),
                         DatePickerWidget(
                           dates: years,
                           onDatePicked: changeYearDate,
                           intInitialItem: itemYear,
                           selectedIndex: itemYear,
                         ),
-                        const SpaceH20(),
+                        Expanded(child: Container()),
                       ],
                     ),
                     const SpaceH32(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const SpaceW24(),
                         CancelButton(primaryColor: primaryColor),
                         const SpaceW24(),
                         OkButton(primaryColor: primaryColor),
+                        const SpaceW24(),
                       ],
                     ),
+                    const SpaceH24(),
                   ],
                 );
               },
