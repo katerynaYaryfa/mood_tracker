@@ -6,6 +6,7 @@ import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart'
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/services/secure_storage_service.dart';
+import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -34,7 +35,7 @@ class _PinScreenState extends State<PinScreen> {
     context.read<PinProvider>().init();
 
     if (widget.deletePin == true) {
-      var storage = SecureStorageService();
+      var storage = context.read<SecureStorageService>();
       storage.delete(
         key: pinKey,
       );
@@ -53,11 +54,14 @@ class _PinScreenState extends State<PinScreen> {
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
 
     if (pin2.length == 4 && pin1 == pin2) {
-      var storage = SecureStorageService();
-      storage.write(
-        key: pinKey,
-        value: pin1,
-      );
+      context.watch<SecureStorageService>().write(
+            key: pinKey,
+            value: pin1,
+          );
+      context.watch<StorageService>().write(
+            key: lastLoginTimeKey,
+            value: DateTime.now().millisecondsSinceEpoch.toString(),
+          );
 
       Future.delayed(const Duration(milliseconds: 200), () {
         {
@@ -71,7 +75,7 @@ class _PinScreenState extends State<PinScreen> {
                   child: child,
                 );
               },
-              pageBuilder: (_, __, ___) => const CustomNavigationBar(),
+              pageBuilder: (_, __, ___) => const HomeScreen(),
             ),
           );
         }

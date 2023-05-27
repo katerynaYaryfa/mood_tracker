@@ -1,33 +1,19 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-const lastLoginTimestamp = 'last_login_timestamp';
+const lastLoginTimeKey = 'last_login_time';
 
 class StorageService {
-  Future<void> writeString({
+  Future<void> write({
     required String key,
     required String value,
   }) async {
     (await SharedPreferences.getInstance()).setString(key, value);
   }
 
-  Future<void> writeInt({
-    required String key,
-    required int value,
-  }) async {
-    (await SharedPreferences.getInstance()).setInt(key, value);
-  }
-
-  Future<String?> readString({
+  Future<String?> read({
     required String key,
   }) async {
     var readData = (await SharedPreferences.getInstance()).getString(key);
-    return readData;
-  }
-
-  Future<int?> readInt({
-    required String key,
-  }) async {
-    var readData = (await SharedPreferences.getInstance()).getInt(key);
     return readData;
   }
 

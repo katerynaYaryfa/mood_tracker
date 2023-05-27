@@ -3,10 +3,12 @@ import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provid
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
 import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
+import 'package:mood_tracker/features/pin/providers/pin_listener_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/splash/presentation/screens/splash_screen.dart';
-import 'package:mood_tracker/features/splash/providers/splash_screen_provider.dart';
+import 'package:mood_tracker/features/splash/providers/splash_provider.dart';
 import 'package:mood_tracker/services/database/data_base_service.dart';
+import 'package:mood_tracker/services/secure_storage_service.dart';
 import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,7 @@ class App extends StatelessWidget {
   // TODO think about better place to create class. I think app should be const
   final dataBaseWrapper = DataBaseService();
   final storageService = StorageService();
+  final secureStorageService = SecureStorageService();
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +31,11 @@ class App extends StatelessWidget {
         Provider.value(
           value: storageService,
         ),
+        Provider.value(
+          value: secureStorageService,
+        ),
         ChangeNotifierProvider<PinProvider>(
-          create: (_) => PinProvider(),
+          create: (_) => PinProvider(secureStorageService),
         ),
         ChangeNotifierProvider<NoteProvider>(
           create: (_) => NoteProvider(
@@ -48,8 +54,14 @@ class App extends StatelessWidget {
             ),
           ),
         ),
-        ChangeNotifierProvider<LoadingPageProvider>(
-          create: (_) => LoadingPageProvider(StorageService()),
+        ChangeNotifierProvider<SplashProvider>(
+          create: (_) => SplashProvider(secureStorageService),
+        ),
+        ChangeNotifierProvider<PinListenerProvider>(
+          create: (_) => PinListenerProvider(
+            storageService,
+            secureStorageService,
+          ),
         )
       ],
       child: const MaterialAppWrapper(),

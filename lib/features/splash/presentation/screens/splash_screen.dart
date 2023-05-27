@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/features/home/presentation/screens/home_screen.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
-import 'package:mood_tracker/features/splash/providers/splash_screen_provider.dart';
+import 'package:mood_tracker/features/splash/providers/splash_provider.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,86 +11,41 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with WidgetsBindingObserver {
-  late final LoadingPageProvider notifier;
+class _SplashScreenState extends State<SplashScreen> {
+  late final SplashProvider notifier;
 
   @override
   void initState() {
     super.initState();
-    notifier = Provider.of<LoadingPageProvider>(context, listen: false)
-      ..addListener(_onVariableChanged);
-    WidgetsBinding.instance.addObserver(this);
+
+    notifier = Provider.of<SplashProvider>(context, listen: false)
+      ..addListener(_listenProvider)
+      ..checkShouldShowPin();
   }
 
   @override
   void dispose() {
-    notifier.removeListener(_onVariableChanged);
-    WidgetsBinding.instance.removeObserver(this);
+    notifier.removeListener(_listenProvider);
     super.dispose();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    notifier.checkPasswordRequired();
-    if (state == AppLifecycleState.resumed &&
-        notifier.isPasswordRequired == true) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            transitionDuration: const Duration(milliseconds: 200),
-            transitionsBuilder: (_, animation, __, child) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
-            pageBuilder: (_, __, ___) => const PinScreen(
-              backButton: false,
-            ),
+  void _listenProvider() {
+    switch (notifier.state) {
+      case SplashState.loading:
+        break;
+      case SplashState.pin:
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const PinScreen(),
           ),
         );
-        notifier.setIsPasswordRequiredFalse();
-        // notifier.isPasswordRequired = false;
-      });
-    }
-  }
-
-  void _onVariableChanged() {
-    switch (notifier.state) {
-      case LoadingState.loading:
         break;
-      case LoadingState.pin:
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          if (notifier.isPasswordRequired) {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                transitionDuration: const Duration(milliseconds: 200),
-                transitionsBuilder: (_, animation, __, child) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  );
-                },
-                pageBuilder: (_, __, ___) => const PinScreen(
-                  backButton: false,
-                ),
-              ),
-            );
-          }
-        });
-        break;
-      case LoadingState.home:
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const CustomNavigationBar(),
-            ),
-          );
-        });
+      case SplashState.home:
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
         break;
     }
   }

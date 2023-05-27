@@ -10,6 +10,7 @@ import 'package:mood_tracker/features/settings/presentation/widgets/settings_but
 import 'package:mood_tracker/services/secure_storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:provider/provider.dart';
 
 class DataSecurityScreen extends StatefulWidget {
   const DataSecurityScreen({Key? key}) : super(key: key);
@@ -24,10 +25,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
     Future.delayed(
       Duration.zero,
       () async {
-        final storage = SecureStorageService();
-        final pin = await storage.read(
-          key: pinKey,
-        );
+        final pin = await context.read<SecureStorageService>().read(
+              key: pinKey,
+            );
 
         if (pin != null) {
           setState(
@@ -60,10 +60,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 value: pinCodeEnabled,
                 onChanged: (bool value) async {
                   if (pinCodeEnabled) {
-                    final storage = SecureStorageService();
-                    await storage.delete(
-                      key: pinKey,
-                    );
+                    await context.read<SecureStorageService>().delete(
+                          key: pinKey,
+                        );
                     setState(
                       () {
                         pinCodeEnabled = false;
@@ -120,10 +119,9 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 value: false,
                 onChanged: (bool value) async {
                   if (pinCodeEnabled) {
-                    final storage = SecureStorageService();
-                    await storage.delete(
-                      key: pinKey,
-                    );
+                    await context.read<SecureStorageService>().delete(
+                          key: pinKey,
+                        );
                     setState(() {
                       pinCodeEnabled = false;
                     });
