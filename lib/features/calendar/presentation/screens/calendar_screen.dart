@@ -26,6 +26,7 @@ class CalendarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final todayDate = context.watch<CalendarProvider>().todayDate;
+    final lastDay = context.watch<CalendarProvider>().lastDay;
     final firstDay = context.read<CalendarProvider>().firstDay;
     final selectedDate = context.read<CalendarProvider>().selectedDate;
     final formattedTodayDate =
@@ -49,6 +50,7 @@ class CalendarScreen extends StatelessWidget {
             splashColor: Colors.transparent,
             onTap: () {
               openDateSelector(context);
+              context.read<CalendarProvider>().selectDate();
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +92,7 @@ class CalendarScreen extends StatelessWidget {
                 },
                 availableGestures: AvailableGestures.none,
                 firstDay: firstDay,
-                lastDay: todayDate,
+                lastDay: lastDay,
                 focusedDay: selectedDate ?? todayDate,
                 headerVisible: false,
                 calendarBuilders: _builders(context),
@@ -196,9 +198,6 @@ class CalendarScreen extends StatelessWidget {
 
   CalendarBuilders _builders(BuildContext context) {
     return CalendarBuilders<dynamic>(
-      selectedBuilder: (_, day, __) {
-        return DefaultCalendarItemWidget(day: day);
-      },
       disabledBuilder: (_, day, __) {
         return DisabledCalendarItemWidget(day: day);
       },
@@ -230,6 +229,8 @@ class CalendarScreen extends StatelessWidget {
                 );
         } else if (isSameDay(day, DateTime.now())) {
           return TodayCalendarItemWidget(day: day);
+        } else if (day.isAfter(DateTime.now())) {
+          return DisabledCalendarItemWidget(day: day);
         } else {
           return DefaultCalendarItemWidget(day: day);
         }

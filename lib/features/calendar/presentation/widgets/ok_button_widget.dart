@@ -14,9 +14,9 @@ class OkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: InkWell(
+      child: GestureDetector(
         onTap: () {
-          context.read<CalendarProvider>().pickDate();
+          context.read<CalendarProvider>().submitSelectedDate();
           Navigator.pop(context);
         },
         child: Container(

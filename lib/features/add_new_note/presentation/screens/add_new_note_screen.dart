@@ -13,7 +13,6 @@ import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
-import 'package:mood_tracker/services/database/data_base_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -35,11 +34,11 @@ class AddNewNoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dataBaseWrapper = context.read<DataBaseService>();
+    final noteRepository = context.read<NoteRepository>();
 
     return ChangeNotifierProvider<NoteProvider>(
       create: (_) => NoteProvider(
-        repository: NoteRepository(dataBaseWrapper: dataBaseWrapper),
+        repository: noteRepository,
       ),
       child: AddNewNoteScreenContainer(
         time: date,

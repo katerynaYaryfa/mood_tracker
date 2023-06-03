@@ -1,3 +1,5 @@
+import 'package:drift/drift.dart';
+import 'package:mood_tracker/common/models/notes_date_filter.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/services/database/database.dart';
 
@@ -15,20 +17,40 @@ class DataBaseService {
         );
   }
 
-  Future<Stream<List<NoteModel>>> selectNotes(DateTime date) async {
-    final list = _dataBase.select(_dataBase.note).watch();
+  Future<Stream<List<NoteModel>>> selectNotes({
+    required DateTime date,
+    required NotesDateFilter notesDateFilter,
+  }) async {
+    final notes = _dataBase.select(_dataBase.note)
+      ..where(
+        (notes) {
+          switch (notesDateFilter) {
+            case NotesDateFilter.week:
+              return notes.date.isBetweenValues(
+                date,
+                date.add(
+                  const Duration(days: 7),
+                ),
+              );
+            case NotesDateFilter.month:
+              return notes.date.month.equals(date.month);
+            case NotesDateFilter.year:
+              return notes.date.year.equals(date.year);
+          }
+        },
+      );
 
-    return list.map(
-      (event) => event
-          .map(
-            (e) => NoteModel(
-              date: e.date,
-              mood: e.mood,
-              text: e.title,
-              images: e.images,
-            ),
-          )
-          .toList(),
-    );
+    return notes.watch().map(
+          (note) => note
+              .map(
+                (e) => NoteModel(
+                  date: e.date,
+                  mood: e.mood,
+                  text: e.title,
+                  images: e.images,
+                ),
+              )
+              .toList(),
+        );
   }
 }

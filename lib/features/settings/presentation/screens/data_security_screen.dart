@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
-import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
@@ -92,66 +91,6 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                   ),
                 ),
               ),
-            ),
-            const SpaceH16(),
-            SettingsButtons(
-              child: DataSecurityButton(
-                title: 'Toch-ID',
-                color: AppColors.white,
-                value: false,
-                onChanged: (value) async {},
-                child: IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                    'images/touchID.svg',
-                    color: AppColors.grey,
-                    height: 24,
-                    width: 24,
-                  ),
-                ),
-              ),
-            ),
-            const SpaceH16(),
-            SettingsButtons(
-              child: DataSecurityButton(
-                title: 'Face-ID',
-                color: AppColors.white,
-                value: false,
-                onChanged: (value) async {
-                  if (pinCodeEnabled) {
-                    await context.read<SecureStorageService>().delete(
-                          key: pinKey,
-                        );
-                    setState(() {
-                      pinCodeEnabled = false;
-                    });
-                  } else {
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const PinScreen(
-                            backButton: true,
-                            deletePin: true,
-                          );
-                        },
-                      ),
-                    );
-                  }
-                },
-                child: IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                    'images/faceID.svg',
-                    color: AppColors.grey,
-                    height: 24,
-                    width: 24,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 40,
             ),
           ],
         ),

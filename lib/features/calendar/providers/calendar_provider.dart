@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mood_tracker/common/models/notes_date_filter.dart';
+import 'package:mood_tracker/common/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
-import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
 
 class CalendarProvider extends ChangeNotifier {
   CalendarProvider(this._repository) {
-    _init();
-    _readNote(todayDate);
+    _prepareDatesForSelection();
+    selectDate();
+    _readNotes(
+      date: DateTime.now(),
+    );
   }
+
+  static const Duration _maxSelectedDate = Duration(days: 700);
 
   List<NoteModel> notes = [];
   String selectedMonth = '';
@@ -33,8 +39,11 @@ class CalendarProvider extends ChangeNotifier {
   ];
 
   final INotesRepository _repository;
+  int _monthIndex = 0;
+  int _yearIndex = 0;
 
   DateTime get todayDate => DateTime.now();
+  DateTime get lastDay => DateTime.now().add(_maxSelectedDate);
   DateTime get firstDay => DateTime.utc(2000);
   String get formattedTodayDate => DateFormat.yMMMM().format(todayDate);
   String get formattedANNSDate => DateFormat.MMMMEEEEd().format(todayDate);
@@ -51,15 +60,33 @@ class CalendarProvider extends ChangeNotifier {
     selectedYear = years[index];
   }
 
-  void pickDate() {
+  void submitSelectedDate() {
     selectedDate = DateFormat.yMMMM().parse('$selectedMonth $selectedYear');
-    _readNote(selectedDate ?? todayDate);
+
+    _readNotes(
+      date: selectedDate ?? todayDate,
+    );
 
     notifyListeners();
   }
 
-  Future<void> _readNote(DateTime date) async {
-    final notesStream = await _repository.readNotes(date);
+  void selectDate() {
+    selectedMonth = months[_monthIndex];
+    selectedYear = years[_yearIndex];
+
+    chosenMonth = _monthIndex;
+    chosenYear = _yearIndex;
+
+    notifyListeners();
+  }
+
+  Future<void> _readNotes({
+    required DateTime date,
+  }) async {
+    final notesStream = await _repository.readNotes(
+      date: date,
+      notesDateFilter: NotesDateFilter.month,
+    );
 
     notesStream.listen((event) {
       notes = event;
@@ -67,12 +94,10 @@ class CalendarProvider extends ChangeNotifier {
     });
   }
 
-  void _init() {
+  void _prepareDatesForSelection() {
     final dateFormat = DateFormat('yyyy');
     final stringYear = dateFormat.format(todayDate);
     var firstYear = 2000;
-    var indexY = 0;
-    var indexM = 0;
 
     for (final intYear = int.parse(stringYear);
         intYear + 2 > firstYear;
@@ -82,22 +107,14 @@ class CalendarProvider extends ChangeNotifier {
 
     for (var i = 0; i < years.length; i++) {
       if (years[i] == formattedTodayYear) {
-        indexY = i;
+        _yearIndex = i;
       }
     }
 
     for (var i = 0; i < months.length; i++) {
       if (months[i] == formattedTodayMonth) {
-        indexM = i;
+        _monthIndex = i;
       }
     }
-
-    selectedMonth = months[indexM];
-    selectedYear = years[indexY];
-
-    chosenMonth = indexM;
-    chosenYear = indexY;
-
-    notifyListeners();
   }
 }

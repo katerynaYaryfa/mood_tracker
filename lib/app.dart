@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/common/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
-import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
+import 'package:mood_tracker/features/chart/providers/week_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_listener_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/splash/presentation/screens/splash_screen.dart';
@@ -17,16 +17,17 @@ class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
   // TODO think about better place to create class. I think app should be const
-  final dataBaseWrapper = DataBaseService();
+  final dataBaseService = DataBaseService();
   final storageService = StorageService();
   final secureStorageService = SecureStorageService();
+  late final noteRepository = NoteRepository(dataBaseService);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         Provider.value(
-          value: dataBaseWrapper,
+          value: dataBaseService,
         ),
         Provider.value(
           value: storageService,
@@ -34,24 +35,23 @@ class App extends StatelessWidget {
         Provider.value(
           value: secureStorageService,
         ),
+        Provider.value(
+          value: noteRepository,
+        ),
         ChangeNotifierProvider<PinProvider>(
           create: (_) => PinProvider(secureStorageService),
-        ),
-        ChangeNotifierProvider<NoteProvider>(
-          create: (_) => NoteProvider(
-            repository: NoteRepository(
-              dataBaseWrapper: dataBaseWrapper,
-            ),
-          ),
         ),
         ChangeNotifierProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
         ),
         ChangeNotifierProvider<CalendarProvider>(
           create: (_) => CalendarProvider(
-            NotesRepository(
-              dataBaseWrapper: dataBaseWrapper,
-            ),
+            NotesRepository(dataBaseService),
+          ),
+        ),
+        ChangeNotifierProvider<WeekProvider>(
+          create: (_) => WeekProvider(
+            NotesRepository(dataBaseService),
           ),
         ),
         ChangeNotifierProvider<SplashProvider>(
