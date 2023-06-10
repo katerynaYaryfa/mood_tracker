@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/helpers/convert_to_ratio.dart';
+import 'package:mood_tracker/features/chart/helpers/convert_to_average_mood_ration.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/average_mood_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/month_chart_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/mood_chart_widget.dart';
@@ -33,7 +33,7 @@ class MonthTab extends StatelessWidget {
           AverageMoodWidget(
             positiveRatio: positiveRatio,
             negativeRatio: negativeRatio,
-            titlePercent: moodDifferenceInPercent,
+            headerPercent: moodDifferenceInPercent,
           ),
           const SpaceH16(),
           MoodChartWidget(

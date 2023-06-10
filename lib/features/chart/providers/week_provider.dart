@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/models/notes_date_filter.dart';
 import 'package:mood_tracker/common/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
+import 'package:mood_tracker/features/chart/helpers/convert_to_average_mood_ration.dart';
 
 // TODO(KY): handle all errors
 class WeekProvider extends ChangeNotifier {
@@ -53,9 +54,17 @@ class WeekProvider extends ChangeNotifier {
 
   double previousPeriodAverageMood = 0;
   double currentPeriodAverageMood = 0;
-  int moodDifferenceInPercent = 0;
+  int moodDifferencePercent = 0;
 
   final INotesRepository _repository;
+
+  double get negativeRatio => moodDifferencePercent.isNegative
+      ? convertToAverageMoodRatio(moodDifferencePercent.abs())
+      : 0.0;
+
+  double get positiveRatio => moodDifferencePercent.isNegative
+      ? 0.0
+      : convertToAverageMoodRatio(moodDifferencePercent);
 
   Future<void> _readNotes() async {
     final notesStream = await _repository.readNotes(
@@ -232,7 +241,7 @@ class WeekProvider extends ChangeNotifier {
         shouldSwap ? currentPeriodAverageMood : previousPeriodAverageMood;
     final percentChange = (((newValue - oldValue) / oldValue) * 100).round();
 
-    moodDifferenceInPercent = shouldSwap ? percentChange : -percentChange;
+    moodDifferencePercent = shouldSwap ? percentChange : -percentChange;
     notifyListeners();
   }
 

@@ -65,7 +65,7 @@ class YearTab extends StatelessWidget {
           const AverageMoodWidget(
             positiveRatio: 0,
             negativeRatio: 0,
-            titlePercent: 0,
+            headerPercent: 0,
           ),
           const SpaceH16(),
           const MoodChartWidget(

@@ -11,16 +11,15 @@ import 'package:provider/provider.dart';
 
 class MoodChartWidget extends StatelessWidget {
   const MoodChartWidget({super.key, required this.barGroups});
+
   final Map<Mood, int> barGroups;
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor =
-        context.watch<ThemeProvider>().currentTheme.primaryColor;
-    final scaffoldBackgroundColor =
-        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
-
+    // TODO(KY): check if this container can be extracted.
     return Container(
+      height: 240,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: AppColors.white,
@@ -32,85 +31,99 @@ class MoodChartWidget extends StatelessWidget {
           ),
         ],
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      height: 240,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SpaceH16(),
-          const Row(
-            children: [
-              SpaceW16(),
-              Text(
-                'Mood chart',
-                style: s16W700CBlack2,
-              ),
-            ],
+          const Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: Text(
+              'Mood chart',
+              style: s16W700CBlack2,
+            ),
           ),
           const SpaceH24(),
-          SizedBox(
-            height: 155,
-            child: BarChart(
-              BarChartData(
-                gridData: FlGridData(
-                  show: false,
+          _MoodChart(barGroups: barGroups),
+        ],
+      ),
+    );
+  }
+}
+
+class _MoodChart extends StatelessWidget {
+  const _MoodChart({
+    required this.barGroups,
+  });
+
+  final Map<Mood, int> barGroups;
+
+  @override
+  Widget build(BuildContext context) {
+    final primaryColor =
+        context.watch<ThemeProvider>().currentTheme.primaryColor;
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+
+    return SizedBox(
+      height: 155,
+      child: BarChart(
+        BarChartData(
+          gridData: FlGridData(
+            show: false,
+          ),
+          borderData: FlBorderData(
+            show: false,
+          ),
+          titlesData: FlTitlesData(
+            topTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+              ),
+            ),
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+              ),
+            ),
+            rightTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+              ),
+            ),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 65,
+                getTitlesWidget: (value, meta) => MoodBottomTitles(
+                  value: value,
+                  meta: meta,
                 ),
-                borderData: FlBorderData(
-                  show: false,
-                ),
-                titlesData: FlTitlesData(
-                  topTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  rightTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: false,
-                    ),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      reservedSize: 65,
-                      getTitlesWidget: (value, meta) => MoodBottomTitles(
-                        value: value,
-                        meta: meta,
-                      ),
-                    ),
-                  ),
-                ),
-                maxY: 100,
-                minY: 0,
-                barGroups: barGroups.values
-                    .mapIndexed(
-                      (index, moodValue) => BarChartGroupData(
-                        x: index,
-                        barRods: [
-                          BarChartRodData(
-                            toY: moodValue.toDouble(),
-                            color: primaryColor,
-                            width: 20,
-                            borderRadius: BorderRadius.circular(8),
-                            backDrawRodData: BackgroundBarChartRodData(
-                              show: true,
-                              toY: 100,
-                              color: scaffoldBackgroundColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                    .toList(),
               ),
             ),
           ),
-        ],
+          maxY: 100,
+          minY: 0,
+          barGroups: barGroups.values
+              .mapIndexed(
+                (index, moodValue) => BarChartGroupData(
+                  x: index,
+                  barRods: [
+                    BarChartRodData(
+                      toY: moodValue.toDouble(),
+                      color: primaryColor,
+                      width: 20,
+                      borderRadius: BorderRadius.circular(8),
+                      backDrawRodData: BackgroundBarChartRodData(
+                        show: true,
+                        toY: 100,
+                        color: scaffoldBackgroundColor,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              .toList(),
+        ),
       ),
     );
   }

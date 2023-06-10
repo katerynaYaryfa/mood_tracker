@@ -3,7 +3,7 @@ import 'package:mood_tracker/theme/app_colors.dart';
 
 class AverageMoodWidget extends StatelessWidget {
   const AverageMoodWidget({
-    required this.titlePercent,
+    required this.headerPercent,
     required this.positiveRatio,
     required this.negativeRatio,
     super.key,
@@ -11,7 +11,7 @@ class AverageMoodWidget extends StatelessWidget {
 
   final double negativeRatio;
   final double positiveRatio;
-  final int titlePercent;
+  final int headerPercent;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class AverageMoodWidget extends StatelessWidget {
       height: 107,
       child: Column(
         children: [
-          _AverageMoodHeader(titlePercent: titlePercent),
+          _AverageMoodHeader(titlePercent: headerPercent),
           const SizedBox(height: 15),
           Row(
             children: [

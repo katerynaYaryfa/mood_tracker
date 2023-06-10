@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/features/pin/presentation/screens/pin_screen.dart';
+import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/data_security_button_widget.dart';
 import 'package:mood_tracker/features/settings/presentation/widgets/settings_button_widget.dart';
-import 'package:mood_tracker/services/secure_storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:provider/provider.dart';
@@ -24,9 +24,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
     Future.delayed(
       Duration.zero,
       () async {
-        final pin = await context.read<SecureStorageService>().read(
-              key: pinKey,
-            );
+        final pin = await context.read<PinProvider>().readCode();
 
         if (pin != null) {
           setState(
@@ -59,9 +57,7 @@ class _DataSecurityScreenState extends State<DataSecurityScreen> {
                 value: pinCodeEnabled,
                 onChanged: (value) async {
                   if (pinCodeEnabled) {
-                    await context.read<SecureStorageService>().delete(
-                          key: pinKey,
-                        );
+                    context.read<PinProvider>().deletePin();
                     setState(
                       () {
                         pinCodeEnabled = false;

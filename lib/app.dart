@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
-  // TODO think about better place to create class. I think app should be const
+  // TODO(KY): move it to ServiceLocator/RiverpodProvider when refactoring to Bloc/Riverpod
   final dataBaseService = DataBaseService();
   final storageService = StorageService();
   final secureStorageService = SecureStorageService();
@@ -27,23 +27,23 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider.value(
-          value: dataBaseService,
-        ),
-        Provider.value(
-          value: storageService,
-        ),
-        Provider.value(
-          value: secureStorageService,
-        ),
-        Provider.value(
+        Provider<INoteRepository>.value(
           value: noteRepository,
-        ),
-        ChangeNotifierProvider<PinProvider>(
-          create: (_) => PinProvider(secureStorageService),
         ),
         ChangeNotifierProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
+        ),
+        ChangeNotifierProvider<SplashProvider>(
+          create: (_) => SplashProvider(secureStorageService),
+        ),
+        ChangeNotifierProvider<PinProvider>(
+          create: (_) => PinProvider(secureStorageService, storageService),
+        ),
+        ChangeNotifierProvider<PinListenerProvider>(
+          create: (_) => PinListenerProvider(
+            storageService,
+            secureStorageService,
+          ),
         ),
         ChangeNotifierProvider<CalendarProvider>(
           create: (_) => CalendarProvider(
@@ -58,15 +58,6 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<MonthProvider>(
           create: (_) => MonthProvider(
             NotesRepository(dataBaseService),
-          ),
-        ),
-        ChangeNotifierProvider<SplashProvider>(
-          create: (_) => SplashProvider(secureStorageService),
-        ),
-        ChangeNotifierProvider<PinListenerProvider>(
-          create: (_) => PinListenerProvider(
-            storageService,
-            secureStorageService,
           ),
         ),
       ],

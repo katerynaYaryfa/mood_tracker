@@ -34,12 +34,12 @@ class ChartsScreen extends StatelessWidget {
     final yearMoodSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: const Text(
+      appBar: const CustomAppBar(
+        title: Text(
           'Charts',
           style: s14W600CBlack2,
         ),
-        leading: Container(),
+        leading: SizedBox(),
       ),
       body: DefaultTabController(
         length: 3,
@@ -63,6 +63,5 @@ class ChartsScreen extends StatelessWidget {
         ),
       ),
     );
-    /**/
   }
 }

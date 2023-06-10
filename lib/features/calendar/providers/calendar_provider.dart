@@ -21,7 +21,6 @@ class CalendarProvider extends ChangeNotifier {
   DateTime? selectedDate;
   int chosenMonth = 0;
   int chosenYear = 0;
-
   List<String> years = [];
   List<String> months = const [
     'January',

@@ -34,7 +34,7 @@ class AddNewNoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final noteRepository = context.read<NoteRepository>();
+    final noteRepository = context.watch<INoteRepository>();
 
     return ChangeNotifierProvider<NoteProvider>(
       create: (_) => NoteProvider(
