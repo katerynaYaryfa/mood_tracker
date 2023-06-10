@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
+import 'package:mood_tracker/features/chart/providers/month_provider.dart';
 import 'package:mood_tracker/features/chart/providers/week_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_listener_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
@@ -51,6 +52,11 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<WeekProvider>(
           create: (_) => WeekProvider(
+            NotesRepository(dataBaseService),
+          ),
+        ),
+        ChangeNotifierProvider<MonthProvider>(
+          create: (_) => MonthProvider(
             NotesRepository(dataBaseService),
           ),
         ),

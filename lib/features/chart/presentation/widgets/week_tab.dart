@@ -1,92 +1,44 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/models/week_bar_data.dart';
+import 'package:mood_tracker/features/chart/helpers/convert_to_ratio.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/average_mood_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/mood_chart_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/week_chart_widget.dart';
+import 'package:mood_tracker/features/chart/providers/week_provider.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
-import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class WeekTab extends StatelessWidget {
-  const WeekTab({
-    Key? key,
-    required this.weeklySum,
-    required this.moodSum,
-  }) : super(key: key);
-  final List<double> weeklySum;
-  final List<double> moodSum;
+  const WeekTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor =
-        context.watch<ThemeProvider>().currentTheme.primaryColor;
-    final scaffoldBackgroundColor =
-        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+    final moodDifferenceInPercent =
+        context.watch<WeekProvider>().moodDifferenceInPercent;
 
-    final myBarData = WeekBarData(
-      sunAmount: weeklySum[0],
-      monAmount: weeklySum[1],
-      tueAmount: weeklySum[2],
-      wedAmount: weeklySum[3],
-      thurAmount: weeklySum[4],
-      friAmount: weeklySum[5],
-      satAmount: weeklySum[6],
-    )..initializeWeekBarData();
-
-    /////
-
-    final weekMoodBarData = MoodBarData(
-      cryingAmount: moodSum[0],
-      veryBadAmount: moodSum[1],
-      badAmount: moodSum[2],
-      normalAmount: moodSum[3],
-      goodAmount: moodSum[4],
-      veryGoodAmount: moodSum[5],
-    )..initializeMoodBarData();
-
-    List<BarChartGroupData> weekGroupData() {
-      return weekMoodBarData.weekMoodBarData
-          .map(
-            (data) => BarChartGroupData(
-              x: data.x,
-              barRods: [
-                BarChartRodData(
-                  toY: data.y,
-                  color: primaryColor,
-                  width: 20,
-                  borderRadius: BorderRadius.circular(8),
-                  backDrawRodData: BackgroundBarChartRodData(
-                    show: true,
-                    toY: 100,
-                    color: scaffoldBackgroundColor,
-                  ),
-                ),
-              ],
-            ),
-          )
-          .toList();
-    }
-
-    final weekMoodData = weekGroupData();
+    final negativeRatio = moodDifferenceInPercent.isNegative
+        ? convertToAverageMoodRatio(moodDifferenceInPercent.abs())
+        : 0.0;
+    final positiveRatio = moodDifferenceInPercent.isNegative
+        ? 0.0
+        : convertToAverageMoodRatio(moodDifferenceInPercent);
+    final moodPercents = context.watch<WeekProvider>().moodPercents;
 
     return Scaffold(
       body: ListView(
         children: [
           const SpaceH16(),
-          WeekChartWidget(
-            myBarData: myBarData,
-            primaryColor: primaryColor,
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
+          const WeekChartWidget(),
+          const SpaceH16(),
+          AverageMoodWidget(
+            positiveRatio: positiveRatio,
+            negativeRatio: negativeRatio,
+            titlePercent: moodDifferenceInPercent,
           ),
           const SpaceH16(),
-          const AverageMoodWidget(),
-          const SpaceH16(),
           MoodChartWidget(
-            primaryColor: primaryColor,
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
-            groupData: weekMoodData,
+            barGroups: moodPercents,
           ),
           const SpaceH16(),
         ],

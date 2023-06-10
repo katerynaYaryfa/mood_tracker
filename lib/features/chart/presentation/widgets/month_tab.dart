@@ -1,116 +1,43 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/models/month_bar_data.dart';
+import 'package:mood_tracker/features/chart/helpers/convert_to_ratio.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/average_mood_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/month_chart_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/mood_chart_widget.dart';
+import 'package:mood_tracker/features/chart/providers/month_provider.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
-import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class MonthTab extends StatelessWidget {
-  const MonthTab({
-    Key? key,
-    required this.monthSummary,
-    required this.moodSum,
-  }) : super(key: key);
-
-  final List<double> monthSummary;
-  final List<double> moodSum;
+  const MonthTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final myBarData = MonthBarData(
-      oneDay: monthSummary[0],
-      twoDay: monthSummary[1],
-      threeDay: monthSummary[2],
-      fourDay: monthSummary[3],
-      fiveDay: monthSummary[4],
-      sixDay: monthSummary[5],
-      sevenDay: monthSummary[6],
-      eightDay: monthSummary[7],
-      nineDay: monthSummary[8],
-      tenDay: monthSummary[9],
-      elevenDay: monthSummary[10],
-      twelveDay: monthSummary[11],
-      thirteenDay: monthSummary[12],
-      fourteenDay: monthSummary[13],
-      fifteenDay: monthSummary[14],
-      sixteenDay: monthSummary[15],
-      seventeenDay: monthSummary[16],
-      eighteenDay: monthSummary[17],
-      nineteenDay: monthSummary[18],
-      twentyDay: monthSummary[19],
-      twentyOneDay: monthSummary[20],
-      twentyTwoDay: monthSummary[21],
-      twentyThreeDay: monthSummary[22],
-      twentyFourDay: monthSummary[23],
-      twentyFiveDay: monthSummary[24],
-      twentySixDay: monthSummary[25],
-      twentySevenDay: monthSummary[26],
-      twentyEightDay: monthSummary[27],
-      twentyNineDay: monthSummary[28],
-      thirtyDay: monthSummary[29],
-      thirtyOneDay: monthSummary[30],
-    )..initializeMonthBarData();
-
-    final primaryColor =
-        context.watch<ThemeProvider>().currentTheme.primaryColor;
-
-    final scaffoldBackgroundColor =
-        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
-
-    final monthMoodBarData = MoodBarData(
-      cryingAmount: moodSum[0],
-      veryBadAmount: moodSum[1],
-      badAmount: moodSum[2],
-      normalAmount: moodSum[3],
-      goodAmount: moodSum[4],
-      veryGoodAmount: moodSum[5],
-    )..initializeMoodBarData();
-
-    List<BarChartGroupData> monthGroupData() {
-      return monthMoodBarData.monthMoodBarData
-          .map(
-            (data) => BarChartGroupData(
-              x: data.x,
-              barRods: [
-                BarChartRodData(
-                  toY: data.y,
-                  color: primaryColor,
-                  width: 20,
-                  borderRadius: BorderRadius.circular(8),
-                  backDrawRodData: BackgroundBarChartRodData(
-                    show: true,
-                    toY: 100,
-                    color: scaffoldBackgroundColor,
-                  ),
-                ),
-              ],
-            ),
-          )
-          .toList();
-    }
-
-    final monthMoodData = monthGroupData();
+    final moodDifferenceInPercent =
+        context.watch<MonthProvider>().moodDifferenceInPercent;
+    final negativeRatio = moodDifferenceInPercent.isNegative
+        ? convertToAverageMoodRatio(moodDifferenceInPercent.abs())
+        : 0.0;
+    final positiveRatio = moodDifferenceInPercent.isNegative
+        ? 0.0
+        : convertToAverageMoodRatio(moodDifferenceInPercent);
+    final moodPercents = context.watch<MonthProvider>().moodPercents;
 
     return Scaffold(
       body: ListView(
         children: [
           const SpaceH16(),
-          MonthChartWidget(
-            myBarData: myBarData,
-            primaryColor: primaryColor,
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
+          const MonthChartWidget(),
+          const SpaceH16(),
+          AverageMoodWidget(
+            positiveRatio: positiveRatio,
+            negativeRatio: negativeRatio,
+            titlePercent: moodDifferenceInPercent,
           ),
           const SpaceH16(),
-          const AverageMoodWidget(),
-          const SpaceH16(),
           MoodChartWidget(
-            primaryColor: primaryColor,
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
-            groupData: monthMoodData,
+            barGroups: moodPercents,
           ),
           const SpaceH16(),
         ],

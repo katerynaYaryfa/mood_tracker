@@ -1,25 +1,25 @@
+import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/models/week_bar_data.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/week_tab.dart';
+import 'package:mood_tracker/features/chart/providers/week_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class WeekChartWidget extends StatelessWidget {
-  const WeekChartWidget({
-    super.key,
-    required this.myBarData,
-    required this.primaryColor,
-    required this.scaffoldBackgroundColor,
-  });
-
-  final WeekBarData myBarData;
-  final Color primaryColor;
-  final Color scaffoldBackgroundColor;
+  const WeekChartWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor =
+        context.watch<ThemeProvider>().currentTheme.primaryColor;
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+    final chartMoodData = context.watch<WeekProvider>().chartMoodData;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -87,13 +87,13 @@ class WeekChartWidget extends StatelessWidget {
                 ),
                 maxY: 100,
                 minY: 0,
-                barGroups: myBarData.weekBarData
-                    .map(
-                      (data) => BarChartGroupData(
-                        x: data.x,
+                barGroups: chartMoodData
+                    .mapIndexed(
+                      (index, moodValue) => BarChartGroupData(
+                        x: index,
                         barRods: [
                           BarChartRodData(
-                            toY: data.y,
+                            toY: moodValue.toDouble(),
                             color: primaryColor,
                             width: 20,
                             borderRadius: BorderRadius.circular(8),

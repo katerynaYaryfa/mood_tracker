@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+// TODO(KY): refactor this file
 class DatePickerWidget extends StatefulWidget {
   DatePickerWidget({
     required this.dates,
@@ -13,6 +14,7 @@ class DatePickerWidget extends StatefulWidget {
   final void Function(int) onDatePicked;
   final int intInitialItem;
   int selectedIndex;
+
   @override
   State<DatePickerWidget> createState() => _DatePickerWidgetState();
 }

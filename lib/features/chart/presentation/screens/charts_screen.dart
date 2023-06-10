@@ -16,6 +16,7 @@ class ChartsScreen extends StatelessWidget {
     final primaryColor =
         context.watch<ThemeProvider>().currentTheme.primaryColor;
 
+    // TODO(KY): remove hardcoded data
     final yearSum = <double>[
       24.50,
       59,
@@ -30,61 +31,7 @@ class ChartsScreen extends StatelessWidget {
       76,
       59,
     ];
-    final weekSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
     final yearMoodSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
-    final monthMoodSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
-    final weekMoodSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
-
-    final monthSum = <double>[
-      31.50,
-      65.50,
-      48.50,
-      14.0,
-      31.50,
-      31.50,
-      48.50,
-      100.0,
-      31.50,
-      48.50,
-      83.0,
-      65.50,
-      31.50,
-      65.50,
-      48.50,
-      14.0,
-      31.50,
-      31.50,
-      48.50,
-      100.0,
-      31.50,
-      48.50,
-      83.0,
-      65.50,
-      31.50,
-      65.50,
-      48.50,
-      14.0,
-      31.50,
-      31.50,
-      48.50,
-      100.0,
-      31.50,
-      48.50,
-      83.0,
-      65.50,
-      31.50,
-      65.50,
-      48.50,
-      14.0,
-      31.50,
-      31.50,
-      48.50,
-      100.0,
-      31.50,
-      48.50,
-      83.0,
-      65.50,
-    ];
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -105,14 +52,8 @@ class ChartsScreen extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              WeekTab(
-                weeklySum: weekSum,
-                moodSum: weekMoodSum,
-              ),
-              MonthTab(
-                monthSummary: monthSum,
-                moodSum: monthMoodSum,
-              ),
+              const WeekTab(),
+              const MonthTab(),
               YearTab(
                 yearMonthsSum: yearSum,
                 moodSum: yearMoodSum,
