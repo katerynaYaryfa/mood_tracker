@@ -1,25 +1,27 @@
+import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/charts_data/month_bar_data.dart';
-import 'package:mood_tracker/features/chart/presentation/month_chart_screen.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/month_tab.dart';
+import 'package:mood_tracker/features/chart/providers/month_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class MonthChartWidget extends StatelessWidget {
   const MonthChartWidget({
     super.key,
-    required this.myBarData,
-    required this.primaryColor,
-    required this.scaffoldBackgroundColor,
   });
-
-  final MonthBarData myBarData;
-  final Color primaryColor;
-  final Color scaffoldBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
+    final chartMoodData = context.watch<MonthProvider>().chartMoodData;
+    final primaryColor =
+        context.watch<ThemeProvider>().currentTheme.primaryColor;
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -53,7 +55,7 @@ class MonthChartWidget extends StatelessWidget {
                 width: 16,
               ),
               SizedBox(
-                height: 160,
+                height: 170,
                 child: Column(
                   children: [
                     const Image(
@@ -104,14 +106,11 @@ class MonthChartWidget extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                   ],
                 ),
               ),
-              // SizedBox(
-              //   width: 8,
-              // ),
               SizedBox(
                 height: 165,
                 width: MediaQuery.of(context).size.width - 80,
@@ -152,15 +151,16 @@ class MonthChartWidget extends StatelessWidget {
                     ),
                     maxY: 100,
                     minY: 0,
-                    barGroups: myBarData.monthBarData
-                        .map(
-                          (data) => BarChartGroupData(
-                            x: data.x,
+                    barGroups: chartMoodData
+                        .mapIndexed(
+                          (index, moodValue) => BarChartGroupData(
+                            x: index,
                             barRods: [
                               BarChartRodData(
-                                toY: data.y,
+                                toY: moodValue.toDouble(),
                                 color: primaryColor,
                                 width: 6,
+                                borderRadius: BorderRadius.circular(8),
                                 backDrawRodData: BackgroundBarChartRodData(
                                   show: true,
                                   toY: 100,

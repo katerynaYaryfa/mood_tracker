@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
+import 'package:mood_tracker/common/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/add_new_note/repositories/note_repository.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
-import 'package:mood_tracker/features/calendar/repositories/notes_repository.dart';
+import 'package:mood_tracker/features/chart/providers/month_provider.dart';
+import 'package:mood_tracker/features/chart/providers/week_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_listener_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/splash/presentation/screens/splash_screen.dart';
@@ -16,51 +17,47 @@ import 'package:provider/provider.dart';
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
-  // TODO think about better place to create class. I think app should be const
-  final dataBaseWrapper = DataBaseService();
+  // TODO(KY): move it to ServiceLocator/RiverpodProvider when refactoring to Bloc/Riverpod
+  final dataBaseService = DataBaseService();
   final storageService = StorageService();
   final secureStorageService = SecureStorageService();
+  late final noteRepository = NoteRepository(dataBaseService);
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider.value(
-          value: dataBaseWrapper,
-        ),
-        Provider.value(
-          value: storageService,
-        ),
-        Provider.value(
-          value: secureStorageService,
-        ),
-        ChangeNotifierProvider<PinProvider>(
-          create: (_) => PinProvider(secureStorageService),
-        ),
-        ChangeNotifierProvider<NoteProvider>(
-          create: (_) => NoteProvider(
-            repository: NoteRepository(
-              dataBaseWrapper: dataBaseWrapper,
-            ),
-          ),
+        Provider<INoteRepository>.value(
+          value: noteRepository,
         ),
         ChangeNotifierProvider<ThemeProvider>(
           create: (context) => ThemeProvider(),
         ),
-        ChangeNotifierProvider<CalendarProvider>(
-          create: (_) => CalendarProvider(
-            NotesRepository(
-              dataBaseWrapper: dataBaseWrapper,
-            ),
-          ),
-        ),
         ChangeNotifierProvider<SplashProvider>(
           create: (_) => SplashProvider(secureStorageService),
+        ),
+        ChangeNotifierProvider<PinProvider>(
+          create: (_) => PinProvider(secureStorageService, storageService),
         ),
         ChangeNotifierProvider<PinListenerProvider>(
           create: (_) => PinListenerProvider(
             storageService,
             secureStorageService,
+          ),
+        ),
+        ChangeNotifierProvider<CalendarProvider>(
+          create: (_) => CalendarProvider(
+            NotesRepository(dataBaseService),
+          ),
+        ),
+        ChangeNotifierProvider<WeekProvider>(
+          create: (_) => WeekProvider(
+            NotesRepository(dataBaseService),
+          ),
+        ),
+        ChangeNotifierProvider<MonthProvider>(
+          create: (_) => MonthProvider(
+            NotesRepository(dataBaseService),
           ),
         ),
       ],

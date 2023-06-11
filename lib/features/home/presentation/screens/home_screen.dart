@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/features/calendar/presentation/screens/calendar_screen.dart';
-import 'package:mood_tracker/features/chart/presentation/charts_tab_bar_screen.dart';
+import 'package:mood_tracker/features/chart/presentation/screens/charts_screen.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_listener.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'Index 1: Server',
       style: optionStyle,
     ),
-    const ChartsTabBarScreen(),
+    const ChartsScreen(),
     const SettingsScreen(),
   ];
 

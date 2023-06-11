@@ -1,16 +1,19 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_tracker/common/consts/mood_images.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/charts_data/year_bar_data.dart';
-import 'package:mood_tracker/features/chart/widgets/average_mood_widget.dart';
-import 'package:mood_tracker/features/chart/widgets/mood_chart_widget.dart';
-import 'package:mood_tracker/features/chart/widgets/year_chart_widget.dart';
+import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
+import 'package:mood_tracker/features/chart/models/year_bar_data.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/average_mood_widget.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/mood_chart_widget.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/year_chart_widget.dart';
+import 'package:mood_tracker/features/chart/providers/week_provider.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class YearChartScreen extends StatelessWidget {
-  const YearChartScreen({
+class YearTab extends StatelessWidget {
+  const YearTab({
     Key? key,
     required this.yearMonthsSum,
     required this.moodSum,
@@ -49,31 +52,6 @@ class YearChartScreen extends StatelessWidget {
       veryGoodAmount: moodSum[5],
     )..initializeMoodBarData();
 
-    List<BarChartGroupData> yearGroupData() {
-      return moodBarData.yearMoodBarData
-          .map(
-            (data) => BarChartGroupData(
-              x: data.x,
-              barRods: [
-                BarChartRodData(
-                  toY: data.y,
-                  color: primaryColor,
-                  width: 20,
-                  borderRadius: BorderRadius.circular(8),
-                  backDrawRodData: BackgroundBarChartRodData(
-                    show: true,
-                    toY: 100,
-                    color: scaffoldBackgroundColor,
-                  ),
-                ),
-              ],
-            ),
-          )
-          .toList();
-    }
-
-    final yearMoodGroupData = yearGroupData();
-
     return Scaffold(
       body: ListView(
         children: [
@@ -84,12 +62,14 @@ class YearChartScreen extends StatelessWidget {
             scaffoldBackgroundColor: scaffoldBackgroundColor,
           ),
           const SpaceH16(),
-          const AverageMoodWidget(),
+          const AverageMoodWidget(
+            positiveRatio: 0,
+            negativeRatio: 0,
+            headerPercent: 0,
+          ),
           const SpaceH16(),
-          MoodChartWidget(
-            primaryColor: primaryColor,
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
-            groupData: yearMoodGroupData,
+          const MoodChartWidget(
+            barGroups: {},
           ),
           const SpaceH16(),
         ],
@@ -168,67 +148,60 @@ class MoodBottomTitles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final moodPercents = context.watch<WeekProvider>().moodPercents;
     late Text text;
     late Image icon;
 
     switch (value.toInt()) {
       case 0:
-        text = const Text('0%', style: s12W600CGrey2);
+        text = Text('${moodPercents[Mood.crying]}%', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
           width: 30,
-          image: AssetImage(
-            'images/face1.png',
-          ),
+          image: AssetImage(MoodImages.face6Crying),
         );
         break;
       case 1:
-        text = const Text('10%', style: s12W600CGrey2);
+        text = Text('${moodPercents[Mood.veryBad]}%', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
           width: 30,
-          image: AssetImage(
-            'images/face1.png',
-          ),
+          image: AssetImage(MoodImages.face5VeryBad),
         );
         break;
       case 2:
-        text = const Text('10%', style: s12W600CGrey2);
+        text = Text('${moodPercents[Mood.bad]}%', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
           width: 30,
           image: AssetImage(
-            'images/face1.png',
+            MoodImages.face4Bad,
           ),
         );
         break;
       case 3:
-        text = const Text('0%', style: s12W600CGrey2);
+        text = Text('${moodPercents[Mood.normal]}%', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
           width: 30,
-          image: AssetImage(
-            'images/face1.png',
-          ),
+          image: AssetImage(MoodImages.face1Normal),
         );
         break;
       case 4:
-        text = const Text('30%', style: s12W600CGrey2);
+        text = Text('${moodPercents[Mood.good]}%', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
           width: 30,
-          image: AssetImage(
-            'images/face1.png',
-          ),
+          image: AssetImage(MoodImages.face3Good),
         );
         break;
       case 5:
-        text = const Text('30%', style: s12W600CGrey2);
+        text = Text('${moodPercents[Mood.veryGood]}%', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
           width: 30,
           image: AssetImage(
-            'images/face1.png',
+            MoodImages.face2VeryGood,
           ),
         );
         break;

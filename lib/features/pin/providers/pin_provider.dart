@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/services/secure_storage_service.dart';
+import 'package:mood_tracker/services/storage_service.dart';
 
 class PinProvider with ChangeNotifier {
-  PinProvider(this._storage) {
+  PinProvider(this._secureStorageService, this._storageService) {
     init();
   }
 
@@ -12,21 +13,14 @@ class PinProvider with ChangeNotifier {
   bool wrongPin = false;
   String myCode = '';
 
-  final SecureStorageService _storage;
+  final SecureStorageService _secureStorageService;
+  final StorageService _storageService;
 
   void clearState() {
     pin1 = '';
     pin2 = '';
     wrongPin = false;
     isPressed = false;
-  }
-
-  Future<String?> readSavedPinCode() async {
-    final savedPin = await _storage.read(
-      key: pinKey,
-    );
-
-    return savedPin;
   }
 
   Future<void> pinCode(String num) async {
@@ -61,8 +55,25 @@ class PinProvider with ChangeNotifier {
   }
 
   Future<String?> readCode() async {
-    final pinCode = await _storage.read(key: pinKey);
+    final pinCode = await _secureStorageService.read(key: pinKey);
     return pinCode;
+  }
+
+  void savePin() {
+    _secureStorageService.write(
+      key: pinKey,
+      value: pin1,
+    );
+    _storageService.write(
+      key: lastLoginTimeKey,
+      value: DateTime.now().millisecondsSinceEpoch.toString(),
+    );
+  }
+
+  void deletePin() {
+    _secureStorageService.delete(
+      key: pinKey,
+    );
   }
 
   Future<void> init() async {

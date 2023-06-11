@@ -5,8 +5,6 @@ import 'package:mood_tracker/features/home/presentation/screens/home_screen.dart
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_buttons.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_password_input_field.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
-import 'package:mood_tracker/services/secure_storage_service.dart';
-import 'package:mood_tracker/services/storage_service.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
@@ -31,13 +29,12 @@ class _PinScreenState extends State<PinScreen> {
   void initState() {
     super.initState();
 
-    context.read<PinProvider>().clearState();
-    context.read<PinProvider>().init();
+    final pinProvider = context.read<PinProvider>()
+      ..clearState()
+      ..init();
 
     if (widget.deletePin) {
-      context.read<SecureStorageService>().delete(
-            key: pinKey,
-          );
+      pinProvider.deletePin();
     }
 
     Future.delayed(Duration.zero, () async {});
@@ -53,14 +50,7 @@ class _PinScreenState extends State<PinScreen> {
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
 
     if (pin2.length == 4 && pin1 == pin2) {
-      context.watch<SecureStorageService>().write(
-            key: pinKey,
-            value: pin1,
-          );
-      context.watch<StorageService>().write(
-            key: lastLoginTimeKey,
-            value: DateTime.now().millisecondsSinceEpoch.toString(),
-          );
+      context.watch<PinProvider>().savePin();
 
       Future.delayed(const Duration(milliseconds: 200), () {
         {

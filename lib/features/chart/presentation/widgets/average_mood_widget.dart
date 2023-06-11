@@ -3,8 +3,15 @@ import 'package:mood_tracker/theme/app_colors.dart';
 
 class AverageMoodWidget extends StatelessWidget {
   const AverageMoodWidget({
+    required this.headerPercent,
+    required this.positiveRatio,
+    required this.negativeRatio,
     super.key,
   });
+
+  final double negativeRatio;
+  final double positiveRatio;
+  final int headerPercent;
 
   @override
   Widget build(BuildContext context) {
@@ -25,44 +32,8 @@ class AverageMoodWidget extends StatelessWidget {
       height: 107,
       child: Column(
         children: [
-          Row(
-            children: [
-              const Image(
-                height: 40,
-                width: 40,
-                image: AssetImage(
-                  'images/face1.png',
-                ),
-              ),
-              const SizedBox(
-                width: 13,
-              ),
-              Column(
-                children: [
-                  const Text(
-                    'Average mood',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                  ),
-                  Text(
-                    'vs. previous period',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
-                  ),
-                ],
-              ),
-              Expanded(child: Container()),
-              const Text(
-                '+0%',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.green,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 15,
-          ),
+          _AverageMoodHeader(titlePercent: headerPercent),
+          const SizedBox(height: 15),
           Row(
             children: [
               Expanded(
@@ -70,28 +41,28 @@ class AverageMoodWidget extends StatelessWidget {
                   height: 20,
                   width: 148,
                   color: Colors.white,
-                  child: const RotatedBox(
+                  child: RotatedBox(
                     quarterTurns: 2,
-                    child: ProgressBar(
-                      gradientDefault: [
+                    child: _ProgressBar(
+                      gradientDefault: const [
                         Alignment.topCenter,
                         Alignment.bottomCenter,
                       ],
-                      colorsDefault: [
+                      colorsDefault: const [
                         AppColors.blue2,
                         AppColors.blue2,
                       ],
-                      gradientCompleted: [
+                      gradientCompleted: const [
                         Alignment.centerLeft,
                         Alignment.centerRight,
                       ],
-                      colorsCompleted: [
+                      colorsCompleted: const [
                         AppColors.blue,
                         AppColors.blue,
                       ],
                       height: 24.0,
                       radius: 70.0,
-                      ratio: 0,
+                      ratio: negativeRatio,
                     ),
                   ),
                 ),
@@ -101,20 +72,20 @@ class AverageMoodWidget extends StatelessWidget {
                   height: 20,
                   width: 148,
                   color: Colors.white,
-                  child: const ProgressBar(
-                    gradientDefault: [
+                  child: _ProgressBar(
+                    gradientDefault: const [
                       Alignment.topCenter,
                       Alignment.bottomCenter,
                     ],
-                    colorsDefault: [AppColors.green3, AppColors.green3],
-                    gradientCompleted: [
+                    colorsDefault: const [AppColors.green3, AppColors.green3],
+                    gradientCompleted: const [
                       Alignment.centerLeft,
                       Alignment.centerRight,
                     ],
-                    colorsCompleted: [AppColors.green, AppColors.green],
+                    colorsCompleted: const [AppColors.green, AppColors.green],
                     height: 24.0,
                     radius: 70.0,
-                    ratio: 0,
+                    ratio: positiveRatio,
                   ),
                 ),
               ),
@@ -126,8 +97,53 @@ class AverageMoodWidget extends StatelessWidget {
   }
 }
 
-class ProgressBar extends StatelessWidget {
-  const ProgressBar({
+class _AverageMoodHeader extends StatelessWidget {
+  const _AverageMoodHeader({required this.titlePercent});
+
+  final int titlePercent;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Image(
+          height: 40,
+          width: 40,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        ),
+        const SizedBox(
+          width: 13,
+        ),
+        Column(
+          children: [
+            const Text(
+              'Average mood',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            ),
+            Text(
+              'vs. previous period',
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
+            ),
+          ],
+        ),
+        const Spacer(),
+        Text(
+          '$titlePercent%',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: titlePercent.isNegative ? AppColors.blue : AppColors.green,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProgressBar extends StatelessWidget {
+  const _ProgressBar({
     Key? key,
     required this.gradientDefault,
     required this.gradientCompleted,
@@ -154,7 +170,7 @@ class ProgressBar extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           if (ratio < 1.0)
-            ProgressBarElement(
+            _ProgressBarElement(
               borderRadius: const BorderRadius.only(
                 // topLeft: Radius.circular(20),
                 // bottomLeft: Radius.circular(20),
@@ -169,7 +185,7 @@ class ProgressBar extends StatelessWidget {
             FractionallySizedBox(
               alignment: Alignment.centerLeft,
               widthFactor: ratio,
-              child: ProgressBarElement(
+              child: _ProgressBarElement(
                 borderRadius: const BorderRadius.only(
                   // topLeft: Radius.circular(20),
                   // bottomLeft: Radius.circular(20),
@@ -187,8 +203,8 @@ class ProgressBar extends StatelessWidget {
   }
 }
 
-class ProgressBarElement extends StatelessWidget {
-  const ProgressBarElement({
+class _ProgressBarElement extends StatelessWidget {
+  const _ProgressBarElement({
     Key? key,
     required this.borderRadius,
     required this.begin,
