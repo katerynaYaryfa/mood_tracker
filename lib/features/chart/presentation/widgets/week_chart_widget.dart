@@ -55,7 +55,7 @@ class _WeekChart extends StatelessWidget {
         context.watch<ThemeProvider>().currentTheme.primaryColor;
     final scaffoldBackgroundColor =
         context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
-    final chartMoodData = context.watch<WeekProvider>().chartMoodData;
+    final chartMoodData = context.watch<WeekProvider>().formattedChartMoodData;
 
     return SizedBox(
       height: 165,
@@ -136,7 +136,7 @@ class _WeekChartBottomTitles extends StatelessWidget {
 
     switch (chartBarIndex.toInt()) {
       case 0:
-        text = const Text('Sun', style: s12W600CGrey2);
+        text = const Text('Mon', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
           width: 30,
@@ -147,16 +147,6 @@ class _WeekChartBottomTitles extends StatelessWidget {
         );
         break;
       case 1:
-        text = const Text('Mon', style: s12W600CGrey2);
-        icon = const Image(
-          height: 30,
-          width: 30,
-          image: AssetImage(
-            'images/face1.png',
-          ),
-        );
-        break;
-      case 2:
         text = const Text('Tue', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
@@ -166,7 +156,7 @@ class _WeekChartBottomTitles extends StatelessWidget {
           ),
         );
         break;
-      case 3:
+      case 2:
         text = const Text('Wed', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
@@ -176,7 +166,7 @@ class _WeekChartBottomTitles extends StatelessWidget {
           ),
         );
         break;
-      case 4:
+      case 3:
         text = const Text('Thu', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
@@ -186,7 +176,7 @@ class _WeekChartBottomTitles extends StatelessWidget {
           ),
         );
         break;
-      case 5:
+      case 4:
         text = const Text('Fri', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
@@ -196,8 +186,18 @@ class _WeekChartBottomTitles extends StatelessWidget {
           ),
         );
         break;
-      case 6:
+      case 5:
         text = const Text('Sat', style: s12W600CGrey2);
+        icon = const Image(
+          height: 30,
+          width: 30,
+          image: AssetImage(
+            'images/face1.png',
+          ),
+        );
+        break;
+      case 6:
+        text = const Text('Sun', style: s12W600CGrey2);
         icon = const Image(
           height: 30,
           width: 30,

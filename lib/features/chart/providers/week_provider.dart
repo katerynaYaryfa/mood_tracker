@@ -4,37 +4,15 @@ import 'package:mood_tracker/common/repositories/notes_repository.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/chart/helpers/convert_to_average_mood_ration.dart';
 
-// TODO(KY): handle all errors
 class WeekProvider extends ChangeNotifier {
   WeekProvider(this._repository) {
     _readNotes();
   }
 
-  Map<int, Mood> moods = {
-    DateTime.sunday: Mood.none,
-    DateTime.monday: Mood.none,
-    DateTime.tuesday: Mood.none,
-    DateTime.wednesday: Mood.none,
-    DateTime.thursday: Mood.none,
-    DateTime.friday: Mood.none,
-    DateTime.saturday: Mood.none,
-  };
-  Map<int, Mood> previousMods = {
-    DateTime.sunday: Mood.none,
-    DateTime.monday: Mood.none,
-    DateTime.tuesday: Mood.none,
-    DateTime.wednesday: Mood.none,
-    DateTime.thursday: Mood.none,
-    DateTime.friday: Mood.none,
-    DateTime.saturday: Mood.none,
-  };
-
-  List<NoteModel> notes = [];
-  List<NoteModel> previousPeriodNotes = [];
+  static const double _chartsMoodDataMultiplier = 16.6;
 
   List<int> chartMoodData = [];
-  List<int> previousChartMoodData = [];
-
+  int moodDifferencePercent = 0;
   Map<Mood, int> moodPercents = {
     Mood.crying: 0,
     Mood.veryBad: 0,
@@ -43,7 +21,10 @@ class WeekProvider extends ChangeNotifier {
     Mood.good: 0,
     Mood.veryGood: 0,
   };
-  Map<Mood, int> previousMoodPercents = {
+
+  final INotesRepository _repository;
+
+  late final Map<Mood, int> _previousMoodPercents = {
     Mood.crying: 0,
     Mood.veryBad: 0,
     Mood.bad: 0,
@@ -51,12 +32,9 @@ class WeekProvider extends ChangeNotifier {
     Mood.good: 0,
     Mood.veryGood: 0,
   };
-
-  double previousPeriodAverageMood = 0;
-  double currentPeriodAverageMood = 0;
-  int moodDifferencePercent = 0;
-
-  final INotesRepository _repository;
+  late List<int> _previousChartMoodData = chartMoodData;
+  double _currentPeriodAverageMood = 0;
+  late double _previousPeriodAverageMood = _currentPeriodAverageMood;
 
   double get negativeRatio => moodDifferencePercent.isNegative
       ? convertToAverageMoodRatio(moodDifferencePercent.abs())
@@ -66,213 +44,178 @@ class WeekProvider extends ChangeNotifier {
       ? 0.0
       : convertToAverageMoodRatio(moodDifferencePercent);
 
+  List<int> get formattedChartMoodData => chartMoodData
+      .map((e) => (e * _chartsMoodDataMultiplier).round())
+      .toList();
+
   Future<void> _readNotes() async {
     final notesStream = await _repository.readNotes(
-      date: _getCurrentDate(),
+      date: _getWeekDate(),
       notesDateFilter: NotesDateFilter.week,
     );
     final previousNotesStream = await _repository.readNotes(
-      date: _getPreviousDate(),
+      date: _getWeekDate(isPrevious: true),
       notesDateFilter: NotesDateFilter.week,
     );
 
-    notesStream.listen((event) {
-      notes = event;
-      _mapNotesToMoods();
+    notesStream.listen((notes) {
+      _mapNotesToMoods(notes: notes);
       notifyListeners();
     });
 
-    previousNotesStream.listen((event) {
-      previousPeriodNotes = event;
-      _mapPreviousNotesToMoods();
+    previousNotesStream.listen((previousNotes) {
+      _mapNotesToMoods(notes: previousNotes, isPrevious: true);
       notifyListeners();
     });
   }
 
-  void _mapNotesToMoods() {
+  void _mapNotesToMoods({
+    required List<NoteModel> notes,
+    bool isPrevious = false,
+  }) {
+    final moods = <int, Mood>{
+      DateTime.monday: Mood.none,
+      DateTime.tuesday: Mood.none,
+      DateTime.wednesday: Mood.none,
+      DateTime.thursday: Mood.none,
+      DateTime.friday: Mood.none,
+      DateTime.saturday: Mood.none,
+      DateTime.sunday: Mood.none,
+    };
+
     for (final note in notes) {
       moods[note.date.weekday] = note.mood;
     }
 
-    _mapMoodsToChartMoodsData();
+    _mapMoodsToChartMoodsData(moods: moods, isPrevious: isPrevious);
+    _mapMoodsToMoodPercents(moods: moods, isPrevious: isPrevious);
   }
 
-  void _mapPreviousNotesToMoods() {
-    for (final note in previousPeriodNotes) {
-      previousMods[note.date.weekday] = note.mood;
+  void _mapMoodsToChartMoodsData({
+    required Map<int, Mood> moods,
+    bool isPrevious = false,
+  }) {
+    if (isPrevious) {
+      _previousChartMoodData = _toChartMoodData(moods);
+    } else {
+      chartMoodData = _toChartMoodData(moods);
     }
 
-    _mapPreviousMoodsToChartMoodsData();
+    _calculateAverageMood(isPrevious: isPrevious);
   }
 
-  void _mapMoodsToChartMoodsData() {
-    chartMoodData = moods.values.map((e) => (e.index * 16.6).round()).toList();
+  void _calculateAverageMood({bool isPrevious = false}) {
+    final chartMoods = isPrevious ? _previousChartMoodData : chartMoodData;
+    final nonDefaultChartMoods = chartMoods.where((element) => element != 0);
 
-    _mapMoodsToMoodPercents();
-  }
-
-  void _mapPreviousMoodsToChartMoodsData() {
-    previousChartMoodData =
-        previousMods.values.map((e) => (e.index * 16.6).round()).toList();
-
-    _mapPreviousMoodsToMoodPercents();
-  }
-
-  void _mapMoodsToMoodPercents() {
-    final nonDefaultMoods =
-        moods.values.where((element) => element != Mood.none);
-    final nonDefaultMoodsLength = nonDefaultMoods.length;
-    final cryingMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.crying).length;
-    final veryBadMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.veryBad).length;
-    final badMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.bad).length;
-    final normalMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.normal).length;
-    final goodMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.good).length;
-    final veryGoodMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.veryGood).length;
-
-    moodPercents[Mood.crying] = cryingMoodAmount == 0
-        ? 0
-        : ((cryingMoodAmount / nonDefaultMoodsLength) * 100).round();
-    moodPercents[Mood.veryBad] = veryBadMoodAmount == 0
-        ? 0
-        : ((veryBadMoodAmount / nonDefaultMoodsLength) * 100).round();
-    moodPercents[Mood.bad] = badMoodAmount == 0
-        ? 0
-        : ((badMoodAmount / nonDefaultMoodsLength) * 100).round();
-    moodPercents[Mood.normal] = normalMoodAmount == 0
-        ? 0
-        : ((normalMoodAmount / nonDefaultMoodsLength) * 100).round();
-    moodPercents[Mood.good] = goodMoodAmount == 0
-        ? 0
-        : ((goodMoodAmount / nonDefaultMoodsLength) * 100).round();
-    moodPercents[Mood.veryGood] = veryGoodMoodAmount == 0
-        ? 0
-        : ((veryGoodMoodAmount / nonDefaultMoodsLength) * 100).round();
-
-    _calculateCurrentPeriodAverageMood();
-  }
-
-  void _mapPreviousMoodsToMoodPercents() {
-    final nonDefaultMoods =
-        previousMods.values.where((element) => element != Mood.none);
-    final nonDefaultMoodsLength = nonDefaultMoods.length;
-    final cryingMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.crying).length;
-    final veryBadMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.veryBad).length;
-    final badMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.bad).length;
-    final normalMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.normal).length;
-    final goodMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.good).length;
-    final veryGoodMoodAmount =
-        nonDefaultMoods.where((element) => element == Mood.veryGood).length;
-
-    previousMoodPercents[Mood.crying] = cryingMoodAmount == 0
-        ? 0
-        : ((cryingMoodAmount / nonDefaultMoodsLength) * 100).round();
-    previousMoodPercents[Mood.veryBad] = veryBadMoodAmount == 0
-        ? 0
-        : ((veryBadMoodAmount / nonDefaultMoodsLength) * 100).round();
-    previousMoodPercents[Mood.bad] = badMoodAmount == 0
-        ? 0
-        : ((badMoodAmount / nonDefaultMoodsLength) * 100).round();
-    previousMoodPercents[Mood.normal] = normalMoodAmount == 0
-        ? 0
-        : ((normalMoodAmount / nonDefaultMoodsLength) * 100).round();
-    previousMoodPercents[Mood.good] = goodMoodAmount == 0
-        ? 0
-        : ((goodMoodAmount / nonDefaultMoodsLength) * 100).round();
-    previousMoodPercents[Mood.veryGood] = veryGoodMoodAmount == 0
-        ? 0
-        : ((veryGoodMoodAmount / nonDefaultMoodsLength) * 100).round();
-
-    _calculatePreviousPeriodAverageMood();
-  }
-
-  void _calculateCurrentPeriodAverageMood() {
-    final chartMoodData1 = chartMoodData.where((element) => element != 0);
-
-    if (chartMoodData1.isEmpty) {
+    if (nonDefaultChartMoods.isEmpty) {
       return;
     }
 
-    var avgMood = 0;
-    for (final element in chartMoodData1) {
+    var avgMood = 0.0;
+    for (final element in nonDefaultChartMoods) {
       avgMood += element;
     }
 
-    currentPeriodAverageMood = avgMood / chartMoodData1.length;
-  }
-
-  void _calculatePreviousPeriodAverageMood() {
-    final chartMoodData1 =
-        previousChartMoodData.where((element) => element != 0);
-
-    if (chartMoodData1.isEmpty) {
-      return;
+    if (isPrevious) {
+      _previousPeriodAverageMood = avgMood / nonDefaultChartMoods.length;
+    } else {
+      _currentPeriodAverageMood = avgMood / nonDefaultChartMoods.length;
     }
-
-    var avgMood = 0;
-    for (final element in chartMoodData1) {
-      avgMood += element;
-    }
-
-    previousPeriodAverageMood = avgMood / chartMoodData1.length;
 
     _calculatePercentChange();
   }
 
   void _calculatePercentChange() {
-    if (previousPeriodAverageMood == 0 || currentPeriodAverageMood == 0) {
+    if (_previousPeriodAverageMood == 0 || _currentPeriodAverageMood == 0) {
       return;
     }
 
-    final shouldSwap = previousPeriodAverageMood < currentPeriodAverageMood;
+    final shouldSwap = _previousPeriodAverageMood < _currentPeriodAverageMood;
     final oldValue =
-        shouldSwap ? previousPeriodAverageMood : currentPeriodAverageMood;
+        shouldSwap ? _previousPeriodAverageMood : _currentPeriodAverageMood;
     final newValue =
-        shouldSwap ? currentPeriodAverageMood : previousPeriodAverageMood;
+        (shouldSwap ? _currentPeriodAverageMood : _previousPeriodAverageMood);
     final percentChange = (((newValue - oldValue) / oldValue) * 100).round();
 
     moodDifferencePercent = shouldSwap ? percentChange : -percentChange;
-    notifyListeners();
   }
 
-  DateTime _getCurrentDate() {
+  void _mapMoodsToMoodPercents({
+    required Map<int, Mood> moods,
+    bool isPrevious = false,
+  }) {
+    final nonDefaultMoodAmount =
+        moods.values.where((mood) => mood != Mood.none).length;
+    final cryingMoodAmount = _getMoods(moods, Mood.crying).length;
+    final veryBadMoodAmount = _getMoods(moods, Mood.veryBad).length;
+    final badMoodAmount = _getMoods(moods, Mood.bad).length;
+    final normalMoodAmount = _getMoods(moods, Mood.normal).length;
+    final goodMoodAmount = _getMoods(moods, Mood.good).length;
+    final veryGoodMoodAmount = _getMoods(moods, Mood.veryGood).length;
+
+    if (isPrevious) {
+      _previousMoodPercents[Mood.crying] =
+          _getMoodPercent(cryingMoodAmount, nonDefaultMoodAmount);
+      _previousMoodPercents[Mood.veryBad] =
+          _getMoodPercent(veryBadMoodAmount, nonDefaultMoodAmount);
+      _previousMoodPercents[Mood.bad] =
+          _getMoodPercent(badMoodAmount, nonDefaultMoodAmount);
+      _previousMoodPercents[Mood.normal] =
+          _getMoodPercent(normalMoodAmount, nonDefaultMoodAmount);
+      _previousMoodPercents[Mood.good] =
+          _getMoodPercent(goodMoodAmount, nonDefaultMoodAmount);
+      _previousMoodPercents[Mood.veryGood] =
+          _getMoodPercent(veryGoodMoodAmount, nonDefaultMoodAmount);
+    } else {
+      moodPercents[Mood.crying] =
+          _getMoodPercent(cryingMoodAmount, nonDefaultMoodAmount);
+      moodPercents[Mood.veryBad] =
+          _getMoodPercent(veryBadMoodAmount, nonDefaultMoodAmount);
+      moodPercents[Mood.bad] =
+          _getMoodPercent(badMoodAmount, nonDefaultMoodAmount);
+      moodPercents[Mood.normal] =
+          _getMoodPercent(normalMoodAmount, nonDefaultMoodAmount);
+      moodPercents[Mood.good] =
+          _getMoodPercent(goodMoodAmount, nonDefaultMoodAmount);
+      moodPercents[Mood.veryGood] =
+          _getMoodPercent(veryGoodMoodAmount, nonDefaultMoodAmount);
+    }
+  }
+
+  List<int> _toChartMoodData(Map<int, Mood> moods) {
+    return moods.values.map((e) => e.index).toList();
+  }
+
+  Iterable<Mood> _getMoods(Map<int, Mood> moods, Mood mood) {
+    return moods.values.where((m) => m == mood);
+  }
+
+  int _getMoodPercent(int moodAmount, int nonDefaultMoodAmount) {
+    return moodAmount == 0
+        ? 0
+        : ((moodAmount / nonDefaultMoodAmount) * 100).round();
+  }
+
+  DateTime _getWeekDate({bool isPrevious = false}) {
     final now = DateTime.now();
     final nowDate = DateTime(now.year, now.month, now.day);
 
-    return _findFirstDateOfTheWeek(
-      dateTime: nowDate,
-      isWeekFromSunday: true,
+    return _findFirstDayOfTheWeek(
+      dateTime:
+          isPrevious ? nowDate.subtract(const Duration(days: 7)) : nowDate,
+      startsFromSunday: false,
     );
   }
 
-  DateTime _getPreviousDate() {
-    final now = DateTime.now();
-    final nowDate = DateTime(now.year, now.month, now.day).subtract(
-      const Duration(days: 7),
-    );
-
-    return _findFirstDateOfTheWeek(
-      dateTime: nowDate,
-      isWeekFromSunday: true,
-    );
-  }
-
-  DateTime _findFirstDateOfTheWeek({
+  DateTime _findFirstDayOfTheWeek({
     required DateTime dateTime,
-    required bool isWeekFromSunday,
+    required bool startsFromSunday,
   }) {
     return dateTime.subtract(
-      Duration(days: dateTime.weekday - (isWeekFromSunday ? 0 : 1)),
+      Duration(
+        days: dateTime.weekday - (startsFromSunday ? 0 : 1),
+      ),
     );
   }
 }

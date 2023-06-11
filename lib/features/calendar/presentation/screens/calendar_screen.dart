@@ -84,6 +84,7 @@ class CalendarScreen extends StatelessWidget {
               ),
               child: TableCalendar(
                 rowHeight: 88,
+                startingDayOfWeek: StartingDayOfWeek.monday,
                 eventLoader: (date) {
                   return _getNotesFor(
                     month: date,
