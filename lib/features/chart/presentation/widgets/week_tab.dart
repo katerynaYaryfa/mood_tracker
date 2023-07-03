@@ -30,6 +30,7 @@ class WeekTab extends StatelessWidget {
         const SpaceH16(),
         MoodChartWidget(
           barGroups: moodPercents,
+          moodPercents: moodPercents,
         ),
         const SpaceH16(),
       ],

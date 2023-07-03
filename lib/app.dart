@@ -4,6 +4,7 @@ import 'package:mood_tracker/features/add_new_note/repositories/note_repository.
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
 import 'package:mood_tracker/features/chart/providers/month_provider.dart';
 import 'package:mood_tracker/features/chart/providers/week_provider.dart';
+import 'package:mood_tracker/features/chart/providers/year_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_listener_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/splash/presentation/screens/splash_screen.dart';
@@ -57,6 +58,11 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<MonthProvider>(
           create: (_) => MonthProvider(
+            NotesRepository(dataBaseService),
+          ),
+        ),
+        ChangeNotifierProvider<YearProvider>(
+          create: (_) => YearProvider(
             NotesRepository(dataBaseService),
           ),
         ),

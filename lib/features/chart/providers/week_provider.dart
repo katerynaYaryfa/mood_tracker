@@ -24,15 +24,7 @@ class WeekProvider extends ChangeNotifier {
 
   final INotesRepository _repository;
 
-  late final Map<Mood, int> _previousMoodPercents = {
-    Mood.crying: 0,
-    Mood.veryBad: 0,
-    Mood.bad: 0,
-    Mood.normal: 0,
-    Mood.good: 0,
-    Mood.veryGood: 0,
-  };
-  late List<int> _previousChartMoodData = chartMoodData;
+  late List<int> _previousChartMoodData = [];
   double _currentPeriodAverageMood = 0;
   late double _previousPeriodAverageMood = _currentPeriodAverageMood;
 
@@ -154,20 +146,7 @@ class WeekProvider extends ChangeNotifier {
     final goodMoodAmount = _getMoods(moods, Mood.good).length;
     final veryGoodMoodAmount = _getMoods(moods, Mood.veryGood).length;
 
-    if (isPrevious) {
-      _previousMoodPercents[Mood.crying] =
-          _getMoodPercent(cryingMoodAmount, nonDefaultMoodAmount);
-      _previousMoodPercents[Mood.veryBad] =
-          _getMoodPercent(veryBadMoodAmount, nonDefaultMoodAmount);
-      _previousMoodPercents[Mood.bad] =
-          _getMoodPercent(badMoodAmount, nonDefaultMoodAmount);
-      _previousMoodPercents[Mood.normal] =
-          _getMoodPercent(normalMoodAmount, nonDefaultMoodAmount);
-      _previousMoodPercents[Mood.good] =
-          _getMoodPercent(goodMoodAmount, nonDefaultMoodAmount);
-      _previousMoodPercents[Mood.veryGood] =
-          _getMoodPercent(veryGoodMoodAmount, nonDefaultMoodAmount);
-    } else {
+    if (!isPrevious) {
       moodPercents[Mood.crying] =
           _getMoodPercent(cryingMoodAmount, nonDefaultMoodAmount);
       moodPercents[Mood.veryBad] =

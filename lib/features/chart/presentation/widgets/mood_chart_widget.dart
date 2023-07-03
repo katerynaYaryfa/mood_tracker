@@ -10,9 +10,14 @@ import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class MoodChartWidget extends StatelessWidget {
-  const MoodChartWidget({super.key, required this.barGroups});
+  const MoodChartWidget({
+    super.key,
+    required this.barGroups,
+    required this.moodPercents,
+  });
 
   final Map<Mood, int> barGroups;
+  final Map<Mood, int> moodPercents;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +48,10 @@ class MoodChartWidget extends StatelessWidget {
             ),
           ),
           const SpaceH24(),
-          _MoodChart(barGroups: barGroups),
+          _MoodChart(
+            barGroups: barGroups,
+            moodPercents: moodPercents,
+          ),
         ],
       ),
     );
@@ -53,9 +61,11 @@ class MoodChartWidget extends StatelessWidget {
 class _MoodChart extends StatelessWidget {
   const _MoodChart({
     required this.barGroups,
+    required this.moodPercents,
   });
 
   final Map<Mood, int> barGroups;
+  final Map<Mood, int> moodPercents;
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +107,7 @@ class _MoodChart extends StatelessWidget {
                 getTitlesWidget: (value, meta) => MoodBottomTitles(
                   value: value,
                   meta: meta,
+                  moodPercents: moodPercents,
                 ),
               ),
             ),

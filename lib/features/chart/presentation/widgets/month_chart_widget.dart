@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/left_titles_chart_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/month_tab.dart';
 import 'package:mood_tracker/features/chart/providers/month_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
@@ -16,12 +17,6 @@ class MonthChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chartMoodData = context.watch<MonthProvider>().chartMoodData;
-    final primaryColor =
-        context.watch<ThemeProvider>().currentTheme.primaryColor;
-    final scaffoldBackgroundColor =
-        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
-
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -36,10 +31,10 @@ class MonthChartWidget extends StatelessWidget {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 16),
       height: 244,
-      child: Column(
+      child: const Column(
         children: [
-          const SpaceH16(),
-          const Row(
+          SpaceH16(),
+          Row(
             children: [
               SpaceW16(),
               Text(
@@ -48,135 +43,95 @@ class MonthChartWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SpaceH24(),
+          SpaceH24(),
           Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 16,
               ),
-              SizedBox(
-                height: 170,
-                child: Column(
-                  children: [
-                    const Image(
-                      height: 20,
-                      width: 20,
-                      image: AssetImage(
-                        'images/face2.png',
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    const Image(
-                      height: 20,
-                      width: 20,
-                      image: AssetImage(
-                        'images/face3.png',
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    const Image(
-                      height: 20,
-                      width: 20,
-                      image: AssetImage(
-                        'images/face1.png',
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    const Image(
-                      height: 20,
-                      width: 20,
-                      image: AssetImage(
-                        'images/face4.png',
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    const Image(
-                      height: 20,
-                      width: 20,
-                      image: AssetImage(
-                        'images/face5.png',
-                      ),
-                    ),
-                    Expanded(child: Container()),
-                    const Image(
-                      height: 20,
-                      width: 20,
-                      image: AssetImage(
-                        'images/face6.png',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 165,
-                width: MediaQuery.of(context).size.width - 80,
-                child: BarChart(
-                  BarChartData(
-                    gridData: FlGridData(
-                      show: false,
-                    ),
-                    borderData: FlBorderData(
-                      show: false,
-                    ),
-                    titlesData: FlTitlesData(
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: false,
-                        ),
-                      ),
-                      leftTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: false,
-                        ),
-                      ),
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: false,
-                        ),
-                      ),
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          getTitlesWidget: (value, meta) =>
-                              MonthChartBottomTitles(
-                            value: value,
-                            meta: meta,
-                          ),
-                        ),
-                      ),
-                    ),
-                    maxY: 100,
-                    minY: 0,
-                    barGroups: chartMoodData
-                        .mapIndexed(
-                          (index, moodValue) => BarChartGroupData(
-                            x: index,
-                            barRods: [
-                              BarChartRodData(
-                                toY: moodValue.toDouble(),
-                                color: primaryColor,
-                                width: 6,
-                                borderRadius: BorderRadius.circular(8),
-                                backDrawRodData: BackgroundBarChartRodData(
-                                  show: true,
-                                  toY: 100,
-                                  color: scaffoldBackgroundColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-              ),
+              LeftTitlesChartWidget(),
+              MonthChart(),
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MonthChart extends StatelessWidget {
+  const MonthChart({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final chartMoodData = context.watch<MonthProvider>().formattedChartMoodData;
+    final primaryColor =
+        context.watch<ThemeProvider>().currentTheme.primaryColor;
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+
+    return SizedBox(
+      height: 165,
+      width: MediaQuery.of(context).size.width - 80,
+      child: BarChart(
+        BarChartData(
+          gridData: FlGridData(
+            show: false,
+          ),
+          borderData: FlBorderData(
+            show: false,
+          ),
+          titlesData: FlTitlesData(
+            topTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+              ),
+            ),
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+              ),
+            ),
+            rightTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+              ),
+            ),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                getTitlesWidget: (value, meta) => MonthChartBottomTitles(
+                  value: value,
+                  meta: meta,
+                ),
+              ),
+            ),
+          ),
+          maxY: 100,
+          minY: 0,
+          barGroups: chartMoodData
+              .mapIndexed(
+                (index, moodValue) => BarChartGroupData(
+                  x: index,
+                  barRods: [
+                    BarChartRodData(
+                      toY: moodValue.toDouble(),
+                      color: primaryColor,
+                      width: 6,
+                      borderRadius: BorderRadius.circular(8),
+                      backDrawRodData: BackgroundBarChartRodData(
+                        show: true,
+                        toY: 100,
+                        color: scaffoldBackgroundColor,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              .toList(),
+        ),
       ),
     );
   }

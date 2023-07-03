@@ -1,25 +1,28 @@
+import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/models/year_bar_data.dart';
+import 'package:mood_tracker/features/chart/presentation/widgets/left_titles_chart_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/year_tab.dart';
+import 'package:mood_tracker/features/chart/providers/year_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class YearChartWidget extends StatelessWidget {
   const YearChartWidget({
     Key? key,
-    required this.myBarData,
-    required this.primaryColor,
-    required this.scaffoldBackgroundColor,
   }) : super(key: key);
-
-  final YearBarData myBarData;
-  final Color primaryColor;
-  final Color scaffoldBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor =
+        context.watch<ThemeProvider>().currentTheme.primaryColor;
+    final scaffoldBackgroundColor =
+        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
+    final chartMoodData = context.watch<YearProvider>().formattedChartMoodData;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -53,65 +56,9 @@ class YearChartWidget extends StatelessWidget {
               const SizedBox(
                 width: 16,
               ),
-              Column(
+              const Column(
                 children: [
-                  SizedBox(
-                    height: 165,
-                    child: Column(
-                      children: [
-                        const Image(
-                          height: 20,
-                          width: 20,
-                          image: AssetImage(
-                            'images/face2.png',
-                          ),
-                        ),
-                        Expanded(child: Container()),
-                        const Image(
-                          height: 20,
-                          width: 20,
-                          image: AssetImage(
-                            'images/face3.png',
-                          ),
-                        ),
-                        Expanded(child: Container()),
-                        const Image(
-                          height: 20,
-                          width: 20,
-                          image: AssetImage(
-                            'images/face1.png',
-                          ),
-                        ),
-                        Expanded(child: Container()),
-                        const Image(
-                          height: 20,
-                          width: 20,
-                          image: AssetImage(
-                            'images/face4.png',
-                          ),
-                        ),
-                        Expanded(child: Container()),
-                        const Image(
-                          height: 20,
-                          width: 20,
-                          image: AssetImage(
-                            'images/face5.png',
-                          ),
-                        ),
-                        Expanded(child: Container()),
-                        const Image(
-                          height: 20,
-                          width: 20,
-                          image: AssetImage(
-                            'images/face6.png',
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 22,
-                        ),
-                      ],
-                    ),
-                  ),
+                  LeftTitlesChartWidget(),
                 ],
               ),
               SizedBox(
@@ -154,16 +101,16 @@ class YearChartWidget extends StatelessWidget {
                     ),
                     maxY: 100,
                     minY: 0,
-                    barGroups: myBarData.yearBarData
-                        .map(
-                          (data) => BarChartGroupData(
-                            x: data.x,
+                    barGroups: chartMoodData
+                        .mapIndexed(
+                          (index, moodValue) => BarChartGroupData(
+                            x: index,
                             barRods: [
                               BarChartRodData(
-                                toY: data.y,
+                                toY: moodValue.toDouble(),
                                 color: primaryColor,
                                 width: 12,
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(8),
                                 backDrawRodData: BackgroundBarChartRodData(
                                   show: true,
                                   toY: 100,
