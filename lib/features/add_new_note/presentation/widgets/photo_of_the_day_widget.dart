@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/common/consts/svg_icons.dart';
@@ -12,15 +10,12 @@ import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:provider/provider.dart';
 
 class PhotoOfTheDayWidget extends StatelessWidget {
-  const PhotoOfTheDayWidget({
-    Key? key,
-    required this.images,
-  }) : super(key: key);
-
-  final List<File> images;
+  const PhotoOfTheDayWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final images = context.watch<NoteProvider>().images;
+
     return Container(
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(

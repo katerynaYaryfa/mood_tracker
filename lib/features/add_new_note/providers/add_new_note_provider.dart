@@ -11,19 +11,22 @@ import 'package:path_provider/path_provider.dart';
 class NoteProvider extends ChangeNotifier {
   NoteProvider({
     required INoteRepository repository,
+    required this.text,
+    required this.images,
+    required this.mood,
+    required this.date,
   }) : _repository = repository;
 
-  File? savedImage;
-  String text = '';
-  List<File> images = [];
-  Mood mood = Mood.none;
+  String text;
+  List<File> images;
+  Mood mood;
+  DateTime date;
 
   final INoteRepository _repository;
 
-  Future<void> saveNote(DateTime date) async {
-    final note = await _createNote(date);
-
-    _repository.saveNote(note);
+  Future<void> writeNote({bool shouldUpdate = false}) async {
+    final note = await _createNote();
+    shouldUpdate ? _repository.updateNote(note) : _repository.saveNote(note);
   }
 
   void saveText(String text) {
@@ -51,7 +54,7 @@ class NoteProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<NoteModel> _createNote(DateTime date) async {
+  Future<NoteModel> _createNote() async {
     final path = (await getApplicationDocumentsDirectory()).path;
     final formattedTodayDate = DateFormat('yyyy-M-d').format(date);
     final pathList = <String>[];

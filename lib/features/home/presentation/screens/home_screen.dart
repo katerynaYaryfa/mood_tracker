@@ -92,42 +92,66 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     _onItemTapped(0);
                   },
-                  child: SvgPicture.asset(
-                    'images/calender.svg',
-                    color: selectedIndex == 0 ? primaryColor : AppColors.grey,
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      'images/calender.svg',
+                      height: 24,
+                      width: 24,
+                      color: selectedIndex == 0 ? primaryColor : AppColors.grey,
+                    ),
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     _onItemTapped(1);
                   },
-                  child: SvgPicture.asset(
-                    'images/server.svg',
-                    color: selectedIndex == 1 ? primaryColor : AppColors.grey,
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      'images/server.svg',
+                      height: 24,
+                      width: 24,
+                      color: selectedIndex == 1 ? primaryColor : AppColors.grey,
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 80,
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     _onItemTapped(2);
                   },
-                  child: SvgPicture.asset(
-                    'images/barGraph.svg',
-                    color: selectedIndex == 2 ? primaryColor : AppColors.grey,
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      'images/barGraph.svg',
+                      height: 24,
+                      width: 24,
+                      color: selectedIndex == 2 ? primaryColor : AppColors.grey,
+                    ),
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     _onItemTapped(3);
                   },
-                  child: SvgPicture.asset(
-                    'images/settings.svg',
-                    color: selectedIndex == 3 ? primaryColor : AppColors.grey,
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      'images/settings.svg',
+                      height: 24,
+                      width: 24,
+                      color: selectedIndex == 3 ? primaryColor : AppColors.grey,
+                    ),
                   ),
                 ),
               ],
