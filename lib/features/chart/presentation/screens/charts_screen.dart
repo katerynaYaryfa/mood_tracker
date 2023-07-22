@@ -16,23 +16,6 @@ class ChartsScreen extends StatelessWidget {
     final primaryColor =
         context.watch<ThemeProvider>().currentTheme.primaryColor;
 
-    // TODO(KY): remove hardcoded data
-    final yearSum = <double>[
-      24.50,
-      59,
-      42,
-      6,
-      24.50,
-      24.50,
-      42,
-      93,
-      24.50,
-      42,
-      76,
-      59,
-    ];
-    final yearMoodSum = <double>[5.50, 20.0, 30.50, 24.0, 50.0, 100.0, 64.0];
-
     return Scaffold(
       appBar: const CustomAppBar(
         title: Text(
@@ -50,14 +33,11 @@ class ChartsScreen extends StatelessWidget {
             ).preferredSize,
             child: ChartsTabBarWidget(primaryColor: primaryColor),
           ),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
-              const WeekTab(),
-              const MonthTab(),
-              YearTab(
-                yearMonthsSum: yearSum,
-                moodSum: yearMoodSum,
-              ),
+              WeekTab(),
+              MonthTab(),
+              YearTab(),
             ],
           ),
         ),

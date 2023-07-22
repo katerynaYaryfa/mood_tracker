@@ -46,7 +46,7 @@ class AddNewNoteScreen extends StatelessWidget {
         images: images ?? [],
         date: date,
       ),
-      child: const AddNewNoteScreenContainer(),
+      child: AddNewNoteScreenContainer(shouldUpdate: shouldUpdate),
     );
   }
 }
@@ -66,7 +66,9 @@ class AddNewNoteScreenContainer extends StatelessWidget {
         .currentTheme
         .floatingActionButtonTheme
         .backgroundColor;
-    final date = context.watch<NoteProvider>().date;
+    final date = context.select<NoteProvider, DateTime>(
+      (provider) => provider.date,
+    );
     final formattedDate = DateFormat.MMMMEEEEd().format(date);
 
     final writeNote = context.read<NoteProvider>().writeNote;
@@ -79,7 +81,7 @@ class AddNewNoteScreenContainer extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           onPressed: () {
-            writeNote(shouldUpdate: true);
+            writeNote(shouldUpdate: shouldUpdate);
             Navigator.pop(context);
           },
           child: Container(

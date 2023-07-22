@@ -20,11 +20,6 @@ class NoteRepository extends INoteRepository {
 
   @override
   void updateNote(NoteModel model) {
-    print(model.text);
-    print(model.mood);
-    print(model.date);
-    print(model.images);
-
     _dataBaseService.updateNote(model);
   }
 }

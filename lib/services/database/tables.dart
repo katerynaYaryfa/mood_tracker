@@ -6,4 +6,7 @@ class Note extends Table {
   TextColumn get mood => textEnum<Mood>()();
   TextColumn get images => text()();
   DateTimeColumn get date => dateTime()();
+
+  @override
+  Set<Column> get primaryKey => {date};
 }

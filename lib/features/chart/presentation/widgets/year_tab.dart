@@ -13,11 +13,7 @@ import 'package:provider/provider.dart';
 class YearTab extends StatelessWidget {
   const YearTab({
     Key? key,
-    required this.yearMonthsSum,
-    required this.moodSum,
   }) : super(key: key);
-  final List<double> yearMonthsSum;
-  final List<double> moodSum;
 
   @override
   Widget build(BuildContext context) {

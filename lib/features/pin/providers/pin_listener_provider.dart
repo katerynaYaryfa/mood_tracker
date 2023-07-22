@@ -10,8 +10,12 @@ class PinListenerProvider with ChangeNotifier {
   final StorageService _storage;
   final SecureStorageService _secureStorage;
 
+  // TODO(KY): При запуске приложения, если мы еще не устанавливали пин -
+  // TODO(KY): то lastLoginTime будет ''(empty string). int.parse() выдаст
+  // TODO(KY): ошибку.
   Future<bool> checkShouldShowPin() async {
     final lastLoginTime = await _storage.read(key: lastLoginTimeKey) ?? '';
+    print('lastLoginTime: $lastLoginTime');
     final pin = await _secureStorage.read(key: pinKey);
 
     final lastLoginDate =

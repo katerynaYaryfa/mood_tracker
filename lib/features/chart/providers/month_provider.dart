@@ -30,7 +30,7 @@ class MonthProvider extends ChangeNotifier {
 
   late List<int> _previousChartMoodData = [];
   double _currentPeriodAverageMood = 0;
-  late double _previousPeriodAverageMood = _currentPeriodAverageMood;
+  late double _previousPeriodAverageMood = 0;
 
   double get negativeRatio => moodDifferencePercent.isNegative
       ? convertToAverageMoodRatio(moodDifferencePercent.abs())
