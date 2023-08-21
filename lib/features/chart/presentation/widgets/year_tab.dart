@@ -3,73 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/consts/mood_images.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
-import 'package:mood_tracker/features/chart/models/year_bar_data.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/average_mood_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/mood_chart_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/year_chart_widget.dart';
-import 'package:mood_tracker/features/chart/providers/week_provider.dart';
+import 'package:mood_tracker/features/chart/providers/year_provider.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
-import 'package:mood_tracker/theme/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class YearTab extends StatelessWidget {
   const YearTab({
     Key? key,
-    required this.yearMonthsSum,
-    required this.moodSum,
   }) : super(key: key);
-  final List<double> yearMonthsSum;
-  final List<double> moodSum;
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor =
-        context.watch<ThemeProvider>().currentTheme.primaryColor;
-    final scaffoldBackgroundColor =
-        context.watch<ThemeProvider>().currentTheme.scaffoldBackgroundColor;
-
-    final myBarData = YearBarData(
-      january: yearMonthsSum[0],
-      february: yearMonthsSum[1],
-      march: yearMonthsSum[2],
-      april: yearMonthsSum[3],
-      may: yearMonthsSum[4],
-      june: yearMonthsSum[5],
-      july: yearMonthsSum[6],
-      august: yearMonthsSum[7],
-      september: yearMonthsSum[8],
-      october: yearMonthsSum[9],
-      november: yearMonthsSum[10],
-      december: yearMonthsSum[11],
-    )..initializeYearBarData();
-
-    final moodBarData = MoodBarData(
-      cryingAmount: moodSum[0],
-      veryBadAmount: moodSum[1],
-      badAmount: moodSum[2],
-      normalAmount: moodSum[3],
-      goodAmount: moodSum[4],
-      veryGoodAmount: moodSum[5],
-    )..initializeMoodBarData();
+    final moodPercents = context.watch<YearProvider>().moodPercents;
+    final moodDifferencePercent =
+        context.watch<YearProvider>().moodDifferencePercent;
+    final negativeRatio = context.watch<YearProvider>().negativeRatio;
+    final positiveRatio = context.watch<YearProvider>().positiveRatio;
 
     return Scaffold(
       body: ListView(
         children: [
           const SpaceH16(),
-          YearChartWidget(
-            myBarData: myBarData,
-            primaryColor: primaryColor,
-            scaffoldBackgroundColor: scaffoldBackgroundColor,
+          const YearChartWidget(),
+          const SpaceH16(),
+          AverageMoodWidget(
+            positiveRatio: positiveRatio,
+            negativeRatio: negativeRatio,
+            headerPercent: moodDifferencePercent,
           ),
           const SpaceH16(),
-          const AverageMoodWidget(
-            positiveRatio: 0,
-            negativeRatio: 0,
-            headerPercent: 0,
-          ),
-          const SpaceH16(),
-          const MoodChartWidget(
-            barGroups: {},
+          MoodChartWidget(
+            barGroups: moodPercents,
+            moodPercents: moodPercents,
           ),
           const SpaceH16(),
         ],
@@ -90,7 +58,7 @@ class YearChartBottomTitles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late Text text;
+    Text text = const Text('', style: s12W600CGrey2);
     switch (value.toInt()) {
       case 0:
         text = const Text('J', style: s12W600CGrey2);
@@ -141,14 +109,15 @@ class MoodBottomTitles extends StatelessWidget {
     super.key,
     required this.value,
     required this.meta,
+    required this.moodPercents,
   });
 
   final double value;
   final TitleMeta meta;
+  final Map<Mood, int> moodPercents;
 
   @override
   Widget build(BuildContext context) {
-    final moodPercents = context.watch<WeekProvider>().moodPercents;
     late Text text;
     late Image icon;
 

@@ -1,10 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/features/calendar/presentation/screens/calendar_screen.dart';
 import 'package:mood_tracker/features/chart/presentation/screens/charts_screen.dart';
+import 'package:mood_tracker/features/notes_feed/presentation/screens/notes_feed_screen.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_listener.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
@@ -19,14 +22,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
     const CalendarScreen(),
-    const Text(
-      'Index 1: Server',
-      style: optionStyle,
-    ),
+    const NotesFeedScreen(),
     const ChartsScreen(),
     const SettingsScreen(),
   ];
@@ -35,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    log('message');
+
     final primaryColor =
         context.watch<ThemeProvider>().currentTheme.primaryColor;
     final backgroundColor = context
@@ -92,42 +92,66 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     _onItemTapped(0);
                   },
-                  child: SvgPicture.asset(
-                    'images/calender.svg',
-                    color: selectedIndex == 0 ? primaryColor : AppColors.grey,
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      'images/calender.svg',
+                      height: 24,
+                      width: 24,
+                      color: selectedIndex == 0 ? primaryColor : AppColors.grey,
+                    ),
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     _onItemTapped(1);
                   },
-                  child: SvgPicture.asset(
-                    'images/server.svg',
-                    color: selectedIndex == 1 ? primaryColor : AppColors.grey,
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      'images/server.svg',
+                      height: 24,
+                      width: 24,
+                      color: selectedIndex == 1 ? primaryColor : AppColors.grey,
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 80,
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     _onItemTapped(2);
                   },
-                  child: SvgPicture.asset(
-                    'images/barGraph.svg',
-                    color: selectedIndex == 2 ? primaryColor : AppColors.grey,
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      'images/barGraph.svg',
+                      height: 24,
+                      width: 24,
+                      color: selectedIndex == 2 ? primaryColor : AppColors.grey,
+                    ),
                   ),
                 ),
                 GestureDetector(
+                  behavior: HitTestBehavior.translucent,
                   onTap: () {
                     _onItemTapped(3);
                   },
-                  child: SvgPicture.asset(
-                    'images/settings.svg',
-                    color: selectedIndex == 3 ? primaryColor : AppColors.grey,
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    child: SvgPicture.asset(
+                      'images/settings.svg',
+                      height: 24,
+                      width: 24,
+                      color: selectedIndex == 3 ? primaryColor : AppColors.grey,
+                    ),
                   ),
                 ),
               ],

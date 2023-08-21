@@ -14,6 +14,11 @@ abstract class TextStyles {
     color: AppColors.black,
   );
 
+  static const TextStyle s12WNormalCBlack = TextStyle(
+    fontSize: 12,
+    color: AppColors.black,
+  );
+
   static const TextStyle s16W700CBlack = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w700,
@@ -47,6 +52,22 @@ abstract class TextStyles {
     fontWeight: FontWeight.w600,
     height: 17.5 / 14,
     color: AppColors.black2,
+    fontFamily: 'Quicksand',
+  );
+
+  static const TextStyle s14W600CWhite = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    height: 17.5 / 14,
+    color: AppColors.white,
+    fontFamily: 'Quicksand',
+  );
+
+  static const TextStyle s10W600CWhite = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w600,
+    height: 17.5 / 10,
+    color: AppColors.white,
     fontFamily: 'Quicksand',
   );
 

@@ -8,7 +8,7 @@ import 'package:mood_tracker/common/widgets/custom_app_bar.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/select_categories_screen.dart';
-import 'package:mood_tracker/features/add_new_note/presentation/widgets/day_in_one_sentence_widget.dart';
+import 'package:mood_tracker/features/add_new_note/presentation/widgets/describe_your_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/how_was_your_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/widgets/photo_of_the_day_widget.dart';
 import 'package:mood_tracker/features/add_new_note/providers/add_new_note_provider.dart';
@@ -21,12 +21,14 @@ import 'package:provider/provider.dart';
 class AddNewNoteScreen extends StatelessWidget {
   const AddNewNoteScreen({
     required this.date,
+    this.shouldUpdate = false,
     this.mood,
     this.text,
     this.images,
     Key? key,
   }) : super(key: key);
 
+  final bool shouldUpdate;
   final DateTime date;
   final Mood? mood;
   final String? text;
@@ -39,43 +41,37 @@ class AddNewNoteScreen extends StatelessWidget {
     return ChangeNotifierProvider<NoteProvider>(
       create: (_) => NoteProvider(
         repository: noteRepository,
+        mood: mood ?? Mood.none,
+        text: text ?? '',
+        images: images ?? [],
+        date: date,
       ),
-      child: AddNewNoteScreenContainer(
-        time: date,
-        mood: mood,
-        text: text,
-        images: images,
-      ),
+      child: AddNewNoteScreenContainer(shouldUpdate: shouldUpdate),
     );
   }
 }
 
 class AddNewNoteScreenContainer extends StatelessWidget {
   const AddNewNoteScreenContainer({
-    required this.time,
-    this.mood,
-    this.text,
     Key? key,
-    this.images,
+    this.shouldUpdate = false,
   }) : super(key: key);
 
-  final DateTime time;
-  final Mood? mood;
-  final String? text;
-  final List<File>? images;
+  final bool shouldUpdate;
 
   @override
   Widget build(BuildContext context) {
-    final pickedImages = context.watch<NoteProvider>().images;
     final backgroundColor = context
         .watch<ThemeProvider>()
         .currentTheme
         .floatingActionButtonTheme
         .backgroundColor;
+    final date = context.select<NoteProvider, DateTime>(
+      (provider) => provider.date,
+    );
+    final formattedDate = DateFormat.MMMMEEEEd().format(date);
 
-    final saveNote = context.watch<NoteProvider>().saveNote;
-
-    final formattedDate = DateFormat.MMMMEEEEd().format(time);
+    final writeNote = context.read<NoteProvider>().writeNote;
 
     return GestureDetector(
       onTap: () {
@@ -85,7 +81,7 @@ class AddNewNoteScreenContainer extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           elevation: 0,
           onPressed: () {
-            saveNote(time);
+            writeNote(shouldUpdate: shouldUpdate);
             Navigator.pop(context);
           },
           child: Container(
@@ -148,22 +144,16 @@ class AddNewNoteScreenContainer extends StatelessWidget {
             ),
           ],
         ),
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: SizedBox(
             width: double.infinity,
             child: Column(
               children: [
-                HowWasYourDayWidget(
-                  mood: mood,
-                ),
-                const SpaceH16(),
-                DayInOneSentenceWidget(
-                  title: text,
-                ),
-                const SpaceH16(),
-                PhotoOfTheDayWidget(
-                  images: images ?? pickedImages,
-                ),
+                HowWasYourDayWidget(),
+                SpaceH16(),
+                DescribeYourDayWidget(),
+                SpaceH16(),
+                PhotoOfTheDayWidget(),
               ],
             ),
           ),

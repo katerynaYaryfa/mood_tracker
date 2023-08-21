@@ -10,9 +10,11 @@ class AddNewImage extends StatelessWidget {
   const AddNewImage({
     required this.image,
     Key? key,
+    this.showTrash = true,
   }) : super(key: key);
 
   final File image;
+  final bool showTrash;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,8 @@ class AddNewImage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16.0),
                 child: Image.file(
                   image,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
+                  // fit: BoxFit.fill,
                 ),
               ),
             ),
@@ -39,9 +42,11 @@ class AddNewImage extends StatelessWidget {
                 onTap: () {
                   context.read<NoteProvider>().deleteImage(image);
                 },
-                child: SvgPicture.asset(
-                  SvgIcons.trash,
-                ),
+                child: showTrash
+                    ? SvgPicture.asset(
+                        SvgIcons.trash,
+                      )
+                    : Container(),
               ),
             ),
           ],

@@ -11,7 +11,11 @@ class PinListenerProvider with ChangeNotifier {
   final SecureStorageService _secureStorage;
 
   Future<bool> checkShouldShowPin() async {
+
     final lastLoginTime = await _storage.read(key: lastLoginTimeKey) ?? '';
+    if (lastLoginTime == '') {
+      return false;
+    }
     final pin = await _secureStorage.read(key: pinKey);
 
     final lastLoginDate =

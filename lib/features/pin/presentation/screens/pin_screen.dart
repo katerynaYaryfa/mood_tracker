@@ -182,7 +182,7 @@ class _PinScreenState extends State<PinScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
                     },

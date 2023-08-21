@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
+import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -41,6 +42,7 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
           MaterialPageRoute(
             builder: (context) {
               return AddNewNoteScreen(
+                shouldUpdate: true,
                 images: images,
                 date: widget.day,
                 mood: widget.note!.mood,
@@ -60,11 +62,14 @@ class _EventCalendarItemWidgetState extends State<EventCalendarItemWidget> {
               style: TextStyles.s12WBoldCGrey2,
             ),
             const SpaceH4(),
-            const Image(
+            Container(
+              color: AppColors.scaffoldBackgroundColor,
               height: 34,
               width: 34,
-              image: AssetImage(
-                'images/face1.png',
+              child: const Image(
+                image: AssetImage(
+                  'images/face1.png',
+                ),
               ),
             ),
           ],

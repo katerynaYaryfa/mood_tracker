@@ -3,6 +3,7 @@ import 'package:mood_tracker/services/database/data_base_service.dart';
 
 abstract class INoteRepository {
   void saveNote(NoteModel model);
+  void updateNote(NoteModel model);
 }
 
 class NoteRepository extends INoteRepository {
@@ -15,5 +16,10 @@ class NoteRepository extends INoteRepository {
   @override
   void saveNote(NoteModel model) {
     _dataBaseService.insertNote(model);
+  }
+
+  @override
+  void updateNote(NoteModel model) {
+    _dataBaseService.updateNote(model);
   }
 }

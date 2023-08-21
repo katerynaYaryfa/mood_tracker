@@ -8,32 +8,22 @@ import 'package:provider/provider.dart';
 
 const _maxCharacterLength = 2000;
 
-class DayInOneSentenceWidget extends StatefulWidget {
-  const DayInOneSentenceWidget({
-    required this.title,
-    Key? key,
-  }) : super(key: key);
-
-  final String? title;
+class DescribeYourDayWidget extends StatefulWidget {
+  const DescribeYourDayWidget({Key? key}) : super(key: key);
 
   @override
-  State<DayInOneSentenceWidget> createState() => _DayInOneSentenceWidgetState();
+  State<DescribeYourDayWidget> createState() => _DescribeYourDayWidgetState();
 }
 
-class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
-  // TODO as far as I remember it is possible to change text of note. So we can refactor this logic
-  bool canWriteText = true;
-
-  late final TextEditingController _controller = TextEditingController(
-    text: widget.title ?? '',
-  );
+class _DescribeYourDayWidgetState extends State<DescribeYourDayWidget> {
+  late final TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
-    if (widget.title != null) {
-      canWriteText = false;
-    }
+
+    final text = context.read<NoteProvider>().text;
+    _controller = TextEditingController(text: text);
   }
 
   @override
@@ -69,7 +59,6 @@ class _DayInOneSentenceWidgetState extends State<DayInOneSentenceWidget> {
           ),
           const SpaceH16(),
           TextField(
-            enabled: canWriteText,
             controller: _controller,
             onChanged: (text) {
               context.read<NoteProvider>().saveText(text);

@@ -203,7 +203,9 @@ class CalendarScreen extends StatelessWidget {
         return DisabledCalendarItemWidget(day: day);
       },
       todayBuilder: (_, day, focusedDay) {
-        return TodayCalendarItemWidget(day: day);
+        return TodayCalendarItemWidget(
+          day: day,
+        );
       },
       markerBuilder: (_, day, events) {
         // TODO(KY): refactor - move to separate function and think about naming
@@ -217,6 +219,10 @@ class CalendarScreen extends StatelessWidget {
             return compareDates;
           });
 
+          if (isSameDay(day, DateTime.now())) {
+            return TodayCalendarItemWidget(day: day, note: event);
+          }
+
           final dt1Formatted = DateFormat.yMd().format(day);
           final dt2Formatted = DateFormat.yMd().format(DateTime.now());
 
@@ -228,14 +234,22 @@ class CalendarScreen extends StatelessWidget {
                   note: event,
                   day: day,
                 );
-        } else if (isSameDay(day, DateTime.now())) {
-          return TodayCalendarItemWidget(day: day);
         } else if (day.isAfter(DateTime.now())) {
           return DisabledCalendarItemWidget(day: day);
         } else {
+          if (isSameDay(day, DateTime.now())) {
+            return const SizedBox();
+          }
           return DefaultCalendarItemWidget(day: day);
         }
       },
     );
   }
+}
+
+// function checking whether the date is equal today date
+bool isSameDay(DateTime day1, DateTime day2) {
+  return day1.year == day2.year &&
+      day1.month == day2.month &&
+      day1.day == day2.day;
 }

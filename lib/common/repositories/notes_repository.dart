@@ -21,6 +21,7 @@ class NotesRepository extends INotesRepository {
     required DateTime date,
     required NotesDateFilter notesDateFilter,
   }) async {
+
     return _dataBaseService.selectNotes(
       date: date,
       notesDateFilter: notesDateFilter,

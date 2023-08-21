@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/common/widgets/spacers.dart';
-import 'package:mood_tracker/features/chart/helpers/convert_to_average_mood_ration.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/average_mood_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/month_chart_widget.dart';
 import 'package:mood_tracker/features/chart/presentation/widgets/mood_chart_widget.dart';
@@ -14,14 +13,10 @@ class MonthTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final moodDifferenceInPercent =
-        context.watch<MonthProvider>().moodDifferenceInPercent;
-    final negativeRatio = moodDifferenceInPercent.isNegative
-        ? convertToAverageMoodRatio(moodDifferenceInPercent.abs())
-        : 0.0;
-    final positiveRatio = moodDifferenceInPercent.isNegative
-        ? 0.0
-        : convertToAverageMoodRatio(moodDifferenceInPercent);
+    final moodDifferencePercent =
+        context.watch<MonthProvider>().moodDifferencePercent;
+    final positiveRatio = context.watch<MonthProvider>().positiveRatio;
+    final negativeRatio = context.watch<MonthProvider>().negativeRatio;
     final moodPercents = context.watch<MonthProvider>().moodPercents;
 
     return Scaffold(
@@ -33,11 +28,12 @@ class MonthTab extends StatelessWidget {
           AverageMoodWidget(
             positiveRatio: positiveRatio,
             negativeRatio: negativeRatio,
-            headerPercent: moodDifferenceInPercent,
+            headerPercent: moodDifferencePercent,
           ),
           const SpaceH16(),
           MoodChartWidget(
             barGroups: moodPercents,
+            moodPercents: moodPercents,
           ),
           const SpaceH16(),
         ],

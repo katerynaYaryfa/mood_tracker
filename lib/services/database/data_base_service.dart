@@ -17,6 +17,17 @@ class DataBaseService {
         );
   }
 
+  Future<void> updateNote(NoteModel noteModel) async {
+    await _dataBase.update(_dataBase.note).replace(
+          NoteCompanion(
+            title: Value(noteModel.text),
+            mood: Value(noteModel.mood),
+            date: Value(noteModel.date),
+            images: Value(noteModel.images),
+          ),
+        );
+  }
+
   Future<Stream<List<NoteModel>>> selectNotes({
     required DateTime date,
     required NotesDateFilter notesDateFilter,
@@ -39,6 +50,7 @@ class DataBaseService {
           }
         },
       );
+
 
     return notes.watch().map(
           (note) => note
