@@ -33,8 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('message');
-
     final primaryColor =
         context.watch<ThemeProvider>().currentTheme.primaryColor;
     final backgroundColor = context
