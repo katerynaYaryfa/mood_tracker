@@ -1,49 +1,44 @@
 name: mood_tracker
 description: A new Flutter project.
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.3 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  provider: ^6.0.3
-  flutter_secure_storage: ^5.0.2
-  flutter_svg: ^1.1.1+1
-
-
-
-
+  provider: ^6.0.5
+  flutter_secure_storage: ^8.0.0
+  flutter_svg: ^2.0.6
+  image_picker: ^0.8.7+5
+  table_calendar: ^3.0.9
+  intl: ^0.18.1
+  screenshot: ^2.1.0
+  share_plus: ^7.0.1
+  drift: ^2.8.0
+  sqlite3_flutter_libs: ^0.5.15
+  path_provider: ^2.0.15
+  path: ^1.8.3
+  shared_preferences: ^2.1.1
+  fl_chart: ^0.62.0
+  cupertino_icons: ^1.0.5
+  collection: ^1.17.1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  build_runner: ^2.4.4
+  dart_code_metrics: ^5.7.4
+  drift_dev: ^2.8.2
+  flutter_lints: ^2.0.1
+  very_good_analysis: ^5.0.0+1
+  flutter_launcher_icons: ^0.13.1
 
-  flutter_lints: ^2.0.0
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "asset/icons/mainIcon.png"
 
 
 
@@ -55,6 +50,10 @@ flutter:
     - family: Quicksand
       fonts:
         - asset: fonts/Quicksand-Regular.ttf
+          weight: 400
         - asset: fonts/Quicksand-Light.ttf
+          weight: 300
         - asset: fonts/Quicksand-Medium.ttf
+          weight: 500
         - asset: fonts/Quicksand-Bold.ttf
+          weight: 700
