@@ -51,6 +51,7 @@ class DataBaseService {
         },
       );
 
+
     return notes.watch().map(
           (note) => note
               .map(

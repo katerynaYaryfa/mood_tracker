@@ -58,7 +58,7 @@ class YearChartBottomTitles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Text text = Text('', style: s12W600CGrey2);
+    Text text = const Text('', style: s12W600CGrey2);
     switch (value.toInt()) {
       case 0:
         text = const Text('J', style: s12W600CGrey2);

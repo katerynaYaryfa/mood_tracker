@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart';
+import 'package:mood_tracker/features/notes_feed/providers/notes_feed_provider.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,8 @@ class OkButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           context.read<CalendarProvider>().submitSelectedDate();
+          context.read<NotesFeedProvider>().submitSelectedDate();
+
           Navigator.pop(context);
         },
         child: Container(

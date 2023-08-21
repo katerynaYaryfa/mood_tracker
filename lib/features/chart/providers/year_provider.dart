@@ -87,7 +87,6 @@ class YearProvider extends ChangeNotifier {
         final monthMoodValues = notes
             .where((note) => note.date.month == monthIndex)
             .map((note) => note.mood.index);
-
         _calculateAverageMonthMood(monthMoodValues, isPrevious: isPrevious);
       }
 

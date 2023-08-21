@@ -96,7 +96,6 @@ class MonthProvider extends ChangeNotifier {
     bool isPrevious = false,
   }) {
     final moods = <int, Mood>{};
-
     if (isPrevious) {
       for (var i = 0; i < _previousMonthList.length; i++) {
         moods[_previousMonthList[i]] = Mood.none;

@@ -5,6 +5,7 @@ import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart'
 import 'package:mood_tracker/features/chart/providers/month_provider.dart';
 import 'package:mood_tracker/features/chart/providers/week_provider.dart';
 import 'package:mood_tracker/features/chart/providers/year_provider.dart';
+import 'package:mood_tracker/features/notes_feed/providers/notes_feed_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_listener_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
 import 'package:mood_tracker/features/splash/presentation/screens/splash_screen.dart';
@@ -63,6 +64,11 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<YearProvider>(
           create: (_) => YearProvider(
+            NotesRepository(dataBaseService),
+          ),
+        ),
+        ChangeNotifierProvider<NotesFeedProvider>(
+          create: (_) => NotesFeedProvider(
             NotesRepository(dataBaseService),
           ),
         ),
