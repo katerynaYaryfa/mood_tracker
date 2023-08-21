@@ -2,7 +2,19 @@ s# mood_tracker
 
 A new Flutter project.
 
-![Add New Note Screen](https://github.com/katerynaYaryfa/mood_tracker/blob/develop/Add%20New%20Note%20Screen.png)
+
+
+| <img src="https://github.com/katerynaYaryfa/mood_tracker/blob/develop/Calendar%20Screen.png" height=50%> | <img src="https://github.com/katerynaYaryfa/mood_tracker/blob/develop/Add%20New%20Note%20Screen.png" height=50%> |
+| :------------: | :------------: |
+| Calendar Screen | Add New Note Screen | 
+
+| <img src="https://github.com/katerynaYaryfa/mood_tracker/blob/develop/Notes%20Feed%20Screen.png" height=50%> | <img src="https://github.com/katerynaYaryfa/mood_tracker/blob/develop/Chart%20Screen.png" height=50%> |
+| :------------: | :------------: |
+| Notes Feed Screen | Chart Screen | 
+
+| <img src="https://github.com/katerynaYaryfa/mood_tracker/blob/develop/Pin%20Screen.png" height=50%> |
+| :------------: | 
+| Pin Screen | 
 
 
 ## Getting Started
