@@ -2,6 +2,9 @@ s# mood_tracker
 
 A new Flutter project.
 
+![Add New Note Screen](https://github.com/katerynaYaryfa/mood_tracker/blob/develop/Add%20New%20Note%20Screen.png)
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
