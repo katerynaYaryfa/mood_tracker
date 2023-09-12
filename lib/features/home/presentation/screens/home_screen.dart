@@ -1,17 +1,19 @@
-// ignore_for_file: deprecated_member_use
-
-import 'dart:developer';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mood_tracker/features/add_new_note/models/note_model.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/features/calendar/presentation/screens/calendar_screen.dart';
 import 'package:mood_tracker/features/chart/presentation/screens/charts_screen.dart';
+import 'package:mood_tracker/features/home/providers/home_screen_provider.dart';
 import 'package:mood_tracker/features/notes_feed/presentation/screens/notes_feed_screen.dart';
 import 'package:mood_tracker/features/pin/presentation/widgets/pin_listener.dart';
 import 'package:mood_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/providers/theme_provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,10 +31,34 @@ class _HomeScreenState extends State<HomeScreen> {
     const SettingsScreen(),
   ];
 
-  int selectedIndex = 0;
+  final List<File> images = [];
 
+  Future<void> _parseList(NoteModel? note) async {
+    images.clear();
+
+    final jsonPathList = jsonDecode(note?.images ?? '[]');
+    final listJson = jsonPathList as List<dynamic>;
+    final imageNames = listJson.cast<String>();
+
+    final appDirectory = await getApplicationDocumentsDirectory();
+    final appDirectoryFiles =
+        appDirectory.listSync().map((event) => File(event.path));
+    for (final imageName in imageNames) {
+      for (final file in appDirectoryFiles) {
+        if (file.path.contains(imageName)) {
+          images.add(file);
+        }
+      }
+    }
+
+    setState(() {});
+  }
+
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final todayNote = context.watch<HomeScreenProvider>().todayNote;
+
     final primaryColor =
         context.watch<ThemeProvider>().currentTheme.primaryColor;
     final backgroundColor = context
@@ -66,15 +92,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 hoverColor: Colors.transparent,
                 elevation: 0.0,
                 onPressed: () {
+                  _parseList(todayNote);
+
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => AddNewNoteScreen(
-                        date: DateTime.now(),
+                        shouldUpdate: todayNote != null,
+                        date: todayNote?.date ?? DateTime.now(),
+                        mood: todayNote?.mood ?? Mood.none,
+                        text: todayNote?.text ?? '',
+                        images: images,
                       ),
                     ),
                   );
                 },
-                child: SvgPicture.asset('images/Human.svg'),
+                child: todayNote != null
+                    ? const Icon(Icons.edit)
+                    : SvgPicture.asset('images/Human.svg'),
               );
             },
           ),

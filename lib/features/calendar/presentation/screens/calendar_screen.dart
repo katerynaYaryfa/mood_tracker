@@ -208,7 +208,6 @@ class CalendarScreen extends StatelessWidget {
         );
       },
       markerBuilder: (_, day, events) {
-        // TODO(KY): refactor - move to separate function and think about naming
         if (events.isNotEmpty && events is List<NoteModel>) {
           final event = events.firstWhereOrNull((element) {
             final dt1Formatted = DateFormat.yMd().format(day);
@@ -247,7 +246,6 @@ class CalendarScreen extends StatelessWidget {
   }
 }
 
-// function checking whether the date is equal today date
 bool isSameDay(DateTime day1, DateTime day2) {
   return day1.year == day2.year &&
       day1.month == day2.month &&

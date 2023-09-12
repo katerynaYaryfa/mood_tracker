@@ -26,6 +26,7 @@ class NoteProvider extends ChangeNotifier {
 
   Future<void> writeNote({bool shouldUpdate = false}) async {
     final note = await _createNote();
+
     shouldUpdate ? _repository.updateNote(note) : _repository.saveNote(note);
   }
 

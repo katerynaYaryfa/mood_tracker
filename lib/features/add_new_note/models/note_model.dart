@@ -12,6 +12,11 @@ class NoteModel {
   Mood mood;
   String text;
   String images;
+
+  @override
+  String toString() {
+    return 'NoteModel{date: $date, mood: $mood, text: $text, images: $images}';
+  }
 }
 
 enum Mood {

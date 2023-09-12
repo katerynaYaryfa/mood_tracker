@@ -5,6 +5,7 @@ import 'package:mood_tracker/features/calendar/providers/calendar_provider.dart'
 import 'package:mood_tracker/features/chart/providers/month_provider.dart';
 import 'package:mood_tracker/features/chart/providers/week_provider.dart';
 import 'package:mood_tracker/features/chart/providers/year_provider.dart';
+import 'package:mood_tracker/features/home/providers/home_screen_provider.dart';
 import 'package:mood_tracker/features/notes_feed/providers/notes_feed_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_listener_provider.dart';
 import 'package:mood_tracker/features/pin/providers/pin_provider.dart';
@@ -19,7 +20,6 @@ import 'package:provider/provider.dart';
 class App extends StatelessWidget {
   App({Key? key}) : super(key: key);
 
-  // TODO(KY): move it to ServiceLocator/RiverpodProvider when refactoring to Bloc/Riverpod
   final dataBaseService = DataBaseService();
   final storageService = StorageService();
   final secureStorageService = SecureStorageService();
@@ -69,6 +69,11 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider<NotesFeedProvider>(
           create: (_) => NotesFeedProvider(
+            NotesRepository(dataBaseService),
+          ),
+        ),
+        ChangeNotifierProvider<HomeScreenProvider>(
+          create: (_) => HomeScreenProvider(
             NotesRepository(dataBaseService),
           ),
         ),

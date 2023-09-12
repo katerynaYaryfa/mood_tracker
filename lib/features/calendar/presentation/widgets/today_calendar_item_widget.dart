@@ -31,7 +31,6 @@ class _TodayCalendarItemWidgetState extends State<TodayCalendarItemWidget> {
   @override
   void initState() {
     super.initState();
-    _parseList().then((value) => setState(() {}));
   }
 
   @override
@@ -42,6 +41,8 @@ class _TodayCalendarItemWidgetState extends State<TodayCalendarItemWidget> {
     return GestureDetector(
       onTap: () {
         {
+          _parseList();
+
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -52,7 +53,7 @@ class _TodayCalendarItemWidgetState extends State<TodayCalendarItemWidget> {
                         mood: widget.note!.mood,
                         text: widget.note!.text,
                         images: images,
-                        date: widget.day,
+                        date: widget.note?.date ?? DateTime.now(),
                       )
                     : AddNewNoteScreen(
                         date: widget.day,
@@ -100,6 +101,8 @@ class _TodayCalendarItemWidgetState extends State<TodayCalendarItemWidget> {
   }
 
   Future<void> _parseList() async {
+    images.clear();
+
     if (widget.note == null || widget.note!.images.isEmpty) {
       return;
     }
