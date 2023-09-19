@@ -3,6 +3,9 @@ import 'package:mood_tracker/common/widgets/spacers.dart';
 import 'package:mood_tracker/features/add_new_note/presentation/screens/add_new_note_screen.dart';
 import 'package:mood_tracker/theme/app_colors.dart';
 import 'package:mood_tracker/theme/app_text_styles.dart';
+import 'package:mood_tracker/theme/providers/theme_provider.dart';
+import 'package:mood_tracker/theme/themes.dart';
+import 'package:provider/provider.dart';
 
 class DefaultCalendarItemWidget extends StatelessWidget {
   const DefaultCalendarItemWidget({
@@ -14,6 +17,7 @@ class DefaultCalendarItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentTheme = context.watch<ThemeProvider>().currentTheme;
     return GestureDetector(
       onTap: () {
         {
@@ -46,12 +50,16 @@ class DefaultCalendarItemWidget extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: AppColors.greyWhite2,
               ),
-              child: const Image(
+              child: Image(
                 height: 34,
                 width: 34,
-                image: AssetImage(
-                  'images/eyes.png',
-                ),
+                image: currentTheme == mainTheme
+                    ? const AssetImage(
+                        'images/eyes.png',
+                      )
+                    : const AssetImage(
+                        'images/eyesGreenTheme.png',
+                      ),
               ),
             ),
           ],

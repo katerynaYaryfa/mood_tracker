@@ -45,35 +45,6 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                   ),
                 ],
               ),
-              child: const Column(
-                children: [
-                  Text(
-                    'Select your Mood Pal',
-                    style: TextStyles.s16W700CBlack,
-                  ),
-                  SizedBox(
-                    height: 100,
-                  ),
-                ],
-              ),
-            ),
-            const SpaceH16(),
-            Container(
-              padding: const EdgeInsets.all(16),
-              margin: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(16.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.greyOpacity.withOpacity(0.03),
-                    spreadRadius: 1,
-                    blurRadius: 15,
-                  ),
-                ],
-              ),
               child: Column(
                 children: [
                   const Text(
@@ -82,24 +53,8 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                   ),
                   const SpaceH24(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
                       InkWell(
                         onTap: () {
                           Future.delayed(Duration.zero, () {
@@ -117,6 +72,7 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                           ),
                         ),
                       ),
+                      const SizedBox(width: 16.0),
                       InkWell(
                         onTap: () {
                           Future.delayed(Duration.zero, () {
@@ -132,22 +88,6 @@ class _ColorSchemeScreenState extends State<ColorSchemeScreen> {
                             color: AppColors.red,
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                        ),
-                      ),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(20.0),
                         ),
                       ),
                     ],
